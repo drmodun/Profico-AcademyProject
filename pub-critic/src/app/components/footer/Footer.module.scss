@@ -1,0 +1,52 @@
+.Footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 150px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .FooterContent {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 30%;
+        .SocialRow {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+            img {
+                width: 2vw;
+                height: 2vw;
+                filter: invert(100%);
+                &:hover {
+                    cursor: pointer;
+                    filter: invert(0%);
+                }
+            }
+        }
+        .Links{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            .Link{
+                font-size: 0.8vw;
+                font-weight: 500;
+                color: white;
+                &:hover {
+                    color: #9ca3af;
+                    cursor: pointer;
+                }
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
