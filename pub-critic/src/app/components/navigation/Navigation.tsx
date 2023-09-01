@@ -49,13 +49,8 @@ export const Navigation = (props: NavigationProps) => {
         <h1>{props.name ? props.name : "Sign In"}</h1>
       </Link>
       <div className={classes.Menu}>
-        <div className={classes.ImageContainer}>
-          <Image
-            src={menuIcon}
-            alt="menu"
-            className={classes.MenuIcon}
-            onClick={props.toggleMenu}
-          ></Image>
+        <div className={classes.ImageContainer} onClick={props.toggleMenu}>
+          <Image src={menuIcon} alt="menu" className={classes.MenuIcon}></Image>
         </div>
       </div>
     </div>
