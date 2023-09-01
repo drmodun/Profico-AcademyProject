@@ -7,12 +7,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    @media (max-width: 768px) {
+        height: 300px;
+    }
     .FooterContent {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 30%;
+        @media (max-width: 768px) {
+            width: 70%;
+        }
         .SocialRow {
             display: flex;
             flex-direction: row;
@@ -24,27 +30,45 @@
                 width: 2vw;
                 height: 2vw;
                 filter: invert(100%);
+                transition: filter 0.3s ease-in-out;
+                @media (max-width: 768px) {
+                    width: 7vw;
+                    height: 7vw;
+                }
                 &:hover {
                     cursor: pointer;
                     filter: invert(0%);
                 }
             }
         }
-        .Links{
+        .Links {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            .Link{
+            .Link {
                 font-size: 0.8vw;
                 font-weight: 500;
                 color: white;
+                transition: color 0.3s ease-in-out;
+                @media (max-width: 768px) {
+                    font-size: 3vw;
+                }
                 &:hover {
                     color: #9ca3af;
                     cursor: pointer;
                 }
                 margin-bottom: 20px;
+            }
+        }
+        .Copyright{
+            font-size: 0.8vw;
+            font-weight: 500;
+            color: white;
+            margin-top: 20px;
+            @media (max-width: 768px) {
+                font-size: 3vw;
             }
         }
     }
