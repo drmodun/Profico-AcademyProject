@@ -17,9 +17,9 @@ export const Navigation = (props: NavigationProps) => {
   );
   return (
     <div className={classes.Navigation}>
-      <div className={classes.Name}>
+      <Link href="/" className={classes.Name}>
         <h1>Pub Critic</h1>
-      </div>
+      </Link>
       <div className={classes.Search}>
         <input
           type="text"
