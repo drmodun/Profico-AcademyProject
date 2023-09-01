@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 };
 
 function searchHandler(search: string) {
-  "use client"
+  "use client";
   console.log(search);
-} 
+}
 function toggleMenu() {
-  "use client"
+  "use client";
   console.log("toggle menu");
 }
 
@@ -29,8 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navigation search="" searchHandler={
-          searchHandler} toggleMenu={toggleMenu} />
+        <Navigation
+          search=""
+          searchHandler={searchHandler}
+          toggleMenu={toggleMenu}
+        />
         {children}
         <Footer />
       </body>
