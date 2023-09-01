@@ -1,20 +1,15 @@
 import Image from "next/image";
 import classes from "./page.module.scss";
-import gaming from "./assets/gaming.webp"
+import gaming from "./assets/gaming.webp";
 export default function Home() {
   return (
     <div className={classes.Container}>
       <div className={classes.Page}>
         <div className={classes.Image}>
-          <Image
-            src={gaming}
-            alt="pub"
-            layout="fill"
-            objectFit="cover"
-          />
+          <Image src={gaming} alt="pub" layout="fill" objectFit="cover" />
           <div className={classes.Backdrop}></div>
           <div className={classes.Title}>
-            <h1>Pub-Critic</h1>  
+            <h1>Pub-Critic</h1>
             <span>The best place to find real game reviews by real people</span>
           </div>
         </div>
