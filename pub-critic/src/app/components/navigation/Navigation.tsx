@@ -8,7 +8,7 @@ import Link from "next/link";
 interface NavigationProps {
   name?: string;
   search?: string;
-  searchHandler?: (search: string) => void;
+  searchHandler: (search: string) => void;
   toggleMenu?: () => void;
 }
 export const Navigation = (props: NavigationProps) => {
