@@ -40,7 +40,7 @@ export const Navigation = ({
         <Image
           src={searchImage}
           alt="search"
-          onClick={() => searchHandler(search)}
+          onClick={() => search && searchHandler(search)}
         />
       </div>
       <Link
