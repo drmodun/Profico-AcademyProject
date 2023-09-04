@@ -1,20 +1,28 @@
 "use client";
 import classes from "./Navigation.module.scss";
-import search from "../../assets/searchIcon.svg";
+import searchImage from "assets/searchIcon.svg";
 import Image from "next/image";
-import menuIcon from "../../assets/menu-icon.svg";
+import menuIcon from "assets/menu-icon.svg";
 import { useState } from "react";
 import Link from "next/link";
+import Hamburger from "components/hamburger/Hamburger";
+
 interface NavigationProps {
   name?: string;
   search?: string;
+  menuOpen: boolean;
   searchHandler: (search: string) => void;
   toggleMenu?: () => void;
 }
-export const Navigation = (props: NavigationProps) => {
-  const [searchValue, setSearchValue] = useState<string>(
-    props.search ? props.search : ""
-  );
+
+export const Navigation = ({
+  searchHandler,
+  toggleMenu,
+  search,
+  menuOpen,
+  name,
+}: NavigationProps) => {
+  const [searchValue, setSearchValue] = useState<string>(search ? search : "");
   return (
     <div className={classes.Navigation}>
       <Link href="/" className={classes.Name}>
@@ -30,28 +38,26 @@ export const Navigation = (props: NavigationProps) => {
           }}
         />
         <Image
-          src={search}
+          src={searchImage}
           alt="search"
-          onClick={() => props.searchHandler(search)}
+          onClick={() => searchHandler(search)}
         />
       </div>
       <Link
         href={
-          props.name
+          name
             ? {
                 pathname: "/me",
-                query: { name: props.name },
+                query: { name: name },
               }
             : "/"
         }
         className={classes.Account}
       >
-        <h1>{props.name ? props.name : "Sign In"}</h1>
+        <h1>{name ? name : "Sign In"}</h1>
       </Link>
       <div className={classes.Menu}>
-        <div className={classes.ImageContainer} onClick={props.toggleMenu}>
-          <Image src={menuIcon} alt="menu" className={classes.MenuIcon}></Image>
-        </div>
+          <Hamburger open={menuOpen} onToggle={toggleMenu} />
       </div>
     </div>
   );

@@ -1,0 +1,72 @@
+$animation-duration__normal: 0.3s;
+$timing-function: ease-in-out;
+$primary: #fff;
+$secondary: #9ca3af;
+
+@function rem-calc($px) {
+  @return calc(($px / 16 * 1rem));
+}
+
+@mixin media($min, $max) {
+  @media (min-width: rem-calc($min)) and (max-width: rem-calc($max)) {
+    @content;
+  }
+}
+
+.Container {
+  height: rem-calc(24);
+  border-radius: 0;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  transition: all $animation-duration__normal $timing-function;
+  cursor: pointer;
+  padding: 0;
+  margin-left: rem-calc(34);
+
+  @include media(0, 768) {
+    margin-left: rem-calc(24);
+  }
+
+  .Label {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: rem-calc(24);
+    height: rem-calc(16);
+    transition: all $animation-duration__normal $timing-function;
+
+    .Bar {
+      width: 100%;
+      height: rem-calc(2);
+      background-color: $primary;
+      transition: transform $animation-duration__normal $timing-function,
+        opacity $animation-duration__normal $timing-function;
+    }
+  }
+
+  &.Open {
+    width: rem-calc(24);
+
+    @include media(0, 768) {
+      width: rem-calc(24);
+    }
+
+    .Label {
+      .Bar {
+        background-color: $secondary;
+        &:nth-child(1) {
+          transform: rotate(45deg) translate(9px, 0);
+        }
+
+        &:nth-child(3) {
+          transform: rotate(-45deg) translate(10px, -1px);
+        }
+
+        &:nth-child(2) {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}

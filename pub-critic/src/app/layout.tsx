@@ -31,10 +31,11 @@ export default function RootLayout({
           search=""
           searchHandler={searchHandler}
           toggleMenu={toggleMenu}
+          menuOpen={menuOpen}
         />
         {children}
         <Footer />
-        <SideMenu toggleMenu={toggleMenu} active={menuOpen}/>
+        <SideMenu toggleMenu={toggleMenu} active={menuOpen} />
       </body>
     </html>
   );

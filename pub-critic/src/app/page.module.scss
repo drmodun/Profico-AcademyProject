@@ -1,96 +1,109 @@
+$backdrop-color: #000;
+$primary: #fff;
+$background-color: #151515;
 .Container {
-    padding: 70px 5vw;
+  margin-top: 70px;
+  padding: 0vw 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $background-color;
+
+  .Page {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #151515;
-    .Page {
+    width: 100%;
+
+    .Image {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+
+      .Backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $backdrop-color;
+        opacity: 0.5;
+      }
+
+      .Title {
+        position: absolute;
+        top: 50;
+        left: 0;
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        .Image {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            > img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-            .Backdrop {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: black;
-                opacity: 0.5;
-            }
-            .Title {
-                position: absolute;
-                top: 50;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                color: white;
-                font-size: 2vw;
-                font-weight: 500;
-                > h1 {
-                    font-size: 4vw;
-                    font-weight: 900;
-                    margin-bottom: 50px;
-                    @media (max-width: 768px) {
-                        font-size: 8vw;
-                    }
-                }
-                > span {
-                    @media (max-width: 768px) {
-                        font-size: 3vw;
-                    }
-                    font-size: 2vw;
-                    font-weight: 500;
-                }
-            }
+        color: $primary;
+        font-size: 2vw;
+        font-weight: 500;
+
+        > h1 {
+          font-size: 4vw;
+          font-weight: 900;
+          margin-bottom: 50px;
+
+          @media (max-width: 768px) {
+            font-size: 8vw;
+          }
         }
-        .Section {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin-top: 40px;
-            @media (max-width: 768px) {
-                align-items: center;
-            }
-            > h1 {
-                font-size: 4vw;
-                font-weight: 900;
-                margin-bottom: 20px;
-                @media (max-width: 768px) {
-                    font-size: 8vw;
-                }
-            }
-            .NotFound {
-                font-size: 2.5vw;
-                font-weight: 500;
-                color: white;
-                width: 100%;
-                height: 500px; // approximate height of game component
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                @media (max-width: 768px) {
-                    font-size: 4vw;
-                    text-align: center;
-                }
-            }
+
+        > span {
+          font-size: 2vw;
+          font-weight: 500;
+
+          @media (max-width: 768px) {
+            font-size: 3vw;
+          }
         }
+      }
     }
+    .Section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-top: 40px;
+
+      @media (max-width: 768px) {
+        align-items: center;
+      }
+
+      > h1 {
+        font-size: 4vw;
+        font-weight: 900;
+        margin-bottom: 20px;
+
+        @media (max-width: 768px) {
+          font-size: 8vw;
+        }
+      }
+
+      .NotFound {
+        font-size: 2.5vw;
+        font-weight: 500;
+        color: $primary;
+        width: 100%;
+        height: 55vw; // approximate height of game component
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        @media (max-width: 768px) {
+          font-size: 4vw;
+          height: 150vw;
+          text-align: center;
+        }
+      }
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import classes from "./page.module.scss";
-import gaming from "./assets/gaming.webp";
+import gaming from "assets/gaming.webp";
 export default function Home() {
   return (
     <div className={classes.Container}>

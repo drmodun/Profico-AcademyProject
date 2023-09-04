@@ -1,68 +1,79 @@
+$backdrop-color: black;
+$primary: #fff;
+$side-menu-background-color: #151515;
+$secondary: #9ca3af;
+$side-menu-link-secondary: #ccc;
+
 .SideMenu {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    display: flex;
-    flex-direction: row;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: row;
 }
+
 .Backdrop {
-    width: 70%;
-    height: 100%;
-    background-color: black;
-    transform: translateX(-300%);
-    position: fixed;
-    top: 0;
-    left: 0;
-    opacity: 0.5;
-    z-index: 99;
-    transition: transform 0.3s ease-in-out;
-    @media (max-width: 768px) {
-        width: 50%;
-    }
+  width: 70%;
+  height: 100%;
+  background-color: $backdrop-color;
+  transform: translateX(-100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+  z-index: 99;
+  transition: transform 0.3s ease-in-out;
+  @media (max-width: 768px) {
+    width: 50%;
+  }
 }
+
 .SideMenuContent {
-    width: 30%;
+  width: 30%;
+  height: 100%;
+  background-color: $side-menu-background-color;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+
+  @media (max-width: 768px) {
+    width: 50%;
+  }
+
+  .Links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     height: 100%;
-    background-color: #151515;
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 100;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-    @media (max-width: 768px) {
-        width: 50%;
+
+    .Link {
+      font-size: 1.5vw;
+      font-weight: 500;
+      color: $primary;
+      width: 100%;
+      text-align: center;
+      transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+
+      &:hover {
+        color: $secondary;
+        cursor: pointer;
+        background-color: #ccc;
+      }
+
+      margin-bottom: 20px;
+      @media (max-width: 768px) {
+        font-size: 3.5vw;
+      }
     }
-    .Links {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        .Link {
-            font-size: 1.5vw;
-            font-weight: 500;
-            color: white;
-            width: 100%;
-            text-align: center;
-            transition:
-                color 0.3s ease-in-out,
-                background-color 0.3s ease-in-out;
-            &:hover {
-                color: #9ca3af;
-                cursor: pointer;
-                background-color: #ccc;
-            }
-            margin-bottom: 20px;
-            @media (max-width: 768px) {
-                font-size: 3.5vw;
-            }
-        }
-    }
+  }
 }
 
 .Active {
-    transform: translateX(0);
+  transform: translateX(0);
 }

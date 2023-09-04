@@ -1,75 +1,123 @@
+$vw-base: 1440px;
+
+@function strip-unit($num) {
+  @if $num == auto {
+    @return $num;
+  }
+
+  @return $num / ($num * 0 + 1);
+}
+@function convert-to-vw($value, $base-value: $vw-base) {
+  @if $value == auto {
+    @return $value;
+  }
+
+  $value: strip-unit($value) / strip-unit($base-value) * 100vw;
+
+  @if ($value == 0) {
+    $value: 0;
+  } // Turn 0vw into 0
+
+  @return $value;
+}
+
+@function vw-calc($values, $base-value: $vw-base) {
+  $max: length($values);
+
+  @if $max == 1 {
+    @return convert-to-vw(nth($values, 1), $base-value);
+  }
+
+  $vwValues: ();
+
+  @for $i from 1 through $max {
+    $vwValues: append($vwValues, convert-to-vw(nth($values, $i), $base-value));
+  }
+
+  @return $vwValues;
+}
+
 .Footer {
-    width: 100%;
-    height: 200px;
-    background-color: black;
+  width: 100%;
+  height: 200px;
+  background-color: black;
+  display: flex;
+  padding: 5vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    height: 300px;
+  }
+
+  .FooterContent {
     display: flex;
-    padding: 40px 5vw;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    height: 100%;
+    width: 30%;
+    z-index: 10;
     @media (max-width: 768px) {
-        height: 300px;
+      width: 70%;
     }
-    .FooterContent {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 30%;
+
+    .SocialRow {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 20px;
+
+      img {
+        width: 2vw;
+        height: auto;
+        filter: invert(100%);
+        transition: filter 0.3s ease-in-out;
+        &:hover {
+          cursor: pointer;
+          filter: invert(0%);
+        }
+
         @media (max-width: 768px) {
-            width: 70%;
+          width: 7vw;
+          height: auto;
         }
-        .SocialRow {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 20px;
-            img {
-                width: 2vw;
-                height: 2vw;
-                filter: invert(100%);
-                transition: filter 0.3s ease-in-out;
-                @media (max-width: 768px) {
-                    width: 7vw;
-                    height: 7vw;
-                }
-                &:hover {
-                    cursor: pointer;
-                    filter: invert(0%);
-                }
-            }
-        }
-        .Links {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            .Link {
-                font-size: 0.8vw;
-                font-weight: 500;
-                color: white;
-                transition: color 0.3s ease-in-out;
-                @media (max-width: 768px) {
-                    font-size: 3vw;
-                }
-                &:hover {
-                    color: #9ca3af;
-                    cursor: pointer;
-                }
-                margin-bottom: 20px;
-            }
-        }
-        .Copyright{
-            font-size: 0.8vw;
-            font-weight: 500;
-            color: white;
-            margin-top: 20px;
-            @media (max-width: 768px) {
-                font-size: 3vw;
-            }
-        }
+      }
     }
+    .Links {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      width: 100%;
+
+      .Link {
+        font-size: 0.8vw;
+        font-weight: 500;
+        color: white;
+        transition: color 0.3s ease-in-out;
+        &:hover {
+          color: #9ca3af;
+          cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+          font-size: 3vw;
+        }
+      }
+    }
+    .Copyright {
+      font-size: 0.8vw;
+      font-weight: 500;
+      color: white;
+      margin-top: 20px;
+      @media (max-width: 768px) {
+        font-size: 3vw;
+      }
+    }
+  }
 }

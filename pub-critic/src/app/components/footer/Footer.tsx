@@ -1,8 +1,8 @@
 import classes from "./Footer.module.scss";
-import instagram from "../../assets/instagram.svg";
-import facebook from "../../assets/fb.svg";
-import twitter from "../../assets/twitter.svg";
-import youtube from "../../assets/youtube.svg";
+import instagram from "assets/instagram.svg";
+import facebook from "assets/fb.svg";
+import twitter from "assets/x.svg";
+import youtube from "assets/youtube.svg";
 import Image from "next/image";
 import Link from "next/link";
 export const Footer = () => {
@@ -10,10 +10,10 @@ export const Footer = () => {
     <div className={classes.Footer}>
       <div className={classes.FooterContent}>
         <div className={classes.SocialRow}>
-          <Image src={facebook} alt="facebook" />
-          <Image src={instagram} alt="instagram" />
+          <Image src={facebook} alt="facebook"/>
+          <Image src={instagram} alt="instagram"/>
           <Image src={twitter} alt="twitter" />
-          <Image src={youtube} alt="youtube" />
+          <Image src={youtube} alt="youtube"/>
         </div>
         <div className={classes.Links}>
           <Link className={classes.Link} href="/">Home</Link>

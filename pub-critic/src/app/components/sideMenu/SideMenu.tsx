@@ -1,17 +1,22 @@
 "use client";
 import Link from "next/link";
 import classes from "./SideMenu.module.scss";
+
 interface SideMenuProps {
   toggleMenu: () => void;
   active: boolean;
 }
-export const SideMenu = (props: SideMenuProps) => {
+
+export const SideMenu = (
+  {
+    toggleMenu,
+    active,
+  }: SideMenuProps) => {
   return (
     <div className={classes.SideMenu}>
       <div
-        className={`${classes.SideMenuContent} ${
-          props.active ? classes.Active : ""
-        }`}
+        className={`${classes.SideMenuContent} ${active ? classes.Active : ""
+          }`}
       >
         <div className={classes.Links}>
           <Link className={classes.Link} href="/">
@@ -26,9 +31,12 @@ export const SideMenu = (props: SideMenuProps) => {
         </div>
       </div>
       <div
-        className={`${classes.Backdrop} ${props.active ? classes.Active : ""}`}
-        onClick={props.toggleMenu}
+        className={`${classes.Backdrop} ${active ? classes.Active : ""}`}
+        onClick={toggleMenu}
       ></div>
+
+
+
     </div>
   );
 };
