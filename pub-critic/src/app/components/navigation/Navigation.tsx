@@ -5,7 +5,7 @@ import Image from "next/image";
 import menuIcon from "assets/menu-icon.svg";
 import { useState } from "react";
 import Link from "next/link";
-import Hamburger from "components/hamburger/Hamburger";
+import Hamburger from "components/hamburger";
 
 interface NavigationProps {
   name?: string;

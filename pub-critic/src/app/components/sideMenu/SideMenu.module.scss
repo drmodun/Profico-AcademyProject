@@ -1,9 +1,4 @@
-$backdrop-color: black;
-$primary: #fff;
-$side-menu-background-color: #151515;
-$secondary: #9ca3af;
-$side-menu-link-secondary: #ccc;
-
+@import "styles/variables.scss";
 .SideMenu {
   width: 100%;
   height: 100vh;

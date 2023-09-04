@@ -1,7 +1,4 @@
-$border-color: #d1d5db;
-$primary: #fff;
-$secondary: #9ca3af;
-
+@import "styles/variables.scss";
 .Navigation {
   display: flex;
   flex-direction: row;

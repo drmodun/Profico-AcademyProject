@@ -1,6 +1,4 @@
-$backdrop-color: #000;
-$primary: #fff;
-$background-color: #151515;
+@import "styles/variables.scss";
 .Container {
   margin-top: 70px;
   padding: 0vw 5vw;

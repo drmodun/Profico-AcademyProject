@@ -11,7 +11,11 @@ interface HamburgerProps {
   };
 }
 
-const Hamburger: React.FC<HamburgerProps> = ({ open, onToggle, classes }) => (
+export const Hamburger: React.FC<HamburgerProps> = ({
+  open,
+  onToggle,
+  classes,
+}) => (
   <button
     type="button"
     onClick={onToggle}
@@ -24,5 +28,3 @@ const Hamburger: React.FC<HamburgerProps> = ({ open, onToggle, classes }) => (
     </span>
   </button>
 );
-
-export default Hamburger;
