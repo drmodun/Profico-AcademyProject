@@ -12,7 +12,7 @@ interface NavigationProps {
   search?: string;
   menuOpen: boolean;
   searchHandler: (search: string) => void;
-  toggleMenu?: () => void;
+  toggleMenu: () => void;
 }
 
 export const Navigation = ({
@@ -57,7 +57,7 @@ export const Navigation = ({
         <h1>{name ? name : "Sign In"}</h1>
       </Link>
       <div className={classes.Menu}>
-          <Hamburger open={menuOpen} onToggle={toggleMenu} />
+        <Hamburger open={menuOpen} onToggle={toggleMenu} />
       </div>
     </div>
   );
