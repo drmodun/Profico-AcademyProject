@@ -1,0 +1,74 @@
+@import "styles/variables.scss";
+.sideMenu {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.backdrop {
+  width: 70%;
+  height: 100%;
+  background-color: $backdrop-color;
+  transform: translateX(-100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+  z-index: 99;
+  transition: transform 0.3s ease-in-out;
+  @media (max-width: 768px) {
+    width: 50%;
+  }
+}
+
+.sideMenuContent {
+  width: 30%;
+  height: 100%;
+  background-color: $side-menu-background-color;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+
+  @media (max-width: 768px) {
+    width: 50%;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    .link {
+      font-size: 1.5vw;
+      font-weight: 500;
+      color: $primary;
+      width: 100%;
+      text-align: center;
+      transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+
+      &:hover {
+        color: $secondary;
+        cursor: pointer;
+        background-color: #ccc;
+      }
+
+      margin-bottom: 20px;
+      @media (max-width: 768px) {
+        font-size: 3.5vw;
+      }
+    }
+  }
+}
+
+.active {
+  transform: translateX(0);
+}

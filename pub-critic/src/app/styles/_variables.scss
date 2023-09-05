@@ -1,0 +1,20 @@
+$primary: #fff;
+$secondary: #9ca3af;
+$background-color: #151515;
+$border-color: #d1d5db;
+$backdrop-color: black;
+$side-menu-background-color: #151515;
+$side-menu-link-secondary: #ccc;
+
+$animation-duration__normal: 0.3s;
+$timing-function: ease-in-out;
+
+@function rem-calc($px) {
+  @return calc(($px / 16 * 1rem));
+}
+
+@mixin media($min, $max) {
+  @media (min-width: rem-calc($min)) and (max-width: rem-calc($max)) {
+    @content;
+  }
+}
