@@ -19,12 +19,12 @@ export const Hamburger: React.FC<HamburgerProps> = ({
   <button
     type="button"
     onClick={onToggle}
-    className={cx(styles.Container, { [styles.Open]: open })}
+    className={cx(styles.container, { [styles.open]: open })}
   >
-    <span className={styles.Label}>
-      <span className={cx(styles.Bar, classes?.bar)} />
-      <span className={cx(styles.Bar, classes?.bar)} />
-      <span className={cx(styles.Bar, classes?.bar)} />
+    <span className={styles.label}>
+      <span className={cx(styles.bar, classes?.bar)} />
+      <span className={cx(styles.bar, classes?.bar)} />
+      <span className={cx(styles.bar, classes?.bar)} />
     </span>
   </button>
 );

@@ -1,6 +1,6 @@
 @import "styles/variables";
 
-.Container {
+.container {
   height: rem-calc(24);
   border-radius: 0;
   outline: none;
@@ -15,7 +15,7 @@
     margin-left: rem-calc(24);
   }
 
-  .Label {
+  .label {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -23,7 +23,7 @@
     height: rem-calc(16);
     transition: all $animation-duration__normal $timing-function;
 
-    .Bar {
+    .bar {
       width: 100%;
       height: rem-calc(2);
       background-color: $primary;
@@ -32,15 +32,15 @@
     }
   }
 
-  &.Open {
+  &.open {
     width: rem-calc(24);
 
     @include media(0, 768) {
       width: rem-calc(24);
     }
 
-    .Label {
-      .Bar {
+    .label {
+      .bar {
         background-color: $secondary;
         &:nth-child(1) {
           transform: rotate(45deg) translate(9px, 0);

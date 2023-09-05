@@ -7,36 +7,28 @@ interface SideMenuProps {
   active: boolean;
 }
 
-export const SideMenu = (
-  {
-    toggleMenu,
-    active,
-  }: SideMenuProps) => {
+export const SideMenu = ({ toggleMenu, active }: SideMenuProps) => {
   return (
-    <div className={classes.SideMenu}>
+    <div className={classes.sideMenu}>
       <div
-        className={`${classes.SideMenuContent} ${active ? classes.Active : ""
-          }`}
+        className={`${classes.sideMenuContent} ${active ? classes.active : ""}`}
       >
-        <div className={classes.Links}>
-          <Link className={classes.Link} href="/">
+        <div className={classes.links}>
+          <Link className={classes.link} href="/">
             Home
           </Link>
-          <Link className={classes.Link} href="/me">
+          <Link className={classes.link} href="/me">
             User Page
           </Link>
-          <Link className={classes.Link} href="/">
+          <Link className={classes.link} href="/">
             Games Page
           </Link>
         </div>
       </div>
       <div
-        className={`${classes.Backdrop} ${active ? classes.Active : ""}`}
+        className={`${classes.backdrop} ${active ? classes.active : ""}`}
         onClick={toggleMenu}
       ></div>
-
-
-
     </div>
   );
 };

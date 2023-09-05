@@ -24,11 +24,11 @@ export const Navigation = ({
 }: NavigationProps) => {
   const [searchValue, setSearchValue] = useState<string>(search ? search : "");
   return (
-    <div className={classes.Navigation}>
-      <Link href="/" className={classes.Name}>
+    <div className={classes.navigation}>
+      <Link href="/" className={classes.name}>
         <h1>Pub Critic</h1>
       </Link>
-      <div className={classes.Search}>
+      <div className={classes.search}>
         <input
           type="text"
           placeholder="Search"
@@ -52,11 +52,11 @@ export const Navigation = ({
               }
             : "/"
         }
-        className={classes.Account}
+        className={classes.account}
       >
         <h1>{name ? name : "Sign In"}</h1>
       </Link>
-      <div className={classes.Menu}>
+      <div className={classes.menu}>
         <Hamburger open={menuOpen} onToggle={toggleMenu} />
       </div>
     </div>
