@@ -26,8 +26,8 @@
 
     .inputContainer {
         border-radius: 8px;
-        border: 1px solid $light-gray-30;
-        background: $light-gray-10;
+        border: 1px solid $light-gray-10;
+        background: $light-gray-30;
         width: 100%;
         padding: 12px 16px;
 
@@ -76,7 +76,7 @@
         }
 
         &:focus-within {
-            border: 1px solid $light-base-black;
+            border: 2px solid $light-base-black;
             background: $primary;
         }
 

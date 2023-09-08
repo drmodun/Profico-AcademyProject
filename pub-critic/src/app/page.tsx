@@ -1,7 +1,8 @@
 import Image from "next/image";
 import classes from "./page.module.scss";
 import gaming from "assets/gaming.webp";
-import RegisterForm from "components/registerForm";
+import RegisterForm from "components/forms/registerForm";
+import LoginForm from "components/forms/loginForm";
 
 export default function Home() {
   return (
@@ -33,6 +34,7 @@ export default function Home() {
         </div>
         <div className={classes.section}>
           <h1>Upcoming</h1>
+          <LoginForm />
           <div
             className={classes.notFound} //Before connecting to api
           >

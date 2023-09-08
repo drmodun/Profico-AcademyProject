@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import classes from "./RegisterForm.module.scss";
+import classes from "components/forms/Form.module.scss";
 import Input from "components/input";
 import namePic from "assets/user.svg";
 import bio from "assets/Show.svg";
