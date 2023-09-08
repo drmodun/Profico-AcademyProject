@@ -1,6 +1,7 @@
 import Image from "next/image";
 import classes from "./page.module.scss";
 import gaming from "assets/gaming.webp";
+import RegisterForm from "components/registerForm";
 
 export default function Home() {
   return (
