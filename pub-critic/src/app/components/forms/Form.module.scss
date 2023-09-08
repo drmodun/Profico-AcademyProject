@@ -45,7 +45,8 @@
         
             @media screen and (max-width: 768px) {
                 width: 90%;
-                font-size: 4vw;
+                font-size: 3.2vw;
+                min-height: 40px;
             }
 
             height: vw-calc(50);
@@ -61,7 +62,7 @@
             padding: 12px 16px;
             cursor: pointer;
             transition: all 0.3s ease-in-out;
-            
+
             &:hover{
                 background-color: $secondary;
             }

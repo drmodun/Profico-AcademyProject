@@ -9,7 +9,7 @@ interface SideMenuProps {
 
 export const SideMenu = ({ toggleMenu, active }: SideMenuProps) => {
   return (
-    <div className={classes.sideMenu}>
+    <div className={`${classes.sideMenu} ${active ? classes.active : ""}`}>
       <div
         className={`${classes.sideMenuContent} ${active ? classes.active : ""}`}
       >
