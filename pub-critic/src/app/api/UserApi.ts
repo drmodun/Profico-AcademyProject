@@ -9,6 +9,12 @@ export interface User {
   bio: string;
 }
 
+export interface UserEdit {
+  name?: string;
+  bio?: string;
+  email?: string;
+}
+
 interface LoginUser {
   email: string;
   password: string;
@@ -73,10 +79,34 @@ export const getMe = async () => {
   }
 };
 
-export const editMe = async (user: User) => {
+export const editMe = async (user: UserEdit) => {
   try {
     const response = await api.patch("/users/", user);
     return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteUser = async () => {
+  try {
+    const response = await api.delete("/users/");
+    alert("Account deleted");
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("time");
+    window.location.href = "/";
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const logoutUser = async () => {
+  try {
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("time");
+    alert("Logged out");
+    window.location.href = "/";
   } catch (error) {
     console.error(error);
   }

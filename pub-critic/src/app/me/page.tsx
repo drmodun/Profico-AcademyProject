@@ -1,10 +1,9 @@
 "use client";
-import { User, getMe } from "api/UserApi";
+import { User, getMe, logoutUser } from "api/UserApi";
 import classes from "./page.module.scss";
 import { useEffect, useState } from "react";
 import ProfileCard from "components/profileCard";
 import { EditableUserInfo } from "components/editableUserInfo/EditableUserInfo";
-import { get } from "http";
 
 enum tabs {
   Info,
@@ -13,8 +12,8 @@ enum tabs {
 }
 
 const UserPage = () => {
-  const [user, setUser] = useState<User>(null);
-  const [tab, setTab] = useState<string>("reviews");
+  const [user, setUser] = useState<User | null>(null);
+  const [tab, setTab] = useState<string>("Info");
 
   const getUser = async () => {
     const response = await getMe();
@@ -31,7 +30,16 @@ const UserPage = () => {
     <div className={classes.container}>
       <div className={classes.background}></div>
       <div className={classes.user}>
-        <ProfileCard name={user?.name} totalReviews={0} likeScore={0} />
+        <div className={classes.short}>
+          <ProfileCard
+            name={user?.name || "Loading..."}
+            totalReviews={0}
+            likeScore={0}
+          />
+          <button className={classes.logout} onClick={logoutUser}>
+            Logout
+          </button>
+        </div>
         <div className={classes.content}>
           <div className={classes.tabRow}>
             {Object.values(tabs)
@@ -52,7 +60,14 @@ const UserPage = () => {
             {tab === "Reviews" && (
               <div className={classes.later}>Reviews (to add after games)</div>
             )}
-            {tab === "Info" && <EditableUserInfo />}
+            {tab === "Info" && (
+              <EditableUserInfo
+                getMe={getUser}
+                initName={user?.name || "Loading..."}
+                initEmail={user?.email || "Loading..."}
+                initBio={user?.bio || "Loading..."}
+              />
+            )}
             {tab === "Favourites" && (
               <div className={classes.later}>
                 Favourites (to add after games)

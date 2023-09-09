@@ -10,10 +10,13 @@
   align-items: center;
   background-color: $backdrop-color;
 
-  button {
-    width: vw-calc(500);
-    margin-top: 50px;
+  @media screen and (max-width: 768px) {
+    margin-top: 20px;
+  }
 
+  .submit {
+    width: vw-calc(500);
+    margin-top: vw-calc(30);
     @media screen and (max-width: 768px) {
       width: 90%;
       font-size: 3.2vw;
@@ -37,6 +40,47 @@
 
     &:hover {
       background-color: $secondary;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      font-size: 3.2vw;
+      min-height: 40px;
+    }
+  }
+
+  .deleteButton {
+    width: vw-calc(500);
+
+    @media screen and (max-width: 768px) {
+      width: 90%;
+      font-size: 3.2vw;
+      min-height: 40px;
+    }
+
+    height: vw-calc(50);
+    min-height: 35px;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: vw-calc(18);
+    font-weight: 600;
+    color: $light-base-black;
+    background-color: $secondary;
+    border-radius: 8px;
+    margin-bottom: vw-calc(30);
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: $primary;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      font-size: 3.2vw;
+      min-height: 40px;
     }
   }
 
