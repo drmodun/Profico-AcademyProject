@@ -3,6 +3,7 @@ import classes from "./page.module.scss";
 import gaming from "assets/gaming.webp";
 import RegisterForm from "components/forms/registerForm";
 import LoginForm from "components/forms/loginForm";
+import ProfileCard from "components/profileCard";
 
 export default function Home() {
   return (

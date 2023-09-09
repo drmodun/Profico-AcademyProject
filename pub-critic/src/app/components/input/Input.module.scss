@@ -26,8 +26,8 @@
 
     .inputContainer {
         border-radius: 8px;
-        border: 1px solid $light-gray-10;
-        background: $light-gray-30;
+        border: 1px solid $secondary;
+        background: $backdrop-color;
         width: 100%;
         padding: 12px 16px;
 
@@ -37,10 +37,10 @@
 
         height: vw-calc(50);
         min-height: 48px;
-        color: $light-base-black;
+        color: $primary;
 
         &::placeholder {
-            color: $light-gray-base;
+            color: $primary;
         }
 
         font-size: vw-calc(18);
@@ -59,25 +59,24 @@
             outline: none;
             font-size: vw-calc(18);
             font-weight: 600;
-            color: $light-base-black;
+            color: $primary;
 
             @media screen and (max-width: 768px) {
                 font-size: 3vw;
             }
 
             &::placeholder {
-                color: $light-base-black;
+                color: #929292;
             }
         }
 
         &:hover {
-            border: 1px solid $light-gray-base;
-            background: $primary;
+            background: $input-bg-alt;
         }
 
         &:focus-within {
-            border: 2px solid $light-base-black;
-            background: $primary;
+            border: 2px solid $primary;
+            background: $input-bg-alt;
         }
 
         .icon {
@@ -85,6 +84,7 @@
             height: vw-calc(30);
             min-height: 24px;
             min-width: 24px;
+            filter: invert(100%);
 
             &:hover {
                 cursor: pointer;
