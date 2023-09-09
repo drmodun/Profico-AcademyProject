@@ -2,7 +2,7 @@ import axios from "axios";
 import { baseURL, setJWT } from "./Shared";
 import exp from "constants";
 
-interface User {
+export interface User {
   email: string;
   password: string;
   name: string;

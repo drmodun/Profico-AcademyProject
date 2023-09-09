@@ -59,7 +59,7 @@ export const LoginForm = () => {
           icon2={hide}
         />
         <span className={classes.Alternate}>
-          Don't have an account? <a href="/register">Register</a>
+          Do not have an account? <a href="/register">Register</a>
         </span>
         <button type="submit">Login</button>
       </form>

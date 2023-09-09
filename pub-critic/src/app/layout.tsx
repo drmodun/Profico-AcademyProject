@@ -29,16 +29,16 @@ export default function RootLayout({
     setMenuOpen(!menuOpen);
   };
 
+  useEffect(() => {
+    getUser();
+  }, []);
+
   const getUser = async () => {
     const response = await getAccountInfo();
     if (response) {
       setUser(response);
     }
   };
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   return (
     <html lang="en">
@@ -52,7 +52,11 @@ export default function RootLayout({
         />
         {children}
         <Footer />
-        <SideMenu toggleMenu={toggleMenu} active={menuOpen} />
+        <SideMenu
+          toggleMenu={toggleMenu}
+          active={menuOpen}
+          user={user !== null}
+        />
       </body>
     </html>
   );

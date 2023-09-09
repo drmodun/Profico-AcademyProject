@@ -5,22 +5,24 @@ import classes from "./SideMenu.module.scss";
 interface SideMenuProps {
   toggleMenu: () => void;
   active: boolean;
+  user: boolean;
 }
 
-export const SideMenu = ({ toggleMenu, active }: SideMenuProps) => {
+export const SideMenu = ({ toggleMenu, active, user }: SideMenuProps) => {
   return (
-    <div className={`${classes.sideMenu} ${active ? classes.active : ""}`}>
+    <div
+      className={`${classes.sideMenu} ${active ? classes.active : ""}`}
+      onClick={toggleMenu}
+    >
       <div
         className={`${classes.sideMenuContent} ${active ? classes.active : ""}`}
+        onClick={toggleMenu}
       >
         <div className={classes.links}>
           <Link className={classes.link} href="/">
             Home
           </Link>
-          <Link
-            className={classes.link}
-            href={localStorage.getItem("jwtToken") ? "/me" : "/login"}
-          >
+          <Link className={classes.link} href={user ? "/me" : "/login"}>
             User Page
           </Link>
           <Link className={classes.link} href="/">
