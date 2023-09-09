@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import SideMenu from "components/sideMenu";
 import { getMe } from "api/UserApi";
 import { get } from "http";
+import { getAccountInfo } from "api/AccountInfo";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,30 +24,22 @@ export default function RootLayout({
 }) {
   "use client";
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<any>(null); // TODO: type this
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   const getUser = async () => {
-    const token = localStorage.getItem("jwtToken");
-    const time = localStorage.getItem("time");
-    if (!token || new Date(time).getTime() < Date.now() - 1000 * 60 * 60 * 8) {
-      return;
+    const response = await getAccountInfo();
+    if (response) {
+      setUser(response);
     }
-
-    const user = await getMe();
-    setUser(user);
   };
 
   useEffect(() => {
     getUser();
   }, []);
 
-  useEffect(() => {
-    getUser();
-  }, [children]);
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
   return (
     <html lang="en">
       <body className={inter.className}>

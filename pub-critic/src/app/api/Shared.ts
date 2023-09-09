@@ -1,6 +1,6 @@
-export const baseURL = "http://localhost:3030";
+export const baseURL = "https://healthy-undershirt-bull.cyclic.cloud";
 
-let jwt = localStorage.getItem("jwtToken");
+export let jwt = localStorage.getItem("jwtToken");
 
 export const setJWT = (token: string) => {
   jwt = token;
