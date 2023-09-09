@@ -1,3 +1,3 @@
-import { ProfileCard } from "./profileCard";
+import { ProfileCard } from "./ProfileCard";
 
 export default ProfileCard;

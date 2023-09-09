@@ -25,7 +25,8 @@ api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("jwtToken");
     if (
-      (token && ["post", "put", "delete"].includes(config.method || "")) ||
+      (token &&
+        ["post", "put", "delete", "patch"].includes(config.method || "")) ||
       (token && config.url?.includes("short")) ||
       (token && config.url?.includes("favourite")) ||
       (token && config.url?.includes("me"))
@@ -66,6 +67,15 @@ export const loginUser = async (user: LoginUser) => {
 export const getMe = async () => {
   try {
     const response = await api.get("/users/me");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const editMe = async (user: User) => {
+  try {
+    const response = await api.patch("/users/", user);
     return response.data;
   } catch (error) {
     console.error(error);

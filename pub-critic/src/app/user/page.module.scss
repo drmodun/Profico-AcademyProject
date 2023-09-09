@@ -9,25 +9,64 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: $background-color;
-  padding: vw-calc(50);
+  background-color: $backdrop-color;
 
-  .user {
+  .background {
+    width: 100%;
+    height: vw-calc(150);
+    top: 70;
+    left: 0;
+    background-color: $background-color;
+  }
+
+  .later {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: $background-color;
-    padding: vw-calc(50);
+    background-color: $backdrop-color;
+    padding: 0 vw-calc(50);
+    font-size: vw-calc(20);
+    margin-top: vw-calc(150);
   }
-  .tabRow {
+
+  .user {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    width: 100%;
+    align-items: flex-start;
+    background-color: $backdrop-color;
+    padding: 0 vw-calc(50);
+
+    > div {
+      &:not(.content) {
+        position: relative;
+        top: vw-calc(-100);
+      }
+    }
+
+    .content {
+      width: vw-calc(700);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: $backdrop-color;
+      padding: vw-calc(50);
+    }
+
+    .tabRow {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
   }
 
   .tab {
@@ -49,5 +88,10 @@
       background-color: $secondary;
       color: $background-color;
     }
+  }
+
+  .active {
+    background-color: $secondary;
+    color: $background-color;
   }
 }
