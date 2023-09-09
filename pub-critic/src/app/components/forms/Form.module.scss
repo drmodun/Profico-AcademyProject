@@ -34,6 +34,27 @@
         @media screen and (max-width: 768px) {
             width: 100%;
         }
+
+        >span{
+            color: $primary;
+            font-size: vw-calc(20);
+            font-weight: 600;
+            margin-bottom: 20px;
+
+            @media screen and (max-width: 768px) {
+                font-size: 4vw;
+            }
+            >a{
+                color: $secondary;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease-in-out;
+
+                &:hover{
+                    color: $primary;
+                }
+            }
+        }
         
         >div{
             margin-bottom: 20px;

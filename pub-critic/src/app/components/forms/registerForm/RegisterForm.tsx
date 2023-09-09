@@ -7,15 +7,35 @@ import bio from "assets/Show.svg";
 import emailPic from "assets/Email.svg";
 import show from "assets/Show.svg";
 import hide from "assets/Hide.svg";
+import { postUser } from "api/UserApi";
 
 export const RegisterForm = () => {
-  const [name, setName] = useState<string>();
-  const [descrtiption, setDescription] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const [email, setEmail] = useState<string>();
-  const [confirmPassword] = useState<string>();
+  const [name, setName] = useState<string>("");
+  const [descrtiption, setDescription] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Passwords don't match");
+      return;
+    }
+    const user = {
+      name,
+      bio: descrtiption,
+      password,
+      email,
+    };
+    const response = await postUser(user);
+    if (response) {
+      alert("Registration successful, please log in");
+      window.location.href = "/login";
+      return;
+    }
+    alert("Registration failed");
+  };
   return (
     <div className={classes.form}>
       <h1>Registration</h1>
@@ -71,12 +91,15 @@ export const RegisterForm = () => {
           placeholder="Confirm your password"
           value={confirmPassword}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
+            setConfirmPassword(e.target.value)
           }
           type="password"
           icon1={show}
           icon2={hide}
         />
+        <span className={classes.Alternate}>
+          Already have an account? <a href="/login">Login</a>
+        </span>
         <button type="submit">Register</button>
       </form>
     </div>

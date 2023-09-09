@@ -2,17 +2,35 @@
 import { useState } from "react";
 import classes from "components/forms/Form.module.scss";
 import Input from "components/input";
-import namePic from "assets/user.svg";
-import bio from "assets/Show.svg";
 import emailPic from "assets/Email.svg";
 import show from "assets/Show.svg";
 import hide from "assets/Hide.svg";
+import { loginUser } from "api/UserApi";
 
 export const LoginForm = () => {
-  const [password, setPassword] = useState<string>();
-  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!password || !email) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    const user = {
+      password,
+      email,
+    };
+
+    const response = await loginUser(user);
+    if (response) {
+      alert("Login successful");
+      window.location.href = "/";
+      return;
+    }
+    alert("Login failed");
+  };
   return (
     <div className={classes.form}>
       <h1>Login</h1>
@@ -40,6 +58,9 @@ export const LoginForm = () => {
           icon1={show}
           icon2={hide}
         />
+        <span className={classes.Alternate}>
+          Don't have an account? <a href="/register">Register</a>
+        </span>
         <button type="submit">Login</button>
       </form>
     </div>

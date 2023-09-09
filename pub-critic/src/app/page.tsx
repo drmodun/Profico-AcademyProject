@@ -34,7 +34,6 @@ export default function Home() {
         </div>
         <div className={classes.section}>
           <h1>Upcoming</h1>
-          <LoginForm />
           <div
             className={classes.notFound} //Before connecting to api
           >

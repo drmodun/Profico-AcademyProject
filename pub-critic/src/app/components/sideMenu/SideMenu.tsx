@@ -17,7 +17,10 @@ export const SideMenu = ({ toggleMenu, active }: SideMenuProps) => {
           <Link className={classes.link} href="/">
             Home
           </Link>
-          <Link className={classes.link} href="/me">
+          <Link
+            className={classes.link}
+            href={localStorage.getItem("jwtToken") ? "/me" : "/login"}
+          >
             User Page
           </Link>
           <Link className={classes.link} href="/">
