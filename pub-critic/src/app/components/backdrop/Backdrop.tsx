@@ -1,8 +1,8 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import classes from "./Backdrop.module.scss";
 
 interface Props {
-  image: string;
+  image: StaticImageData | string;
 }
 
 export const Backdrop = ({ image }: Props) => {

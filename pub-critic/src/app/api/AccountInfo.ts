@@ -1,13 +1,18 @@
-import { getMe } from "./UserApi";
+import { User, getMe } from "./UserApi";
 
-let accountInfo = null;
+let accountInfo: User | null = null;
 
 export const getAccountInfo = async () => {
   const jwt = localStorage.getItem("jwtToken");
   if (jwt === null) {
     return null;
   }
-  const date = new Date(localStorage.getItem("time"));
+
+  const dateString = localStorage.getItem("time");
+  if (dateString === null) {
+    return null;
+  }
+  const date = new Date(dateString);
   if (new Date().getTime() - date.getTime() > 1000 * 60 * 60 * 8) {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("time");
