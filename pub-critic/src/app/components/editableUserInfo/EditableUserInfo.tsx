@@ -2,7 +2,7 @@ import { useState } from "react";
 import classes from "./EditableUserInfo.module.scss";
 import Input from "components/input";
 import user from "assets/user.svg";
-import show from "assets/show.svg";
+import show from "assets/Show.svg";
 import { deleteUser, editMe } from "api/UserApi";
 
 interface EditableUserInfoProps {
