@@ -29,16 +29,19 @@ export default async function Home() {
         </div>
         <div className={classes.section}>
           <h1>Featured</h1>
-          <div className={classes.list}>
-            {games.map((game: Game) => (
-              <GameCard game={game} key={game.id} />
-            ))}
-          </div>
-          <div
-            className={classes.notFound} //Before connecting to api
-          >
-            No games found, please try again later
-          </div>
+          {games.length ? (
+            <div className={classes.list}>
+              {games.map((game: Game) => (
+                <GameCard game={game} key={game.id} />
+              ))}
+            </div>
+          ) : (
+            <div
+              className={classes.notFound} //Before connecting to api
+            >
+              No games found, please try again later
+            </div>
+          )}
         </div>
         <div className={classes.section}>
           <h1>Popular</h1>

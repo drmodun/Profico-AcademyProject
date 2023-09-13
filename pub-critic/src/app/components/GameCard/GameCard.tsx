@@ -38,7 +38,12 @@ export const GameCard = ({ game }: GameCardProps) => {
   return (
     <div className={classes.game}>
       <div className={classes.image}>
-        <Image src={game.background_image} alt="game" layout="fill" />
+        <Image
+          src={game.background_image}
+          alt="game"
+          objectFit="cover"
+          layout="fill"
+        />
       </div>
       <div className={classes.info}>
         <span className={classes.releaseDate}>

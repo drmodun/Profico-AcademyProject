@@ -115,6 +115,26 @@
         > div {
           margin-right: vw-calc(20);
         }
+        &::-webkit-scrollbar {
+          scroll-behavior: smooth;
+          scroll-snap-type: x mandatory;
+          position: relative;
+          top: 20px;
+          height: 20px;
+        }
+
+        &::-webkit-scrollbar-track {
+          border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-track-piece {
+          background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: $primary;
+          border-radius: 10px;
+        }
       }
     }
   }
