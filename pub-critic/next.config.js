@@ -3,6 +3,9 @@ const nextConfig = {
     images: {
         domains: ["media.rawg.io"],
     },
+    experimental: {
+        appDir: true, 
+    },
 }
 
 module.exports = nextConfig
