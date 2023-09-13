@@ -11,8 +11,6 @@ interface FilterInputProps {
 }
 
 export const FilterInput = ({ label, value, onChange }: FilterInputProps) => {
-  const [currentValue, setCurrentValue] = useState<string>(value);
-
   return (
     <div className={classes.filterInput}>
       <label htmlFor={label}>{label}</label>
@@ -20,7 +18,7 @@ export const FilterInput = ({ label, value, onChange }: FilterInputProps) => {
         type="text"
         id={label}
         placeholder={label}
-        value={currentValue}
+        value={value}
         onChange={onChange}
       />
     </div>

@@ -2,18 +2,23 @@
 import { useEffect, useState } from "react";
 import classes from "./Filter.module.scss";
 import Dropdown from "components/Dropdown";
-import ReactSlider from "react-slider";
 import { Genre, Platform } from "api/GamesShared";
 import { FilterProps } from "api/GamesApi";
 import FilterInput from "components/FilterInput";
 
 interface Props {
-  filter: (value: FilterProps) => void;
+  filter?: (value: FilterProps) => void;
   genres: Genre[];
   platforms: Platform[];
 }
 
-export const Filter = ({ filter, genres, platforms }: Props) => {
+export const Filter = ({
+  filter = (value: FilterProps) => {
+    console.log(value);
+  },
+  genres,
+  platforms,
+}: Props) => {
   const [genre, setGenre] = useState<number | undefined>();
   const [platform, setPlatform] = useState<number | undefined>();
   const [name, setName] = useState<string>("");
@@ -33,7 +38,8 @@ export const Filter = ({ filter, genres, platforms }: Props) => {
   return (
     <div className={classes.container}>
       <div className={classes.filter}>
-        <div className={classes.name}>
+        <h2>Filter</h2>
+        <div className={classes.section}>
           <FilterInput
             label="Name"
             placeholder="Ime"
@@ -41,7 +47,7 @@ export const Filter = ({ filter, genres, platforms }: Props) => {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div className={classes.genre}>
+        <div className={classes.section}>
           <span>Genre</span>
           <Dropdown
             cancel={genreCloser}
@@ -55,7 +61,7 @@ export const Filter = ({ filter, genres, platforms }: Props) => {
             }}
           />
         </div>
-        <div className={classes.platform}>
+        <div className={classes.section}>
           <span>Platform</span>
           <Dropdown
             cancel={platformCloser}
