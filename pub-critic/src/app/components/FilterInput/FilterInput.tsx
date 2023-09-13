@@ -1,6 +1,4 @@
 "use client";
-
-import { useState } from "react";
 import classes from "./FilterInput.module.scss";
 
 interface FilterInputProps {

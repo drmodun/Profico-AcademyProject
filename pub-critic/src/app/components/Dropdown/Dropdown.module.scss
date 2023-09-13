@@ -20,11 +20,16 @@
     border: 1px solid;
     border-color: $secondary;
 
+    @media (max-width: 768px) {
+      height: vw-mobile-calc(20);
+      padding: vw-mobile-calc(5) vw-mobile-calc(10);
+      border-radius: vw-mobile-calc(5);
+    }
+
     > input {
       width: 100%;
       color: $primary;
       text-align: start;
-      font-size: vw-calc(16);
       font-style: normal;
       font-weight: 600;
       line-height: normal;
@@ -32,6 +37,10 @@
       font-size: vw-calc(16);
       background-color: transparent;
       border: none;
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(12);
+      }
 
       &::placeholder {
         color: $dropdown-text-color;
@@ -62,6 +71,12 @@
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
     z-index: 3;
 
+    @media (max-width: 768px) {
+      width: vw-mobile-calc(200);
+      margin-top: vw-mobile-calc(25);
+      border-radius: vw-mobile-calc(10);
+    }
+
     > li {
       width: vw-calc(320);
       height: vw-calc(40);
@@ -74,6 +89,13 @@
       line-height: normal;
       padding: 12px 16px;
       border-bottom: $secondary 1px solid;
+
+      @media (max-width: 768px) {
+        width: vw-mobile-calc(200);
+        height: vw-mobile-calc(20);
+        font-size: vw-mobile-calc(10);
+        padding: vw-mobile-calc(5) vw-mobile-calc(10);
+      }
 
       &:hover {
         cursor: pointer;

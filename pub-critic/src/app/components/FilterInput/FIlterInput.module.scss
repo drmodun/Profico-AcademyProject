@@ -18,6 +18,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @media screen and (max-width: 768px) {
+      font-size: vw-mobile-calc(12);
+      margin-bottom: vw-mobile-calc(10);
+    }
   }
 
   > input {
@@ -33,6 +38,13 @@
     font-weight: 500;
     border-radius: vw-calc(10);
     padding: vw-mobile-calc(5);
+
+    @media screen and (max-width: 768px) {
+      font-size: vw-mobile-calc(12);
+      height: vw-mobile-calc(20);
+      border-radius: vw-mobile-calc(10);
+      padding: vw-mobile-calc(5);
+    }
 
     &:focus {
       border: 1px solid $primary;
