@@ -38,7 +38,7 @@ $vw-mobile: 360px;
   @return $vwValues;
 }
 
-@function vw-calc-mobile($values, $base-value: $vw-mobile) {
+@function vw-mobile-calc($values, $base-value: $vw-mobile) {
   $max: length($values);
 
   @if $max == 1 {

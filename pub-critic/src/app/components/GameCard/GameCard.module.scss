@@ -8,27 +8,36 @@
   align-items: center;
   width: vw-mobile-calc(160);
   .image {
-    width: 100%;
+    position: relative;
+    width: vw-mobile-calc(160);
     height: vw-mobile-calc(150);
-    border-radius: vm-mobile-calc(8);
-    margin-bottom: vm-mobile-calc(10);
+    border-radius: vw-mobile-calc(8) vw-mobile-calc(8) 0 0;
+    display: flex;
+    > img {
+      display: flex;
+      width: vw-mobile-calc(160);
+      height: 100%;
+      border-radius: vw-mobile-calc(8) vw-mobile-calc(8) 0 0;
+    }
   }
   .info {
     background-color: $card-background-color;
     width: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: vw-calc(20);
     flex-direction: column;
-    padding: vm-mobile-calc(10);
     color: $primary;
-    .release-date {
-      font-size: vm-mobile-calc(12);
+    .releaseDate {
+      font-size: vw-mobile-calc(12);
       color: $secondary;
-      margin-bottom: vm-mobile-calc(5);
+      margin-bottom: vw-mobile-calc(5);
     }
     .name {
-      font-size: vm-mobile-calc(14);
+      font-size: vw-mobile-calc(14);
       font-weight: 600;
-      margin-bottom: vm-mobile-calc(5);
+      margin-bottom: vw-mobile-calc(5);
     }
     .ratings {
       display: flex;
@@ -42,15 +51,51 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        margin-bottom: vm-mobile-calc(5);
-        .ratingName {
-          font-size: vm-mobile-calc(12);
+        margin-bottom: vw-mobile-calc(5);
+        .ratingTitle {
+          font-size: vw-mobile-calc(12);
           color: $secondary;
         }
         .ratingValue {
-          font-size: vm-mobile-calc(12);
+          font-size: vw-mobile-calc(12);
           color: $primary;
         }
+      }
+    }
+    .genres {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: vw-mobile-calc(5);
+      .genre {
+        font-size: vw-mobile-calc(12);
+        color: $secondary;
+        border: 1px solid $secondary;
+        border-radius: vw-mobile-calc(5);
+        padding: vw-mobile-calc(5);
+        margin-right: vw-mobile-calc(5);
+        min-width: vw-mobile-calc(50);
+      }
+    }
+    .platforms {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: vw-mobile-calc(5);
+      position: relative;
+      .platform {
+        display: flex;
+        width: vw-mobile-calc(30);
+        height: vw-mobile-calc(30);
+        margin-right: vw-mobile-calc(5);
+        margin-bottom: vw-mobile-calc(5);
+        position: relative;
       }
     }
   }
