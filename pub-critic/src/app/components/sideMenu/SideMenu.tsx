@@ -5,7 +5,7 @@ import classes from "./SideMenu.module.scss";
 interface SideMenuProps {
   toggleMenu: () => void;
   active: boolean;
-  user: boolean;
+  user?: boolean;
 }
 
 export const SideMenu = ({ toggleMenu, active, user }: SideMenuProps) => {

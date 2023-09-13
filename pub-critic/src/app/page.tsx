@@ -4,6 +4,7 @@ import gaming from "assets/gaming.webp";
 import { getGames } from "api/GamesApi";
 import { useEffect } from "react";
 import GameCard from "components/GameCard";
+import { Game } from "api/GamesShared";
 
 const getGame = async () => {
   const response = await getGames();
@@ -29,7 +30,7 @@ export default async function Home() {
         <div className={classes.section}>
           <h1>Featured</h1>
           <div className={classes.list}>
-            {games.map((game) => (
+            {games.map((game: Game) => (
               <GameCard game={game} key={game.id} />
             ))}
           </div>
