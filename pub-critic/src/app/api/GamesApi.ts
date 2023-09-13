@@ -27,14 +27,14 @@ export const getLatestGames = async (
   }
 };
 
-export const getTopRatedGames = async (
+export const getRatedGames = async (
   page: number = 1,
   pageSize: number = 20
 ) => {
   try {
     const response = await fetch(
       `${gamesApi}/games?key=${apiKey}&page=${page}&page_size=${pageSize}&ordering=-metacritic`,
-      { next: { revalidate: 3600 * 24 } }
+      { next: { revalidate: 3600 * 8 } }
     );
     return response.json();
   } catch (error) {

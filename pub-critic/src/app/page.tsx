@@ -1,7 +1,7 @@
 import Image from "next/image";
 import classes from "./page.module.scss";
 import gaming from "assets/gaming.webp";
-import { getGames, getLatestGames, getTopRatedGames } from "api/GamesApi";
+import { getGames, getLatestGames, getRatedGames } from "api/GamesApi";
 import GameCard from "components/GameCard";
 import { Game } from "api/GamesShared";
 
@@ -19,8 +19,8 @@ const getLatest = async () => {
   }
 };
 
-export const getTopGames = async () => {
-  const response = await getTopRatedGames();
+const getRated = async () => {
+  const response = await getRatedGames();
   if (response) {
     return response.results;
   }
@@ -29,7 +29,7 @@ export const getTopGames = async () => {
 export default async function Home() {
   const games = await getGame();
   const latest = await getLatest();
-  const top = await getTopGames();
+  const top = await getRated();
   return (
     <div className={classes.container}>
       <div className={classes.page}>
