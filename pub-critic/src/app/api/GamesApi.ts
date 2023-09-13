@@ -41,3 +41,59 @@ export const getRatedGames = async (
     console.log(error);
   }
 };
+
+export const getGenres = async () => {
+  try {
+    const response = await fetch(`${gamesApi}/genres?key=${apiKey}`, {
+      next: { revalidate: 3600 * 24 * 31 },
+    });
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPlatforms = async () => {
+  try {
+    const response = await fetch(`${gamesApi}/platforms?key=${apiKey}`, {
+      next: { revalidate: 3600 * 24 * 31 },
+    });
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export interface FilterProps {
+  name?: string;
+  page: number;
+  pageSize: number;
+  genre?: number;
+  platform?: number;
+  metacritic?: number;
+  rating?: string;
+}
+
+export const getFilteredGames = async ({
+  name = "",
+  page = 1,
+  pageSize = 20,
+  genre,
+  platform,
+  metacritic,
+  rating,
+}: FilterProps) => {
+  try {
+    const response = await fetch(
+      `${gamesApi}/games?key=${apiKey}&page=${page}&page_size=${pageSize}${
+        genre && `&genres=${genre}`
+      }${platform && `&platforms=${platform}`}${
+        metacritic && `&metacritic=${metacritic}`
+      }&search=${name}&ordering=${rating}`,
+      { next: { revalidate: 3600 * 0.5 } }
+    );
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};

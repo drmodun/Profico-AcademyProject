@@ -1,0 +1,96 @@
+@import "styles/variables.scss";
+@import "styles/vw-calc.scss";
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+
+  .top {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: $card-background-color;
+    border-radius: vw-calc(5);
+    padding: vw-calc(10) vw-calc(20);
+    border: 1px solid;
+    border-color: $secondary;
+
+    > input {
+      width: 100%;
+      color: $primary;
+      text-align: start;
+      font-family: Inter;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      outline: none;
+      border: none;
+
+      &::placeholder {
+        color: #c6c6c6;
+      }
+    }
+  }
+
+  .active {
+    border-color: var(--light-primary-base, #2952e1);
+    color: var(--light-primary-base, #2952e1);
+  }
+
+  > .hidden {
+    display: none;
+  }
+
+  .menu {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: $card-background-color;
+    border-radius: 10px;
+    border: 1px solid $secondary;
+    position: absolute;
+    margin-top: 45px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    > li {
+      width: 220px;
+      height: 40px;
+      display: flex;
+      align-items: flex-start;
+      color: $secondary;
+      font-family: Inter;
+      font-size: vw-calc(14);
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      padding: 12px 16px;
+      border-bottom: $secondary 1px solid;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $primary;
+        font-size: vw-calc(14);
+
+        &:first-child {
+          border-radius: 10px 10px 0px 0px;
+        }
+      }
+
+      &:active {
+        background-color: $primary;
+      }
+
+      &:last-child {
+        border-bottom: none;
+        border-radius: 0px 0px 10px 10px;
+      }
+    }
+  }
+}
