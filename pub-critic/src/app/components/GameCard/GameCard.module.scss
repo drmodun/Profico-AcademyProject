@@ -1,0 +1,57 @@
+@import "styles/variables.scss";
+@import "styles/vw-calc.scss";
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: vw-mobile-calc(160);
+  .image {
+    width: 100%;
+    height: vw-mobile-calc(150);
+    border-radius: vm-mobile-calc(8);
+    margin-bottom: vm-mobile-calc(10);
+  }
+  .info {
+    background-color: $card-background-color;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: vm-mobile-calc(10);
+    color: $primary;
+    .release-date {
+      font-size: vm-mobile-calc(12);
+      color: $secondary;
+      margin-bottom: vm-mobile-calc(5);
+    }
+    .name {
+      font-size: vm-mobile-calc(14);
+      font-weight: 600;
+      margin-bottom: vm-mobile-calc(5);
+    }
+    .ratings {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      .rating {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: vm-mobile-calc(5);
+        .ratingName {
+          font-size: vm-mobile-calc(12);
+          color: $secondary;
+        }
+        .ratingValue {
+          font-size: vm-mobile-calc(12);
+          color: $primary;
+        }
+      }
+    }
+  }
+}

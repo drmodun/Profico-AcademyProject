@@ -1,8 +1,22 @@
+"use client";
 import Image from "next/image";
 import classes from "./page.module.scss";
 import gaming from "assets/gaming.webp";
+import { getGames } from "api/GamesApi";
+import { useEffect } from "react";
+
+const getGame = async () => {
+  const response = await getGames();
+  if (response) {
+    console.log(response);
+    return response;
+  }
+};
 
 export default function Home() {
+  useEffect(() => {
+    getGame();
+  }, []);
   return (
     <div className={classes.container}>
       <div className={classes.page}>
@@ -16,6 +30,22 @@ export default function Home() {
         </div>
         <div className={classes.section}>
           <h1>Featured</h1>
+          {/* {games.map((game) => {
+            <div className={classes.game}>
+              <div className={classes.image}>
+                <Image
+                  src={game.image}
+                  alt="game"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+              <div className={classes.info}>
+                <h2>{game.name}</h2>
+                <span>{game.description}</span>
+              </div>
+            </div>;
+          })} */}
           <div
             className={classes.notFound} //Before connecting to api
           >
