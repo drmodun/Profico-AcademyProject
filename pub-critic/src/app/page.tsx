@@ -1,21 +1,35 @@
 import Image from "next/image";
 import classes from "./page.module.scss";
 import gaming from "assets/gaming.webp";
-import { getGames } from "api/GamesApi";
-import { useEffect } from "react";
+import { getGames, getLatestGames, getTopRatedGames } from "api/GamesApi";
 import GameCard from "components/GameCard";
 import { Game } from "api/GamesShared";
 
 const getGame = async () => {
   const response = await getGames();
   if (response) {
-    console.log(response.results[0].platforms[0].platform);
+    return response.results;
+  }
+};
+
+const getLatest = async () => {
+  const response = await getLatestGames();
+  if (response) {
+    return response.results;
+  }
+};
+
+export const getTopGames = async () => {
+  const response = await getTopRatedGames();
+  if (response) {
     return response.results;
   }
 };
 
 export default async function Home() {
   const games = await getGame();
+  const latest = await getLatest();
+  const top = await getTopGames();
   return (
     <div className={classes.container}>
       <div className={classes.page}>
@@ -44,20 +58,36 @@ export default async function Home() {
           )}
         </div>
         <div className={classes.section}>
-          <h1>Popular</h1>
-          <div
-            className={classes.notFound} //Before connecting to api
-          >
-            No games found, please try again later
-          </div>
+          <h1>Top rated</h1>
+          {top.length ? (
+            <div className={classes.list}>
+              {top.map((game: Game) => (
+                <GameCard game={game} key={game.id} />
+              ))}
+            </div>
+          ) : (
+            <div
+              className={classes.notFound} //Before connecting to api
+            >
+              No games found, please try again later
+            </div>
+          )}
         </div>
         <div className={classes.section}>
           <h1>Upcoming</h1>
-          <div
-            className={classes.notFound} //Before connecting to api
-          >
-            No games found, please try again later
-          </div>
+          {latest.length ? (
+            <div className={classes.list}>
+              {latest.map((game: Game) => (
+                <GameCard game={game} key={game.id} />
+              ))}
+            </div>
+          ) : (
+            <div
+              className={classes.notFound} //Before connecting to api
+            >
+              No games found, please try again later
+            </div>
+          )}
         </div>
       </div>
     </div>

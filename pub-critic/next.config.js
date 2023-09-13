@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['localhost', 'pub-critic.vercel.app', "media.rawg.io", ],
+        domains: ['localhost', 'pub-critic.netlify.app', "media.rawg.io", "gamesapiandcard-feature-3--pub-critic.netlify.app"],
     },
 }
 

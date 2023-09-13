@@ -6,6 +6,7 @@ import xbox from "assets/xbox.svg";
 import nintendo from "assets/nintendo.svg";
 import epic from "assets/epic.svg";
 import steam from "assets/steam.svg";
+import controller from "assets/controller.svg";
 interface GameCardProps {
   game: Game;
 }
@@ -38,12 +39,16 @@ export const GameCard = ({ game }: GameCardProps) => {
   return (
     <div className={classes.game}>
       <div className={classes.image}>
-        <Image
-          src={game.background_image}
-          alt="game"
-          objectFit="cover"
-          layout="fill"
-        />
+        {game.background_image ? (
+          <Image
+            src={game.background_image}
+            alt="game"
+            objectFit="cover"
+            layout="fill"
+          />
+        ) : (
+          <Image src={controller} alt="game" objectFit="cover" layout="fill" />
+        )}
       </div>
       <div className={classes.info}>
         <span className={classes.releaseDate}>
@@ -65,8 +70,8 @@ export const GameCard = ({ game }: GameCardProps) => {
           </div>
         </div>
         <div className={classes.platforms}>
-          {attachPlatformImage(game.platforms).map((platform) => (
-            <div className={classes.platform} key={platform}>
+          {attachPlatformImage(game.platforms).map((platform, index) => (
+            <div className={classes.platform} key={game.id + index}>
               {<Image src={platform} alt="platform" layout="fill" />}
             </div>
           ))}
