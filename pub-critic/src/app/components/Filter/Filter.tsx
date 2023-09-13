@@ -4,6 +4,7 @@ import classes from "./Filter.module.scss";
 import Dropdown from "components/Dropdown";
 import { Genre, Platform } from "api/GamesShared";
 import { FilterProps } from "api/GamesApi";
+import Slider from "react-slider";
 import FilterInput from "components/FilterInput";
 
 interface Props {
@@ -24,6 +25,8 @@ export const Filter = ({
   const [name, setName] = useState<string>("");
   const [genreCloser, setGenreCloser] = useState<boolean>(false);
   const [platformCloser, setPlatformCloser] = useState<boolean>(false);
+  const [minRating, setMinRating] = useState<number>(0);
+  const [maxRating, setMaxRating] = useState<number>(100);
 
   const handleGenreCloser = () => {
     setPlatformCloser((prev) => !prev);
@@ -72,6 +75,28 @@ export const Filter = ({
             }))}
             onSelect={(value) => {
               setPlatform(value as number);
+            }}
+          />
+        </div>
+        <div className={classes.section}>
+          <span>Rating</span>
+          <div className={classes.ratings}>
+            <span>{minRating}</span>
+            <span>{maxRating}</span>
+          </div>
+          <Slider
+            className={classes.slider}
+            thumbClassName={classes.thumb}
+            trackClassName={classes.track}
+            renderThumb={(props, state) => (
+              <div {...props}>{state.valueNow}</div>
+            )}
+            value={[minRating, maxRating]}
+            max={100}
+            min={0}
+            onChange={(value) => {
+              setMinRating(value[0]);
+              setMaxRating(value[1]);
             }}
           />
         </div>

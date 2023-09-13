@@ -34,5 +34,87 @@
     align-items: center;
     width: 100%;
     margin-bottom: vw-calc(20);
+
+    > span {
+      font-size: vw-calc(16);
+      font-weight: 500;
+      margin-bottom: vw-calc(10);
+    }
+  }
+
+  button {
+    width: 100%;
+    height: vw-calc(40);
+    background-color: $primary;
+    border: none;
+    outline: none;
+    font-size: vw-calc(18);
+    color: $card-background-color;
+    border-radius: vw-calc(10);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: $secondary;
+    }
+
+    &:active {
+      background-color: $background-color;
+    }
+  }
+
+  .ratings {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    margin-bottom: vw-calc(20);
+
+    > span {
+      font-size: vw-calc(16);
+      font-weight: 500;
+      min-width: vw-calc(50);
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: vw-calc(30);
+      border-radius: vw-calc(10);
+      margin-bottom: vw-calc(10);
+      border: 1px solid $secondary;
+    }
+  }
+
+  .slider {
+    width: 100%;
+    margin-bottom: vw-calc(20);
+    height: vw-calc(20);
+    display: flex;
+    align-items: center;
+
+    .track {
+      background-color: $primary;
+      height: vw-calc(10);
+      border-radius: vw-calc(10);
+    }
+
+    .thumb {
+      background-color: $primary;
+      border: 1px solid $primary;
+      outline: none;
+      box-shadow: none;
+      border-radius: 50%;
+      width: vw-calc(30);
+      height: vw-calc(30);
+
+      &:hover {
+        border: none;
+        outline: none;
+        box-shadow: $primary 0px 0px 0px vw-calc(2);
+        cursor: pointer;
+      }
+    }
   }
 }
