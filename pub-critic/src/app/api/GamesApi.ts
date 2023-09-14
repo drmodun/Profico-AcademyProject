@@ -111,7 +111,7 @@ export const getGame = async (id: number) => {
   }
 };
 
-export const getGameScreenshots = async (id: number) => {
+export const getScreenshots = async (id: number) => {
   try {
     const response = await fetch(
       `${gamesApi}/games/${id}/screenshots?key=${apiKey}`,

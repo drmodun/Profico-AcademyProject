@@ -4,8 +4,10 @@ export const apiKey = "464bc085dbbf4f33bcb2ccb39d36a6ec";
 export interface Screenshot {
   id: number;
   image: string;
+  width: number;
+  height: number;
+  is_deleted: boolean;
 }
-
 export interface DetailedGame {
   id: number;
   name: string;
