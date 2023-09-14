@@ -6,6 +6,17 @@ export interface Screenshot {
   image: string;
 }
 
+export interface DetailedGame {
+  id: number;
+  name: string;
+  metacritic: number;
+  released: string;
+  background_image: string;
+  description: string;
+  rating: number;
+  platforms: PlatformFull[];
+}
+
 export interface Genre {
   id: number;
   name: string;
