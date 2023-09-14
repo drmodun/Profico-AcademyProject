@@ -70,6 +70,7 @@ export const Dropdown = ({ options, onSelect, cancel, closer }: Props) => {
               .toLowerCase()
               .includes(searchTerm.toString().toLowerCase())
           )
+          .splice(0, 10)
           .map((option) => (
             <li
               key={option.value}

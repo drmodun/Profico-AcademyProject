@@ -11,6 +11,7 @@
   @media (max-width: 768px) {
     width: vw-mobile-calc(300);
     padding: vw-mobile-calc(20);
+    border-radius: vw-mobile-calc(18);
   }
 
   .filter {
@@ -27,7 +28,7 @@
     font-weight: 500;
 
     @media (max-width: 768px) {
-      border-radius: vw-mobile-calc(16);
+      border-radius: vw-mobile-calc(26);
     }
 
     > h2 {
