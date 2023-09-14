@@ -65,23 +65,21 @@ export const getPlatforms = async () => {
 };
 
 export interface FilterProps {
-  name?: string;
+  search?: string;
   page: number;
   pageSize: number;
   genre?: number;
   platform?: number;
-  metacritic?: number;
-  rating?: string;
+  metacritic?: string;
 }
 
 export const getFilteredGames = async ({
-  name = "",
+  search = "",
   page = 1,
   pageSize = 20,
   genre,
   platform,
   metacritic,
-  rating,
 }: FilterProps) => {
   try {
     const response = await fetch(
@@ -89,9 +87,10 @@ export const getFilteredGames = async ({
         genre && `&genres=${genre}`
       }${platform && `&platforms=${platform}`}${
         metacritic && `&metacritic=${metacritic}`
-      }&search=${name}&ordering=${rating}`,
+      }&search=${search}`,
       { next: { revalidate: 3600 * 0.5 } }
     );
+    console.log(response.url);
     return response.json();
   } catch (error) {
     console.log(error);

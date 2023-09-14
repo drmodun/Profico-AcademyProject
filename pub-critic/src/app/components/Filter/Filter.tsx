@@ -6,12 +6,21 @@ import { Genre, Platform } from "api/GamesShared";
 import { FilterProps } from "api/GamesApi";
 import Slider from "react-slider";
 import FilterInput from "components/FilterInput";
+import Link from "next/link";
 
 interface Props {
   filter?: (value: FilterProps) => void;
   genres: Genre[];
   platforms: Platform[];
 }
+
+const createRatingString = (min: number, max: number) => {
+  const values = [];
+  for (let i = min; i <= max; i++) {
+    values.push(i);
+  }
+  return values.toString();
+};
 
 export const Filter = ({
   filter = (value: FilterProps) => {
@@ -100,20 +109,32 @@ export const Filter = ({
             }}
           />
         </div>
-        <button
+        <Link
           className={classes.button}
+          href={{
+            pathname: "/games",
+            query: {
+              genre: genre ? genre : undefined,
+              platform: platform,
+              search: name.length ? name : undefined,
+              metacritic: minRating + "," + maxRating,
+              page: 1,
+              pageSize: 10,
+            },
+          }}
           onClick={() =>
             filter({
               genre: genre ? genre : undefined,
               platform: platform ? platform : undefined,
-              name: name ? name : undefined,
+              search: name ? name : undefined,
+              metacritic: minRating + "," + maxRating,
               page: 1,
               pageSize: 10,
             })
           }
         >
           Filtriraj
-        </button>
+        </Link>
       </div>
     </div>
   );
