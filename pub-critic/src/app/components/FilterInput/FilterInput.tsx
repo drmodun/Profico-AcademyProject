@@ -1,5 +1,5 @@
 "use client";
-import classes from "./FilterInput.module.scss";
+import classes from "./FIlterInput.module.scss";
 
 interface FilterInputProps {
   label: string;
