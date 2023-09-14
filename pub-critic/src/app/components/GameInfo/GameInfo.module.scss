@@ -10,6 +10,11 @@
   background-color: $background-color;
   padding: 0 5%;
 
+  @media (max-width: 768px) {
+    padding: 0 10%;
+    width: vw-mobile-calc(320);
+  }
+
   h2 {
     color: $primary;
     font-size: vw-calc(24);
@@ -30,6 +35,7 @@
 
     @media (max-width: 768px) {
       flex-direction: column;
+      width: vw-mobile-calc(320);
     }
 
     .info {
@@ -40,8 +46,12 @@
       width: 100%;
       margin-left: vw-calc(30);
 
+      @media (max-width: 768px) {
+        margin-left: 0px;
+      }
+
       .image {
-        width: 100%;
+        width: vw-calc(400);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -50,8 +60,7 @@
         height: vw-calc(225);
 
         @media (max-width: 768px) {
-          margin-right: 0;
-          margin-bottom: vw-mobile-calc(20);
+          display: none;
         }
       }
 
@@ -217,7 +226,8 @@
     margin-bottom: vw-calc(20);
 
     @media (max-width: 768px) {
-      margin-top: vw-mobile-calc(5);
+      margin-top: vw-mobile-calc(15);
+      margin-bottom: vw-mobile-calc(15);
     }
 
     .platform {

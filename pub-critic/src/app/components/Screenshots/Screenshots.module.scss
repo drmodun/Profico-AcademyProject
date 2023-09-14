@@ -23,6 +23,8 @@
 
     @media (max-width: 768px) {
       margin-bottom: vw-mobile-calc(20);
+      width: vw-mobile-calc(320);
+      height: vw-mobile-calc(180);
     }
   }
 
