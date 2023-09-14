@@ -3,6 +3,7 @@ import Image from "next/image";
 import classes from "./Screenshots.module.scss";
 import { useState } from "react";
 import { Screenshot } from "api/GamesShared";
+import contoller from "assets/controller.svg";
 
 interface ScreenshotsProps {
   screenshots: Screenshot[];
@@ -15,7 +16,7 @@ export const Screenshots = ({ screenshots }: ScreenshotsProps) => {
     <div className={classes.container}>
       <div className={classes.selected}>
         <Image
-          src={screenshots[selected].image}
+          src={screenshots[selected] ? screenshots[selected].image : contoller}
           alt="screenshot"
           layout="fill"
         />

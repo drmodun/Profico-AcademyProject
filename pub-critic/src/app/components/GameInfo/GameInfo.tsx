@@ -4,6 +4,7 @@ import { Screenshots } from "components/Screenshots/Screenshots";
 import classes from "./GameInfo.module.scss";
 import { Platform, PlatformFull, Screenshot } from "api/GamesShared";
 import Image from "next/image";
+import contoller from "assets/controller.svg";
 interface GameInfoProps {
   name: string;
   description: string;
@@ -38,7 +39,7 @@ export const GameInfo = ({
         <div className={classes.info}>
           <div className={classes.image}>
             <Image
-              src={background_image}
+              src={background_image ? background_image : contoller}
               alt="game"
               layout="fill"
               objectFit="cover"

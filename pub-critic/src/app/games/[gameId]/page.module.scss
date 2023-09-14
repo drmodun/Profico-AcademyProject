@@ -4,15 +4,15 @@
 .container {
   width: 100%;
   display: flex;
-  min-height: 100vh;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 5vw 0vw;
+  margin-top: 70px;
+  padding: vw-calc(20);
   background-color: $background-color;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    padding: 9vw 0vw;
+    padding: vw-mobile-calc(20);
   }
-}
+}   

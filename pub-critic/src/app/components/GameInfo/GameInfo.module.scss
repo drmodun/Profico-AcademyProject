@@ -2,13 +2,11 @@
 @import "styles/vw-calc.scss";
 
 .container {
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   background-color: $background-color;
-  padding: 0 5%;
 
   @media (max-width: 768px) {
     padding: 0 10%;
@@ -103,6 +101,8 @@
             color: $background-color;
             padding: vw-calc(10);
             border-radius: vw-calc(5);
+            border: none;
+            outline: none;
             transition: all 0.2s ease-in-out;
             font-size: vw-calc(16);
             margin-bottom: vw-calc(5);
@@ -126,6 +126,7 @@
             align-items: center;
             background-color: $secondary;
             color: $background-color;
+            border: none;
             padding: vw-calc(10);
             border-radius: vw-calc(5);
             transition: all 0.2s ease-in-out;
@@ -133,7 +134,8 @@
             margin-bottom: vw-calc(5);
 
             &:hover {
-              background-color: $primary;
+              background-color: $card-background-color;
+              color: $primary;
               cursor: pointer;
             }
 
@@ -151,8 +153,10 @@
             align-items: center;
             background-color: $card-background-color;
             color: $primary;
-            padding: vw-calc(10);
+            border: none;
+            outline: none;
             border-radius: vw-calc(5);
+            padding: vw-calc(10);
             transition: all 0.2s ease-in-out;
             font-size: vw-calc(16);
             margin-bottom: vw-calc(5);
@@ -222,7 +226,7 @@
     flex-wrap: wrap;
     row-gap: vw-calc(10);
     width: 100%;
-    margin-top: vw-calc(5);
+    margin-top: vw-calc(15);
     margin-bottom: vw-calc(20);
 
     @media (max-width: 768px) {
