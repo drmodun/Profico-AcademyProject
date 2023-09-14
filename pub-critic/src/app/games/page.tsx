@@ -7,6 +7,8 @@ import {
 import classes from "./page.module.scss";
 import Filter from "components/Filter";
 import GameCard from "components/GameCard";
+import { get } from "http";
+import GamesList from "components/GamesList";
 
 const fetchGenres = async () => {
   const response = await getGenres();
@@ -41,6 +43,7 @@ const GamesPage = async ({
     metacritic: searchParams?.metacritic as string,
     page: searchParams?.page as number,
     pageSize: searchParams?.pageSize as number,
+    ordering: searchParams?.ordering as string,
   });
   console.log(games);
 
@@ -48,11 +51,7 @@ const GamesPage = async ({
     <div className={classes.container}>
       <div className={classes.page}>
         <Filter genres={genres} platforms={platforms} />
-        <div className={classes.games}>
-          {games.results.map((game) => (
-            <GameCard game={game} key={game.id} />
-          ))}
-        </div>
+        <GamesList games={games.results} searchParams={searchParams} />
       </div>
     </div>
   );

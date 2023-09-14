@@ -25,20 +25,5 @@
       flex-direction: column;
       align-items: center;
     }
-
-    .games {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      column-gap: vw-calc(20);
-      row-gap: vw-calc(20);
-
-      @media (max-width: 768px) {
-        column-gap: vw-mobile-calc(10);
-        row-gap: vw-mobile-calc(20);
-      }
-    }
   }
 }

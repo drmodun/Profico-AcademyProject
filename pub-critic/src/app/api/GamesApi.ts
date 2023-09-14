@@ -71,6 +71,7 @@ export interface FilterProps {
   genre?: number;
   platform?: number;
   metacritic?: string;
+  ordering?: string;
 }
 
 export const getFilteredGames = async ({
@@ -79,6 +80,7 @@ export const getFilteredGames = async ({
   pageSize = 20,
   genre,
   platform,
+  ordering,
   metacritic,
 }: FilterProps) => {
   try {
@@ -87,7 +89,8 @@ export const getFilteredGames = async ({
         genre && `&genres=${genre}`
       }${platform && `&platforms=${platform}`}${
         metacritic && `&metacritic=${metacritic}`
-      }&search=${search}`,
+      }${search && `&search=${search}`}${ordering && `&ordering=${ordering}`}
+      `,
       { next: { revalidate: 3600 * 0.5 } }
     );
     console.log(response.url);

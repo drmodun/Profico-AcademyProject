@@ -7,6 +7,7 @@ import { FilterProps } from "api/GamesApi";
 import Slider from "react-slider";
 import FilterInput from "components/FilterInput";
 import Link from "next/link";
+import Switch from "components/Switch";
 
 interface Props {
   filter?: (value: FilterProps) => void;
@@ -36,6 +37,7 @@ export const Filter = ({
   const [platformCloser, setPlatformCloser] = useState<boolean>(false);
   const [minRating, setMinRating] = useState<number>(0);
   const [maxRating, setMaxRating] = useState<number>(100);
+  const [sorting, setSorting] = useState<string | undefined>();
 
   const handleGenreCloser = () => {
     setPlatformCloser((prev) => !prev);
@@ -109,6 +111,34 @@ export const Filter = ({
             }}
           />
         </div>
+        <div className={classes.section}>
+          <span>Order by</span>
+          <div className={classes.sorting}>
+            <Switch
+              options={[
+                { label: "None", value: "" },
+                { label: "Name", value: "name" },
+                { label: "Release", value: "released" },
+                { label: "Metacritic", value: "metacritic" },
+                { label: "Updated", value: "updated" },
+              ]}
+              onSwitch={(value) => setSorting(value as string)}
+            />
+            {sorting && (
+              <Switch
+                options={[
+                  { label: "Ascending", value: "" },
+                  { label: "Descending", value: "-" },
+                ]}
+                onSwitch={(value) =>
+                  setSorting(
+                    (prev) => (value as string) + prev.replace("-", "")
+                  )
+                }
+              />
+            )}
+          </div>
+        </div>
         <Link
           className={classes.button}
           href={{
@@ -120,6 +150,7 @@ export const Filter = ({
               metacritic: minRating + "," + maxRating,
               page: 1,
               pageSize: 10,
+              ordering: sorting ? sorting : undefined,
             },
           }}
           onClick={() =>
@@ -130,6 +161,7 @@ export const Filter = ({
               metacritic: minRating + "," + maxRating,
               page: 1,
               pageSize: 10,
+              ordering: sorting ? sorting : undefined,
             })
           }
         >
