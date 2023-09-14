@@ -29,6 +29,7 @@ export const Screenshots = ({ screenshots }: ScreenshotsProps) => {
               src={screenshot.image}
               alt="screenshot"
               layout="fill"
+              objectFit="cover"
               onClick={() => setSelected(index)}
             />
           </div>

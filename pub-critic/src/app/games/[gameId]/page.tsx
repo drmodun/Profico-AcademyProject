@@ -1,6 +1,7 @@
 import { getGame, getScreenshots } from "api/GamesApi";
 import classes from "./page.module.scss";
 import { Screenshots } from "components/Screenshots/Screenshots";
+import GameInfo from "components/GameInfo";
 
 const fetchGameDetails = async (gameId: number) => {
   const response = await getGame(gameId);
@@ -24,7 +25,18 @@ const GamePage = async ({ params }: { params: any }) => {
   return (
     <div className={classes.container}>
       <div className={classes.page}>
-        <Screenshots screenshots={screenshots.results} />
+        <GameInfo
+          background_image={game.background_image}
+          description={game.description}
+          metacritic={game.metacritic}
+          metacritic_url={game.metacritic_url}
+          name={game.name}
+          platforms={game.platforms}
+          rating={game.rating}
+          released={game.released}
+          screenshots={screenshots.results}
+          website={game.website}
+        />
       </div>
     </div>
   );

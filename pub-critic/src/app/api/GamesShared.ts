@@ -17,6 +17,8 @@ export interface DetailedGame {
   description: string;
   rating: number;
   platforms: PlatformFull[];
+  website: string;
+  metacritic_url: string;
 }
 
 export interface Genre {
