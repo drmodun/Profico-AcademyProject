@@ -25,7 +25,7 @@ export const SideMenu = ({ toggleMenu, active, user }: SideMenuProps) => {
           <Link className={classes.link} href={user ? "/me" : "/login"}>
             User Page
           </Link>
-          <Link className={classes.link} href="/">
+          <Link className={classes.link} href="/games">
             Games Page
           </Link>
         </div>
