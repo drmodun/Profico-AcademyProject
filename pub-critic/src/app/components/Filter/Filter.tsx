@@ -13,6 +13,15 @@ interface Props {
   filter?: (value: FilterProps) => void;
   genres: Genre[];
   platforms: Platform[];
+  searchParams?: {
+    search?: string;
+    genre?: number;
+    platform?: number;
+    metacritic?: string;
+    page?: number;
+    pageSize?: number;
+    ordering?: string;
+  };
 }
 
 const createRatingString = (min: number, max: number) => {
@@ -29,15 +38,28 @@ export const Filter = ({
   },
   genres,
   platforms,
+  searchParams,
 }: Props) => {
-  const [genre, setGenre] = useState<number | undefined>();
-  const [platform, setPlatform] = useState<number | undefined>();
-  const [name, setName] = useState<string>("");
+  const [genre, setGenre] = useState<number | undefined>(
+    searchParams?.genre || undefined
+  );
+  const [platform, setPlatform] = useState<number | undefined>(
+    searchParams?.platform || undefined
+  );
+  const [name, setName] = useState<string>(searchParams?.search || "");
   const [genreCloser, setGenreCloser] = useState<boolean>(false);
   const [platformCloser, setPlatformCloser] = useState<boolean>(false);
-  const [minRating, setMinRating] = useState<number>(0);
-  const [maxRating, setMaxRating] = useState<number>(100);
-  const [sorting, setSorting] = useState<string | undefined>();
+  const [minRating, setMinRating] = useState<number>(
+    searchParams?.metacritic
+      ? parseInt(searchParams.metacritic.split(",")[0])
+      : 0
+  );
+  const [maxRating, setMaxRating] = useState<number>(
+    searchParams?.metacritic
+      ? parseInt(searchParams.metacritic.split(",")[1])
+      : 100
+  );
+  const [sorting, setSorting] = useState<string>(searchParams?.ordering || "");
 
   const handleGenreCloser = () => {
     setPlatformCloser((prev) => !prev);

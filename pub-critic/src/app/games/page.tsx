@@ -50,7 +50,11 @@ const GamesPage = async ({
   return (
     <div className={classes.container}>
       <div className={classes.page}>
-        <Filter genres={genres} platforms={platforms} />
+        <Filter
+          genres={genres}
+          platforms={platforms}
+          searchParams={searchParams}
+        />
         <GamesList games={games.results} searchParams={searchParams} />
       </div>
     </div>
