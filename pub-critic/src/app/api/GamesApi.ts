@@ -90,8 +90,7 @@ export const getFilteredGames = async ({
       }${platform && `&platforms=${platform}`}${
         metacritic && `&metacritic=${metacritic}`
       }${search && `&search=${search}`}${ordering && `&ordering=${ordering}`}
-      `,
-      { next: { revalidate: 3600 * 0.5 } }
+      `
     );
     console.log(response.url);
     return response.json();
