@@ -1,6 +1,9 @@
 import Image from "next/image";
 import classes from "./page.module.scss";
 import gaming from "assets/gaming.webp";
+import RegisterForm from "components/forms/registerForm";
+import LoginForm from "components/forms/loginForm";
+import ProfileCard from "components/profileCard";
 import { getGames, getLatestGames, getRatedGames } from "api/GamesApi";
 import GameCard from "components/GameCard";
 import { Game } from "api/GamesShared";

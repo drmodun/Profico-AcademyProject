@@ -1,0 +1,113 @@
+import axios from "axios";
+import { baseURL, setJWT } from "./Shared";
+import exp from "constants";
+
+export interface User {
+  email: string;
+  password: string;
+  name: string;
+  bio: string;
+}
+
+export interface UserEdit {
+  name?: string;
+  bio?: string;
+  email?: string;
+}
+
+interface LoginUser {
+  email: string;
+  password: string;
+}
+
+const api = axios.create({
+  baseURL: baseURL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("jwtToken");
+    if (
+      (token &&
+        ["post", "put", "delete", "patch"].includes(config.method || "")) ||
+      (token && config.url?.includes("short")) ||
+      (token && config.url?.includes("favourite")) ||
+      (token && config.url?.includes("me"))
+    ) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+export const postUser = async (user: User) => {
+  try {
+    const response = await api.post("/users", user);
+    if (response.status === 201) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
+
+export const loginUser = async (user: LoginUser) => {
+  try {
+    const response = await api.post("/auth/login", user);
+    setJWT(response.data.accessToken);
+    return true;
+  } catch (error) {
+    alert("Incorrect email or password");
+    return false;
+  }
+};
+
+export const getMe = async () => {
+  try {
+    const response = await api.get("/users/me");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const editMe = async (user: UserEdit) => {
+  try {
+    const response = await api.patch("/users/", user);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteUser = async () => {
+  try {
+    const response = await api.delete("/users/");
+    alert("Account deleted");
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("time");
+    window.location.href = "/";
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const logoutUser = async () => {
+  try {
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("time");
+    alert("Logged out");
+    window.location.href = "/";
+  } catch (error) {
+    console.error(error);
+  }
+};
