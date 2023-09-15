@@ -20,7 +20,7 @@ api.interceptors.request.use(
     if (
       (token &&
         ["post", "put", "delete", "patch"].includes(config.method || "")) ||
-      (token && config.url?.includes("short")) ||
+      (token && config.url?.includes("games")) ||
       (token && config.url?.includes("favourite")) ||
       (token && config.url?.includes("me"))
     ) {
@@ -35,6 +35,9 @@ api.interceptors.request.use(
 
 export const postFavourite = async (favourite: Favourite) => {
   try {
+    if (localStorage.getItem("jwtToken") === null) {
+      return false;
+    }
     const response = await api.post("/favourites", favourite);
     if (response.status === 201) {
       return true;
@@ -59,8 +62,20 @@ export const getFavourites = async (id: number) => {
 };
 
 export const deleteFavourite = async (id: number) => {
+  if (localStorage.getItem("jwtToken") === null) {
+    return false;
+  }
   try {
     const response = await api.delete("/favourites/" + id);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getFavourite = async (id: number) => {
+  try {
+    const response = await api.get("/favourites/games/" + id);
     return response.data;
   } catch (error) {
     console.error(error);

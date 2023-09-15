@@ -8,6 +8,7 @@ import { getGames, getLatestGames, getRatedGames } from "api/GamesApi";
 import GameCard from "components/GameCard";
 import { Game } from "api/GamesShared";
 import { getFavourites } from "api/FavouriteApi";
+import { Favourite } from "api/Shared";
 
 const getGame = async () => {
   const response = await getGames();

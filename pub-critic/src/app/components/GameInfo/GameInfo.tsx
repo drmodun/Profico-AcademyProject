@@ -5,6 +5,9 @@ import classes from "./GameInfo.module.scss";
 import { Platform, PlatformFull, Screenshot } from "api/GamesShared";
 import Image from "next/image";
 import contoller from "assets/controller.svg";
+import { useEffect, useState } from "react";
+import { deleteFavourite, getFavourite, postFavourite } from "api/FavouriteApi";
+import { getFilteredGames } from "api/GamesApi";
 interface GameInfoProps {
   name: string;
   description: string;
@@ -15,6 +18,7 @@ interface GameInfoProps {
   screenshots: Screenshot[];
   platforms: PlatformFull[];
   website: string;
+  id: number;
   metacritic_url: string;
 }
 
@@ -27,10 +31,50 @@ export const GameInfo = ({
   platforms,
   released,
   website,
+  id,
   metacritic_url,
   screenshots,
 }: GameInfoProps) => {
   console.log(screenshots);
+
+  const [isFavourite, setIsFavourite] = useState<boolean>(false);
+
+  const checkFavourite = async () => {
+    const favourite = await getFavourite(id);
+    setIsFavourite(favourite);
+  };
+
+  const handleToggleFavourite = async () => {
+    setIsFavourite((prev) => !prev);
+    if (isFavourite) {
+      await deleteFavourite(id);
+      return;
+    }
+
+    //probably wont have 100% match but I need it to add genres, not the most important
+    const matches = await getFilteredGames({
+      page: 1,
+      pageSize: 1,
+      search: name,
+      metacritic: metacritic.toString(),
+      ordering: "metacritic",
+    });
+    const genres = matches.results[0].genres.map((genre) => genre.name);
+    const newFavourite = {
+      gameId: id,
+      genres: genres,
+    };
+    await postFavourite(newFavourite);
+  };
+
+  useEffect(() => {
+    checkFavourite();
+  }, []);
+
+  useEffect(() => {
+    checkFavourite();
+  }, [id]);
+
   return (
     <div className={classes.container}>
       <h2>{name}</h2>
@@ -60,7 +104,12 @@ export const GameInfo = ({
               <button className={classes.visit}>Visit Website</button>
             </a>
             <a href={"#"} className={classes.link}>
-              <button className={classes.favourite}>Add to favourites</button>
+              <button
+                className={isFavourite ? classes.visit : classes.favourite}
+                onClick={handleToggleFavourite}
+              >
+                {isFavourite ? "Remove from favourites" : "Add to favourites"}
+              </button>
             </a>
             <a href={"#"} className={classes.link}>
               <button className={classes.review}>Leave a review</button>

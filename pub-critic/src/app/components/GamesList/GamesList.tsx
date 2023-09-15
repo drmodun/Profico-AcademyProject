@@ -4,6 +4,10 @@ import classes from "./GamesList.module.scss";
 import GameCard from "components/GameCard";
 import { useRef, useState, useEffect } from "react";
 import { getFilteredGames } from "api/GamesApi";
+import { Favourite } from "api/Shared";
+import { getFavourites } from "api/FavouriteApi";
+import { get } from "http";
+import { getMe } from "api/UserApi";
 
 export interface GamesListProps {
   games: Game[];
@@ -18,12 +22,23 @@ export interface GamesListProps {
 }
 export const GamesList = ({ games, searchParams }: GamesListProps) => {
   const list = useRef<HTMLDivElement>(null);
+  const [favourites, setFavourites] = useState([]);
   const [currentPage, setCurrentPage] = useState<number>(
     searchParams?.page || 1
   );
-
   const [visibleGames, setVisibleGames] = useState<Game[]>(games);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const fetchFavourites = async () => {
+    const user = await getMe();
+    if (!user) return;
+    const response = await getFavourites(user?.id);
+    console.log(response);
+    if (response) {
+      setFavourites(response);
+    }
+  };
+
   const fetchMore = async () => {
     if (loading) return;
     setLoading(true);
@@ -53,6 +68,7 @@ export const GamesList = ({ games, searchParams }: GamesListProps) => {
     if (list.current) {
       list.current.scrollIntoView({ behavior: "smooth" });
     }
+    fetchFavourites();
   }, []);
 
   useEffect(() => {
@@ -71,7 +87,13 @@ export const GamesList = ({ games, searchParams }: GamesListProps) => {
     <>
       <div className={classes.gamesList} ref={list} id="#list">
         {visibleGames.map((game: Game) => (
-          <GameCard game={game} key={game.id} />
+          <GameCard
+            game={game}
+            key={game.id}
+            isFavourite={favourites?.find(
+              (favourite) => favourite.gameId === game.id
+            )}
+          />
         ))}
       </div>
       {loading && <div className={classes.loading}>Loading...</div>}

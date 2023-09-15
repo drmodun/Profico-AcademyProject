@@ -24,14 +24,6 @@ interface Props {
   };
 }
 
-const createRatingString = (min: number, max: number) => {
-  const values = [];
-  for (let i = min; i <= max; i++) {
-    values.push(i);
-  }
-  return values.toString();
-};
-
 export const Filter = ({
   filter = (value: FilterProps) => {
     console.log(value);
