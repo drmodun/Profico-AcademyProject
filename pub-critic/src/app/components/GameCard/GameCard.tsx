@@ -8,8 +8,10 @@ import epic from "assets/epic.svg";
 import steam from "assets/steam.svg";
 import controller from "assets/controller.svg";
 import Link from "next/link";
+import Favourite from "components/Favourite";
 interface GameCardProps {
   game: Game;
+  isFavourite?: boolean;
 }
 
 const attachPlatformImage = (platforms: PlatformFull[]) => {
@@ -36,9 +38,10 @@ const attachPlatformImage = (platforms: PlatformFull[]) => {
   return images;
 };
 
-export const GameCard = ({ game }: GameCardProps) => {
+export const GameCard = ({ game, isFavourite }: GameCardProps) => {
   return (
     <div className={classes.game}>
+      <Favourite genres={game.genres} id={game.id} initActive={isFavourite} />
       <div className={classes.image}>
         {game.background_image ? (
           <Image

@@ -7,11 +7,19 @@ import ProfileCard from "components/profileCard";
 import { getGames, getLatestGames, getRatedGames } from "api/GamesApi";
 import GameCard from "components/GameCard";
 import { Game } from "api/GamesShared";
+import { getFavourites } from "api/FavouriteApi";
 
 const getGame = async () => {
   const response = await getGames();
   if (response) {
     return response.results;
+  }
+};
+
+const getFavorites = async () => {
+  const response = await getFavourites(1);
+  if (response) {
+    return response;
   }
 };
 
@@ -33,6 +41,8 @@ export default async function Home() {
   const games = await getGame();
   const latest = await getLatest();
   const top = await getRated();
+  const favourites = await getFavorites();
+
   return (
     <div className={classes.container}>
       <div className={classes.page}>
@@ -49,7 +59,13 @@ export default async function Home() {
           {games.length ? (
             <div className={classes.list}>
               {games.map((game: Game) => (
-                <GameCard game={game} key={game.id} />
+                <GameCard
+                  game={game}
+                  key={game.id}
+                  isFavourite={favourites?.find(
+                    (favourite) => favourite.gameId === game.id
+                  )}
+                />
               ))}
             </div>
           ) : (
@@ -63,7 +79,7 @@ export default async function Home() {
         <div className={classes.section}>
           <h1>Top rated</h1>
           {top.length ? (
-            <div className={classes.list}>
+            <div c lassName={classes.list}>
               {top.map((game: Game) => (
                 <GameCard game={game} key={game.id} />
               ))}
