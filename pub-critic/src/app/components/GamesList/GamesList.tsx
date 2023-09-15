@@ -26,18 +26,28 @@ export const GamesList = ({ games, searchParams }: GamesListProps) => {
   const [currentPage, setCurrentPage] = useState<number>(
     searchParams?.page || 1
   );
-  const [visibleGames, setVisibleGames] = useState<Game[]>(games);
+  const [visibleGames, setVisibleGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchFavourites = async () => {
     const user = await getMe();
-    if (!user) return;
+    if (!user) {
+      setVisibleGames(games);
+    }
     const response = await getFavourites(user?.id);
     console.log(response);
     if (response) {
       setFavourites(response);
+      setVisibleGames(games);
     }
   };
+
+  useEffect(() => {
+    if (list.current) {
+      list.current.scrollIntoView({ behavior: "smooth" });
+    }
+    fetchFavourites();
+  }, []);
 
   const fetchMore = async () => {
     if (loading) return;
@@ -58,20 +68,6 @@ export const GamesList = ({ games, searchParams }: GamesListProps) => {
   };
 
   useEffect(() => {
-    if (list.current) {
-      list.current.scrollIntoView({ behavior: "smooth" });
-    }
-    setVisibleGames(games);
-  }, [games]);
-
-  useEffect(() => {
-    if (list.current) {
-      list.current.scrollIntoView({ behavior: "smooth" });
-    }
-    fetchFavourites();
-  }, []);
-
-  useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   });
@@ -86,15 +82,23 @@ export const GamesList = ({ games, searchParams }: GamesListProps) => {
   return (
     <>
       <div className={classes.gamesList} ref={list} id="#list">
-        {visibleGames.map((game: Game) => (
-          <GameCard
-            game={game}
-            key={game.id}
-            isFavourite={favourites?.find(
-              (favourite) => favourite.gameId === game.id
-            )}
-          />
-        ))}
+        {visibleGames.map((game: Game) => {
+          console.log(
+            favourites?.find((favourite) => favourite.gameId === game.id) !==
+              undefined
+          );
+          return (
+            <GameCard
+              game={game}
+              key={game.id}
+              isFavourite={
+                favourites?.find(
+                  (favourite) => favourite.gameId === game.id
+                ) !== undefined
+              }
+            />
+          );
+        })}
       </div>
       {loading && <div className={classes.loading}>Loading...</div>}
     </>

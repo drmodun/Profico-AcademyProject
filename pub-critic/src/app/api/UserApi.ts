@@ -80,6 +80,19 @@ export const getMe = async () => {
   }
 };
 
+export const getByJwt = async (jwt: string) => {
+  try {
+    const response = await fetch(baseURL + "/users/me", {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const editMe = async (user: UserEdit) => {
   try {
     const response = await api.patch("/users/", user);

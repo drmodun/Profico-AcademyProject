@@ -22,7 +22,14 @@ export const SideMenu = ({ toggleMenu, active, user }: SideMenuProps) => {
           <Link className={classes.link} href="/">
             Home
           </Link>
-          <Link className={classes.link} href={user ? "/me" : "/login"}>
+          <Link
+            className={classes.link}
+            href={
+              user
+                ? { pathname: "/me", auth: localStorage.getItem("jwtToken") }
+                : "/login"
+            }
+          >
             User Page
           </Link>
           <Link className={classes.link} href="/games">
