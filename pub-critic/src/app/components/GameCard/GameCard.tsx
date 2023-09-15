@@ -84,7 +84,7 @@ export const GameCard = ({ game, isFavourite }: GameCardProps) => {
         </div>
         <div className={classes.genres}>
           {game.genres.map((genre) => (
-            <span className={classes.genre} key={genre.id}>
+            <span className={classes.genre} key={genre.id || undefined}>
               {genre.name}
             </span>
           ))}

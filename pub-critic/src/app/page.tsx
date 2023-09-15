@@ -79,9 +79,15 @@ export default async function Home() {
         <div className={classes.section}>
           <h1>Top rated</h1>
           {top.length ? (
-            <div c lassName={classes.list}>
+            <div className={classes.list}>
               {top.map((game: Game) => (
-                <GameCard game={game} key={game.id} />
+                <GameCard
+                  game={game}
+                  key={game.id}
+                  isFavourite={favourites?.find(
+                    (favourite) => favourite.gameId === game.id
+                  )}
+                />
               ))}
             </div>
           ) : (
@@ -97,7 +103,13 @@ export default async function Home() {
           {latest.length ? (
             <div className={classes.list}>
               {latest.map((game: Game) => (
-                <GameCard game={game} key={game.id} />
+                <GameCard
+                  game={game}
+                  key={game.id}
+                  isFavourite={favourites?.find(
+                    (favourite) => favourite.gameId === game.id
+                  )}
+                />
               ))}
             </div>
           ) : (

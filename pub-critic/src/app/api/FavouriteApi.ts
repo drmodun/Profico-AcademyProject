@@ -48,7 +48,10 @@ export const postFavourite = async (favourite: Favourite) => {
 
 export const getFavourites = async (id: number) => {
   try {
-    const response = await fetch(baseURL + "/favourites/" + id);
+    const response = await fetch(baseURL + "/favourites/" + id, {
+      cache: "no-store",
+    });
+    console.log(response);
     return await response.json();
   } catch (error) {
     console.error(error);
