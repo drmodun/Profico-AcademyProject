@@ -9,6 +9,7 @@ import GameCard from "components/GameCard";
 import { Game } from "api/GamesShared";
 import { getFavourites } from "api/FavouriteApi";
 import { Favourite } from "api/Shared";
+import HomePageSection from "components/HomepageSection";
 
 const getGame = async () => {
   const response = await getGames();
@@ -55,72 +56,9 @@ export default async function Home() {
             <span>The best place to find real game reviews by real people</span>
           </div>
         </div>
-        <div className={classes.section}>
-          <h1>Featured</h1>
-          {games.length ? (
-            <div className={classes.list}>
-              {games.map((game: Game) => (
-                <GameCard
-                  game={game}
-                  key={game.id}
-                  isFavourite={favourites?.find(
-                    (favourite) => favourite.gameId === game.id
-                  )}
-                />
-              ))}
-            </div>
-          ) : (
-            <div
-              className={classes.notFound} //Before connecting to api
-            >
-              No games found, please try again later
-            </div>
-          )}
-        </div>
-        <div className={classes.section}>
-          <h1>Top rated</h1>
-          {top.length ? (
-            <div className={classes.list}>
-              {top.map((game: Game) => (
-                <GameCard
-                  game={game}
-                  key={game.id}
-                  isFavourite={favourites?.find(
-                    (favourite) => favourite.gameId === game.id
-                  )}
-                />
-              ))}
-            </div>
-          ) : (
-            <div
-              className={classes.notFound} //Before connecting to api
-            >
-              No games found, please try again later
-            </div>
-          )}
-        </div>
-        <div className={classes.section}>
-          <h1>Upcoming</h1>
-          {latest.length ? (
-            <div className={classes.list}>
-              {latest.map((game: Game) => (
-                <GameCard
-                  game={game}
-                  key={game.id}
-                  isFavourite={favourites?.find(
-                    (favourite) => favourite.gameId === game.id
-                  )}
-                />
-              ))}
-            </div>
-          ) : (
-            <div
-              className={classes.notFound} //Before connecting to api
-            >
-              No games found, please try again later
-            </div>
-          )}
-        </div>
+        <HomePageSection title="Featured" games={games} />
+        <HomePageSection title="Top Rated" games={top} />
+        <HomePageSection title="Upcoming" games={latest} />
       </div>
     </div>
   );

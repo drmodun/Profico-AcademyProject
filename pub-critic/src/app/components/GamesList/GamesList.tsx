@@ -43,6 +43,10 @@ export const GamesList = ({ games, searchParams }: GamesListProps) => {
   };
 
   useEffect(() => {
+    fetchFavourites();
+  }, [games]);
+
+  useEffect(() => {
     if (list.current) {
       list.current.scrollIntoView({ behavior: "smooth" });
     }

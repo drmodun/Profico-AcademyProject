@@ -61,6 +61,15 @@ export const getFavourites = async (id: number) => {
   }
 };
 
+export const getMyFavourites = async () => {
+  try {
+    const response = await api.get("/favourites");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const deleteFavourite = async (id: number) => {
   if (localStorage.getItem("jwtToken") === null) {
     return false;
