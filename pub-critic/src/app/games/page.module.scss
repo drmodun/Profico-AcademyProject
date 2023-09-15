@@ -1,0 +1,29 @@
+@import "styles/variables.scss";
+@import "styles/vw-calc.scss";
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $background-color;
+  padding: vw-calc(70) vw-calc(20);
+
+  @media (max-width: 768px) {
+    padding: vw-mobile-calc(70) vw-mobile-calc(10);
+  }
+
+  .page {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

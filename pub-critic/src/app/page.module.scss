@@ -1,4 +1,5 @@
 @import "styles/variables.scss";
+@import "styles/vw-calc.scss";
 .container {
   margin-top: 70px;
   padding: 0vw 5vw;
@@ -100,6 +101,39 @@
           font-size: 4vw;
           height: 150vw;
           text-align: center;
+        }
+      }
+
+      .list {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        overflow-x: scroll;
+        margin-top: 20px;
+        > div {
+          margin-right: vw-calc(20);
+        }
+        &::-webkit-scrollbar {
+          scroll-behavior: smooth;
+          scroll-snap-type: x mandatory;
+          position: relative;
+          top: 20px;
+          height: 20px;
+        }
+
+        &::-webkit-scrollbar-track {
+          border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-track-piece {
+          background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: $primary;
+          border-radius: 10px;
         }
       }
     }

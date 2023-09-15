@@ -23,7 +23,7 @@ export const Footer = () => {
           <Link className={classes.link} href="/me">
             User Page
           </Link>
-          <Link className={classes.link} href="/">
+          <Link className={classes.link} href="/games">
             Games Page
           </Link>
         </div>

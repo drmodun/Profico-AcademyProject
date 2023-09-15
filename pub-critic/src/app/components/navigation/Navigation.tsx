@@ -37,11 +37,26 @@ export const Navigation = ({
             setSearchValue(event.target.value);
           }}
         />
-        <Image
-          src={searchImage}
-          alt="search"
-          onClick={() => search && searchHandler(search)}
-        />
+        <Link
+          href={{
+            pathname: "/games",
+            query: {
+              search: searchValue,
+              page: 1,
+              pageSize: 10,
+              platform: undefined,
+              genre: undefined,
+              metacritic: "0,100",
+              ordering: "",
+            },
+          }}
+        >
+          <Image
+            src={searchImage}
+            alt="search"
+            onClick={() => search && searchHandler(search)}
+          />
+        </Link>
       </div>
       <Link
         href={

@@ -1,0 +1,57 @@
+@import "styles/variables.scss";
+@import "styles/vw-calc.scss";
+
+.filterInput {
+  width: 100%;
+  color: $secondary;
+  text-align: center;
+
+  > label {
+    display: flex;
+    font-size: vw-calc(14);
+    font-weight: 500;
+    margin-bottom: vw-calc(15);
+    text-align: center;
+    color: $primary;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+      font-size: vw-mobile-calc(12);
+      margin-bottom: vw-mobile-calc(10);
+    }
+  }
+
+  > input {
+    width: 100%;
+    height: vw-calc(20);
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: vw-calc(18);
+    color: $primary;
+    border: 1px solid $secondary;
+    font-size: vw-calc(18);
+    font-weight: 500;
+    border-radius: vw-calc(10);
+    padding: vw-mobile-calc(5);
+
+    @media screen and (max-width: 768px) {
+      font-size: vw-mobile-calc(12);
+      height: vw-mobile-calc(20);
+      border-radius: vw-mobile-calc(10);
+      padding: vw-mobile-calc(5);
+    }
+
+    &:focus {
+      border: 1px solid $primary;
+    }
+
+    &::placeholder {
+      color: $secondary;
+    }
+  }
+}
