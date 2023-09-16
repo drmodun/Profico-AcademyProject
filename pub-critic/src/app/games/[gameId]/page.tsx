@@ -49,7 +49,25 @@ const GamePage = async ({ params }: { params: any }) => {
           id={game.id}
           website={game.website}
         />
-        <ReviewForm gameId={game.id} />
+        <div className={classes.description}>
+          <h2>About</h2>
+          <div className={classes.genres}>
+            {game.genres &&
+              game.genres.map((genre: any) => (
+                <span key={genre.id}>{genre.name}</span>
+              ))}
+          </div>
+          <p>{game.description_raw}</p>
+        </div>
+        <div className={classes.tags}>
+          {game.tags &&
+            game.tags.map((tag: any) => (
+              <span className={classes.tag} key={tag.id}>
+                {tag.name}
+              </span>
+            ))}
+        </div>
+        <ReviewForm gameId={game.id} gameName={game.name} />
         <div className={classes.reviews}>
           <h2>Reviews</h2>
           {reviews &&

@@ -177,4 +177,19 @@
       border-radius: vw-mobile-calc(7);
     }
   }
+
+  .error {
+    color: $error;
+    font-size: vw-calc(15);
+    margin-bottom: vw-calc(30);
+    min-height: vw-calc(25);
+    text-align: center;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(12);
+      margin-bottom: vw-mobile-calc(15);
+      min-height: vw-mobile-calc(20);
+    }
+  }
 }

@@ -18,6 +18,9 @@ export interface DetailedGame {
   rating: number;
   platforms: PlatformFull[];
   website: string;
+  genres: Genre[];
+  tags: Tag[];
+  description_raw: string;
   metacritic_url: string;
 }
 

@@ -5,6 +5,7 @@ export interface PostReviewProps {
   title: string;
   body: string;
   score: number;
+  gameName: string;
 }
 
 export interface Author {
@@ -50,12 +51,12 @@ api.interceptors.request.use(
   }
 );
 
-export const PostReview = async (body: PostReviewProps, gameId: number) => {
+export const postReview = async (body: PostReviewProps, gameId: number) => {
   if (localStorage.getItem("jwtToken") === null) {
     return false;
   }
   try {
-    const response = await api.post(`/reviews/${gameId}/reviews`, body);
+    const response = await api.post(`/reviews/${gameId}`, body);
     if (response.status === 201) {
       return true;
     }

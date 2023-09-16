@@ -7,13 +7,14 @@ import classes from "./ReviewForm.module.scss";
 import Image from "next/image";
 import star from "assets/star.svg";
 import lackOfStar from "assets/lackOfStar.svg";
-import { PostReview } from "api/ReviewsApi";
+import { postReview } from "api/ReviewsApi";
 
 interface ReviewFormProps {
   gameId: number;
+  gameName: string;
 }
 
-export const ReviewForm = ({ gameId }: ReviewFormProps) => {
+export const ReviewForm = ({ gameId, gameName }: ReviewFormProps) => {
   const [rating, setRating] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
   const [body, setBody] = useState<string>("");
@@ -25,11 +26,27 @@ export const ReviewForm = ({ gameId }: ReviewFormProps) => {
     console.log(rating, title, body);
     console.log("submitted");
 
-    const response = await PostReview(
+    if (rating === 0) {
+      setError("Please select a rating");
+      return;
+    }
+
+    if (title.length < 3) {
+      setError("Title must be at least 3 characters long");
+      return;
+    }
+
+    if (body.length < 10) {
+      setError("Body must be at least 10 characters long");
+      return;
+    }
+
+    const response = await postReview(
       {
         body,
         title,
         score: rating,
+        gameName,
       },
       gameId
     );
@@ -106,6 +123,7 @@ export const ReviewForm = ({ gameId }: ReviewFormProps) => {
       >
         {localStorage.getItem("jwtToken") ? "Submit" : "Login to submit"}
       </button>
+      <span className={classes.error}>{error ? "Error: " + error : ""}</span>
     </form>
   );
 };
