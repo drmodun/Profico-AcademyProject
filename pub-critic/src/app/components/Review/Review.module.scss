@@ -70,6 +70,66 @@
     }
   }
 
+  .actions {
+    width: 100%;
+  }
+
+  .edit {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border: none;
+    margin-bottom: vw-calc(20);
+    margin-top: vw-calc(20);
+    height: vw-calc(20);
+    font-size: vw-calc(16);
+    padding: vw-calc(20);
+    border-radius: vw-calc(5);
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $primary;
+      color: $card-background-color;
+    }
+
+    &:active {
+      background-color: $secondary;
+      color: $card-background-color;
+    }
+  }
+
+  .delete {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    margin-bottom: vw-calc(20);
+    margin-top: vw-calc(20);
+    height: vw-calc(20);
+    font-size: vw-calc(16);
+    padding: vw-calc(20);
+    border-radius: vw-calc(5);
+    background-color: $error;
+
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $primary;
+      color: $card-background-color;
+    }
+
+    &:active {
+      background-color: $secondary;
+      color: $card-background-color;
+    }
+  }
+
   .reviewBody {
     width: 100%;
     display: flex;

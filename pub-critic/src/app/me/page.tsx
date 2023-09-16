@@ -101,7 +101,7 @@ const UserPage = () => {
               ))}
           </div>
           <div className={classes.tabContent}>
-            {tab === "Reviews" && <ReviewsList reviews={reviews} />}
+            {tab === "Reviews" && <ReviewsList areMine reviews={reviews} />}
             {tab === "Info" && (
               <EditableUserInfo
                 getMe={getUser}

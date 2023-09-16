@@ -1,3 +1,4 @@
+"use client";
 import classes from "./Review.module.scss";
 import { Review } from "api/ReviewsApi";
 import Image from "next/image";
@@ -5,12 +6,21 @@ import user from "assets/user.svg";
 
 import { starMaker } from "utils/starMaker";
 import Link from "next/link";
+import ReviewForm from "components/ReviewForm";
+import { useState } from "react";
 
 interface ReviewProps {
+  isMine?: boolean;
   review: Review;
 }
 
-export const ReviewCard: React.FC<ReviewProps> = ({ review }) => {
+export const ReviewCard: React.FC<ReviewProps> = ({ review, isMine }) => {
+  const [editOpen, setEditOpen] = useState<boolean>(false);
+
+  const handleEdit = () => {
+    setEditOpen((prev) => !prev);
+  };
+
   return (
     <div className={classes.review}>
       <div className={classes.reviewHeader}>
@@ -49,6 +59,24 @@ export const ReviewCard: React.FC<ReviewProps> = ({ review }) => {
         <div className={classes.reviewFooter}>
           TODO - add likes and dislikes
         </div>
+        {isMine && (
+          <>
+            <div className={classes.actions}>
+              <button className={classes.edit} onClick={handleEdit}>
+                Edit
+              </button>
+              <button className={classes.delete}>Delete</button>
+            </div>
+            {editOpen && (
+              <ReviewForm
+                gameId={review.gameId}
+                gameName={review.gameName}
+                isEdit
+                initReview={review}
+              />
+            )}
+          </>
+        )}
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import ReviewCard from "components/Review";
 
 export interface ReviewsListProps {
   reviews: Review[];
+  areMine?: boolean;
 }
 
 enum SortProps {
@@ -20,7 +21,7 @@ enum SortOrder {
   Descending,
 }
 
-export const ReviewsList = ({ reviews }: ReviewsListProps) => {
+export const ReviewsList = ({ reviews, areMine }: ReviewsListProps) => {
   const [sortBy, setSortBy] = useState<SortProps>(SortProps.Date);
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.Ascending);
   const [visibleReviews, setVisibleReviews] = useState<Review[]>();
@@ -92,7 +93,7 @@ export const ReviewsList = ({ reviews }: ReviewsListProps) => {
       <div className={classes.reviews}>
         {visibleReviews &&
           visibleReviews.map((review: Review) => (
-            <ReviewCard review={review} key={review.id} />
+            <ReviewCard isMine={areMine} review={review} key={review.id} />
           ))}
       </div>
     </div>

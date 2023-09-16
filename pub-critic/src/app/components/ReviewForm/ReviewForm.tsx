@@ -7,17 +7,33 @@ import classes from "./ReviewForm.module.scss";
 import Image from "next/image";
 import star from "assets/star.svg";
 import lackOfStar from "assets/lackOfStar.svg";
-import { postReview } from "api/ReviewsApi";
+import { postReview, updateReview } from "api/ReviewsApi";
 
 interface ReviewFormProps {
   gameId: number;
+  isEdit?: boolean;
+  initReview?: {
+    score: number;
+    title: string;
+    body: string;
+    id: number;
+  };
   gameName: string;
 }
 
-export const ReviewForm = ({ gameId, gameName }: ReviewFormProps) => {
-  const [rating, setRating] = useState<number>(0);
-  const [title, setTitle] = useState<string>("");
-  const [body, setBody] = useState<string>("");
+export const ReviewForm = ({
+  gameId,
+  gameName,
+  initReview,
+  isEdit,
+}: ReviewFormProps) => {
+  const [rating, setRating] = useState<number>(
+    initReview ? initReview.score : 0
+  );
+  const [title, setTitle] = useState<string>(
+    initReview ? initReview.title : ""
+  );
+  const [body, setBody] = useState<string>(initReview ? initReview.body : "");
   const [error, setError] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,21 +57,30 @@ export const ReviewForm = ({ gameId, gameName }: ReviewFormProps) => {
       return;
     }
 
-    const response = await postReview(
-      {
-        body,
-        title,
-        score: rating,
-        gameName,
-      },
-      gameId
-    );
+    const response = isEdit
+      ? await updateReview(initReview.id, {
+          body,
+          title,
+          score: rating,
+          gameName,
+        })
+      : await postReview(
+          {
+            body,
+            title,
+            score: rating,
+            gameName,
+          },
+          gameId
+        );
     console.log(response);
-  };    
+  };
 
   return (
     <form id="#review" onSubmit={handleSubmit} className={classes.form}>
-      <h2 className={classes.heading}>Write a review</h2>
+      <h2 className={classes.heading}>
+        {isEdit ? "Edit your review" : "Write a review"}
+      </h2>
       <div className={classes.stars}>
         <span>Rating: </span>
         <label htmlFor="rating-1" onClick={() => setRating(1)}>
