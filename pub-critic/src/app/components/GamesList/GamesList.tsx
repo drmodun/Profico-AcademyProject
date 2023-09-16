@@ -5,7 +5,7 @@ import GameCard from "components/GameCard";
 import { useRef, useState, useEffect } from "react";
 import { getFilteredGames } from "api/GamesApi";
 import { Favourite } from "api/Shared";
-import { getFavourites } from "api/FavouriteApi";
+import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { get } from "http";
 import { getMe } from "api/UserApi";
 
@@ -30,11 +30,11 @@ export const GamesList = ({ games, searchParams }: GamesListProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchFavourites = async () => {
-    const user = await getMe();
-    if (!user) {
+    const token = localStorage.getItem("jwtToken");
+    if (!token) {
       setVisibleGames(games);
     }
-    const response = await getFavourites(user?.id);
+    const response = await getMyFavourites();
     console.log(response);
     if (response) {
       setFavourites(response);
@@ -97,6 +97,7 @@ export const GamesList = ({ games, searchParams }: GamesListProps) => {
               game={game}
               key={game.id}
               isFavourite={
+                favourites &&
                 favourites?.find(
                   (favourite: Favourite) => favourite.gameId === game.id
                 ) !== undefined
