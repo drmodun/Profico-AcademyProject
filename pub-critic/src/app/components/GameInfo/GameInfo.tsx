@@ -67,6 +67,17 @@ export const GameInfo = ({
     await postFavourite(newFavourite);
   };
 
+  const handleReviewClick = () => {
+    const review = document.getElementById("#review");
+    console.log(review.getBoundingClientRect().top);
+    if (review) {
+      window.scrollTo({
+        top: review.getBoundingClientRect().top - 100,
+        behavior: "smooth",
+      });
+    }
+  };
+
   useEffect(() => {
     checkFavourite();
   }, []);
@@ -103,7 +114,7 @@ export const GameInfo = ({
             <a href={website} className={classes.link}>
               <button className={classes.visit}>Visit Website</button>
             </a>
-            <a href={"#"} className={classes.link}>
+            <a className={classes.link}>
               <button
                 className={isFavourite ? classes.visit : classes.favourite}
                 onClick={handleToggleFavourite}
@@ -111,7 +122,7 @@ export const GameInfo = ({
                 {isFavourite ? "Remove from favourites" : "Add to favourites"}
               </button>
             </a>
-            <a href={"#"} className={classes.link}>
+            <a onClick={handleReviewClick} className={classes.link}>
               <button className={classes.review}>Leave a review</button>
             </a>
           </div>

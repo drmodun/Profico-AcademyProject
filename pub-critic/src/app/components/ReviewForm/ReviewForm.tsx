@@ -51,10 +51,10 @@ export const ReviewForm = ({ gameId, gameName }: ReviewFormProps) => {
       gameId
     );
     console.log(response);
-  };
+  };    
 
   return (
-    <form onSubmit={handleSubmit} className={classes.form}>
+    <form id="#review" onSubmit={handleSubmit} className={classes.form}>
       <h2 className={classes.heading}>Write a review</h2>
       <div className={classes.stars}>
         <span>Rating: </span>

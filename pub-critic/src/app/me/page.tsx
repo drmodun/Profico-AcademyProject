@@ -134,11 +134,7 @@ const UserPage = () => {
                           released: game.released,
                           rating: game.rating,
                           metacritic: game.metacritic,
-                          genres: favoritesList
-                            .filter((f) => f.gameId === game.id)[0]
-                            .genres.map((genre: string) => {
-                              return { name: genre };
-                            }),
+                          genres: game.genres,
                           platforms: game.platforms,
                         }}
                         key={game.id}

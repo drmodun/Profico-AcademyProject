@@ -45,7 +45,7 @@
     height: vw-calc(150);
     top: 70;
     left: 0;
-    background-color: $backdrop-color;
+    background-color: $light-base-black;
 
     @media screen and (max-width: 768px) {
       height: vw-calc(250);
@@ -73,7 +73,6 @@
     justify-content: flex-start;
     align-items: center;
     background-color: $background-color;
-    padding: 0 vw-calc(50);
     font-size: vw-calc(20);
   }
 
