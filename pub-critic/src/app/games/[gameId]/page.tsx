@@ -5,6 +5,7 @@ import GameInfo from "components/GameInfo";
 import ReviewCard from "components/Review";
 import { Review, getReviews } from "api/ReviewsApi";
 import ReviewForm from "components/ReviewForm";
+import ReviewsList from "components/ReviewsList";
 
 const fetchGameDetails = async (gameId: number) => {
   const response = await getGame(gameId);
@@ -69,14 +70,7 @@ const GamePage = async ({ params }: { params: any }) => {
         </div>
         <ReviewForm gameId={game.id} gameName={game.name} />
         <div className={classes.reviews}>
-          <h2>Reviews</h2>
-          {reviews &&
-            reviews.map((review: Review, index: number) => (
-              <ReviewCard
-                key={review.gameId.toString() + index}
-                review={review}
-              />
-            ))}
+          <ReviewsList reviews={reviews} />
         </div>
       </div>
     </div>
