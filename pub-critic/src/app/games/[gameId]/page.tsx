@@ -2,6 +2,8 @@ import { getGame, getScreenshots } from "api/GamesApi";
 import classes from "./page.module.scss";
 import { Screenshots } from "components/Screenshots/Screenshots";
 import GameInfo from "components/GameInfo";
+import ReviewCard from "components/Review";
+import { getReviews } from "api/ReviewsApi";
 
 const fetchGameDetails = async (gameId: number) => {
   const response = await getGame(gameId);
@@ -17,9 +19,17 @@ const fetchGameScreenshots = async (gameId: number) => {
   }
 };
 
+const fetchReviews = async (gameId: number) => {
+  const response = await getReviews(gameId);
+  if (response) {
+    return response;
+  }
+};
+
 const GamePage = async ({ params }: { params: any }) => {
   const game = await fetchGameDetails(params.gameId);
   const screenshots = await fetchGameScreenshots(params.gameId);
+  const reviews = await fetchReviews(params.gameId);
   console.log(screenshots);
 
   return (
@@ -38,6 +48,16 @@ const GamePage = async ({ params }: { params: any }) => {
           id={game.id}
           website={game.website}
         />
+        <div className={classes.reviews}>
+          <h2>Reviews</h2>
+          {reviews &&
+            reviews.map((review, index) => (
+              <ReviewCard
+                key={review.gameId.toString() + index}
+                review={review}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );

@@ -65,6 +65,18 @@
     margin-top: vw-calc(150);
   }
 
+  .tabContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: $background-color;
+    padding: 0 vw-calc(50);
+    font-size: vw-calc(20);
+  }
+
   .user {
     width: 100%;
     height: 100%;
@@ -170,5 +182,15 @@
   .active {
     background-color: $secondary;
     color: $background-color;
+  }
+
+  .reviews {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: vw-calc(20);
+    margin-top: vw-calc(20);
   }
 }

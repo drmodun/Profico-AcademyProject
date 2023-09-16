@@ -9,6 +9,9 @@ import { Favourite } from "api/Shared";
 import { DetailedGame, Genre } from "api/GamesShared";
 import { getGame } from "api/GamesApi";
 import GameCard from "components/GameCard";
+import { myReviews } from "api/ReviewsApi";
+import { Review } from "api/ReviewsApi";
+import ReviewCard from "components/Review";
 
 enum tabs {
   Info,
@@ -23,12 +26,20 @@ const UserPage = () => {
     //{ genres: ["Action"], gameId: 0, userId: 0 },
   ]);
   const [favourites, setFavourites] = useState<DetailedGame[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
 
   const getUser = async () => {
     const response = await getMe();
     if (response) {
       setUser(response);
       await fetchFavourites();
+    }
+  };
+
+  const fetchReviews = async () => {
+    const respone = await myReviews();
+    if (respone) {
+      setReviews(respone);
     }
   };
 
@@ -55,6 +66,7 @@ const UserPage = () => {
 
   useEffect(() => {
     getUser();
+    fetchReviews();
   }, []);
 
   return (
@@ -89,7 +101,15 @@ const UserPage = () => {
           </div>
           <div className={classes.tabContent}>
             {tab === "Reviews" && (
-              <div className={classes.later}>Reviews (to add after games)</div>
+              <div className={classes.reviews}>
+                {reviews &&
+                  reviews.map((review, index) => (
+                    <ReviewCard
+                      key={review.gameId.toString() + index}
+                      review={review}
+                    />
+                  ))}
+              </div>
             )}
             {tab === "Info" && (
               <EditableUserInfo
