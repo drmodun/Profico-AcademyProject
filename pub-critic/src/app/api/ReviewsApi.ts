@@ -50,12 +50,12 @@ api.interceptors.request.use(
   }
 );
 
-export const PostReview = async (body: PostReviewProps, gameId: string) => {
+export const PostReview = async (body: PostReviewProps, gameId: number) => {
   if (localStorage.getItem("jwtToken") === null) {
     return false;
   }
   try {
-    const response = await api.post(`/games/${gameId}/reviews`, body);
+    const response = await api.post(`/reviews/${gameId}/reviews`, body);
     if (response.status === 201) {
       return true;
     }

@@ -4,6 +4,7 @@ import { Screenshots } from "components/Screenshots/Screenshots";
 import GameInfo from "components/GameInfo";
 import ReviewCard from "components/Review";
 import { Review, getReviews } from "api/ReviewsApi";
+import ReviewForm from "components/ReviewForm";
 
 const fetchGameDetails = async (gameId: number) => {
   const response = await getGame(gameId);
@@ -48,6 +49,7 @@ const GamePage = async ({ params }: { params: any }) => {
           id={game.id}
           website={game.website}
         />
+        <ReviewForm gameId={game.id} />
         <div className={classes.reviews}>
           <h2>Reviews</h2>
           {reviews &&
