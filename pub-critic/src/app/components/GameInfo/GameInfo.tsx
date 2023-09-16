@@ -2,7 +2,7 @@
 
 import { Screenshots } from "components/Screenshots/Screenshots";
 import classes from "./GameInfo.module.scss";
-import { Platform, PlatformFull, Screenshot } from "api/GamesShared";
+import { Genre, Platform, PlatformFull, Screenshot } from "api/GamesShared";
 import Image from "next/image";
 import contoller from "assets/controller.svg";
 import { useEffect, useState } from "react";
@@ -59,7 +59,7 @@ export const GameInfo = ({
       metacritic: metacritic.toString(),
       ordering: "metacritic",
     });
-    const genres = matches.results[0].genres.map((genre) => genre.name);
+    const genres = matches.results[0].genres.map((genre: Genre) => genre.name);
     const newFavourite = {
       gameId: id,
       genres: genres,

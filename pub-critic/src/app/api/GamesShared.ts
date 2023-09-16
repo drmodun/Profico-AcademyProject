@@ -58,6 +58,6 @@ export interface Game {
   background_image: string;
   metacritic: number;
   rating: number;
-  genres: Genre[];
+  genres: Genre[] | undefined ;
   platforms: PlatformFull[];
 }

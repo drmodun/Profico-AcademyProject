@@ -8,19 +8,19 @@ import { Genre } from "api/GamesShared";
 import { deleteFavourite, postFavourite } from "api/FavouriteApi";
 
 interface FavouriteProps {
-  active: boolean;
+  initActive: boolean;
   id: number;
-  genres: Genre[];
+  genres: Genre[] | undefined;
 }
 
-export const Favourite = ({ initActive, id, genres }) => {
+export const Favourite = ({ initActive, id, genres = [] }: FavouriteProps) => {
   const [active, setActive] = useState<boolean>(initActive);
 
   const handleToggleFavourite = () => {
     setActive((prev) => !prev);
     const favourite = {
       gameId: id,
-      genres: genres.map((genre) => genre.name),
+      genres: genres.map((genre: Genre) => genre.name) || [],
     };
 
     if (active) {

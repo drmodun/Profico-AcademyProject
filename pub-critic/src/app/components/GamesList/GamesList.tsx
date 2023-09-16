@@ -88,8 +88,9 @@ export const GamesList = ({ games, searchParams }: GamesListProps) => {
       <div className={classes.gamesList} ref={list} id="#list">
         {visibleGames.map((game: Game) => {
           console.log(
-            favourites?.find((favourite) => favourite.gameId === game.id) !==
-              undefined
+            favourites?.find(
+              (favourite: Favourite) => favourite.gameId === game.id
+            ) !== undefined
           );
           return (
             <GameCard
@@ -97,7 +98,7 @@ export const GamesList = ({ games, searchParams }: GamesListProps) => {
               key={game.id}
               isFavourite={
                 favourites?.find(
-                  (favourite) => favourite.gameId === game.id
+                  (favourite: Favourite) => favourite.gameId === game.id
                 ) !== undefined
               }
             />

@@ -82,7 +82,7 @@ export const Filter = ({
             closer={handleGenreCloser}
             options={genres.map((genre) => ({
               label: genre.name,
-              value: genre.id,
+              value: genre.id!,
             }))}
             onSelect={(value) => {
               setGenre(value as number);

@@ -4,9 +4,9 @@ import classes from "./page.module.scss";
 import { useEffect, useState } from "react";
 import ProfileCard from "components/profileCard";
 import { EditableUserInfo } from "components/editableUserInfo/EditableUserInfo";
-import { getFavourites } from "api/FavouriteApi";
+import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { Favourite } from "api/Shared";
-import { DetailedGame } from "api/GamesShared";
+import { DetailedGame, Genre } from "api/GamesShared";
 import { getGame } from "api/GamesApi";
 import GameCard from "components/GameCard";
 
@@ -19,28 +19,32 @@ enum tabs {
 const UserPage = () => {
   const [user, setUser] = useState<User | null>(null);
   const [tab, setTab] = useState<string>("Info");
-  const [favoritesList, setFavoritesList] = useState<Favourite[]>([]);
+  const [favoritesList, setFavoritesList] = useState<Favourite[]>([
+    //{ genres: ["Action"], gameId: 0, userId: 0 },
+  ]);
   const [favourites, setFavourites] = useState<DetailedGame[]>([]);
 
   const getUser = async () => {
     const response = await getMe();
     if (response) {
       setUser(response);
-      await fetchFavourites(response.id);
+      await fetchFavourites();
     }
   };
 
-  const fetchFavourites = async (id?: number) => {
-    const response = await getFavourites(user?.id || id);
+  const fetchFavourites = async () => {
+    const response: Favourite[] = await getMyFavourites();
     console.log(response);
     if (response) {
       setFavoritesList(response);
       await fetchFavouriteGames(response);
+      return;
     }
+    setFavoritesList([]);
   };
 
   const fetchFavouriteGames = async (games: Favourite[]) => {
-    const response = await Promise.all(
+    const response: DetailedGame[] = await Promise.all(
       games.map((f) => f.gameId).map((id) => getGame(id))
     );
     console.log(response);
@@ -99,26 +103,28 @@ const UserPage = () => {
               <div className={classes.favourites}>
                 Favourites
                 <div className={classes.list}>
-                  {favourites.map((game) => (
-                    <GameCard
-                      game={{
-                        id: game.id,
-                        name: game.name,
-                        background_image: game.background_image,
-                        released: game.released,
-                        rating: game.rating,
-                        metacritic: game.metacritic,
-                        genres: favoritesList
-                          .find((favourite) => favourite.gameId == game.id)
-                          .genres.map((genre) => {
-                            return { name: genre };
-                          }),
-                        platforms: game.platforms,
-                      }}
-                      key={game.id}
-                      isFavourite={true}
-                    />
-                  ))}
+                  {favourites &&
+                    favoritesList &&
+                    favourites.map((game) => (
+                      <GameCard
+                        game={{
+                          id: game.id,
+                          name: game.name,
+                          background_image: game.background_image,
+                          released: game.released,
+                          rating: game.rating,
+                          metacritic: game.metacritic,
+                          genres: favoritesList
+                            .filter((f) => f.gameId === game.id)[0]
+                            .genres.map((genre: string) => {
+                              return { name: genre };
+                            }),
+                          platforms: game.platforms,
+                        }}
+                        key={game.id}
+                        isFavourite={true}
+                      />
+                    ))}
                 </div>
               </div>
             )}

@@ -41,7 +41,11 @@ const attachPlatformImage = (platforms: PlatformFull[]) => {
 export const GameCard = ({ game, isFavourite }: GameCardProps) => {
   return (
     <div className={classes.game}>
-      <Favourite genres={game.genres} id={game.id} initActive={isFavourite} />
+      <Favourite
+        genres={game.genres}
+        id={game.id}
+        initActive={isFavourite || false}
+      />
       <div className={classes.image}>
         {game.background_image ? (
           <Image
@@ -83,11 +87,12 @@ export const GameCard = ({ game, isFavourite }: GameCardProps) => {
           ))}
         </div>
         <div className={classes.genres}>
-          {game.genres.map((genre) => (
-            <span className={classes.genre} key={genre.id || undefined}>
-              {genre.name}
-            </span>
-          ))}
+          {game.genres &&
+            game.genres.map((genre) => (
+              <span className={classes.genre} key={genre.id || undefined}>
+                {genre.name}
+              </span>
+            ))}
         </div>
       </div>
     </div>
