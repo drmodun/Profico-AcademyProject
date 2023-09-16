@@ -12,6 +12,7 @@ import GameCard from "components/GameCard";
 import { myReviews } from "api/ReviewsApi";
 import { Review } from "api/ReviewsApi";
 import ReviewCard from "components/Review";
+import ReviewsList from "components/ReviewsList";
 
 enum tabs {
   Info,
@@ -100,17 +101,7 @@ const UserPage = () => {
               ))}
           </div>
           <div className={classes.tabContent}>
-            {tab === "Reviews" && (
-              <div className={classes.reviews}>
-                {reviews &&
-                  reviews.map((review, index) => (
-                    <ReviewCard
-                      key={review.gameId.toString() + index}
-                      review={review}
-                    />
-                  ))}
-              </div>
-            )}
+            {tab === "Reviews" && <ReviewsList reviews={reviews} />}
             {tab === "Info" && (
               <EditableUserInfo
                 getMe={getUser}
