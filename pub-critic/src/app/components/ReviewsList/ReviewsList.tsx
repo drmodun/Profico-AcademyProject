@@ -26,12 +26,12 @@ export const ReviewsList = ({ reviews, areMine }: ReviewsListProps) => {
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.Ascending);
   const [visibleReviews, setVisibleReviews] = useState<Review[]>();
 
-  const handleSetSortBy = (value: SortProps) => {
-    setSortBy(value);
+  const handleSetSortBy = (value: number | string) => {
+    setSortBy(value as SortProps);
   };
 
-  const handleSetSortOrder = (value: SortOrder) => {
-    setSortOrder(value);
+  const handleSetSortOrder = (value: number | string) => {
+    setSortOrder(value as SortOrder);
   };
 
   const handleSort = (reviews: Review[]) => {
@@ -72,9 +72,12 @@ export const ReviewsList = ({ reviews, areMine }: ReviewsListProps) => {
           <span>Sort by: </span>
           <Switch
             options={[
-              { label: "Date", value: SortProps.Date },
-              { label: "Rating", value: SortProps.Rating },
-              { label: "Alphabetical", value: SortProps.Alphabetical },
+              { label: "Date", value: SortProps.Date as number },
+              { label: "Rating", value: SortProps.Rating as number },
+              {
+                label: "Alphabetical",
+                value: SortProps.Alphabetical as number,
+              },
             ]}
             onSwitch={handleSetSortBy}
           />
@@ -83,8 +86,8 @@ export const ReviewsList = ({ reviews, areMine }: ReviewsListProps) => {
           <span>Order: </span>
           <Switch
             options={[
-              { label: "Ascending", value: SortOrder.Ascending },
-              { label: "Descending", value: SortOrder.Descending },
+              { label: "Ascending", value: SortOrder.Ascending as number },
+              { label: "Descending", value: SortOrder.Descending as number },
             ]}
             onSwitch={handleSetSortOrder}
           />

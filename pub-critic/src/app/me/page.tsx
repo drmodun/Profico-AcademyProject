@@ -128,7 +128,6 @@ const UserPage = () => {
                     favourites.map((game) => (
                       <GameCard
                         avarageRating={
-                          avarages.find &&
                           avarages?.find(
                             (avarage) => avarage.gameId === game.id
                           )?.avarage

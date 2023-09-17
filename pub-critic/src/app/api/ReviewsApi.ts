@@ -122,7 +122,7 @@ export const getAllAvarageRatings = async () => {
 export const getAvarageRatingForGame = async (gameId: number) => {
   try {
     const response = await fetch(baseURL + "/reviews/avg/" + gameId, {
-      next: { revalidate: 3600 * 0.25 },
+      cache: "no-store",
     });
     return await response.json();
   } catch (error) {

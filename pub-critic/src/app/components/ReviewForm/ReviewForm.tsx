@@ -57,8 +57,13 @@ export const ReviewForm = ({
       return;
     }
 
+    if (isEdit !== (initReview !== undefined)) {
+      setError("You cannot edit an empty review");
+      return;
+    }
+
     const response = isEdit
-      ? await updateReview(initReview.id, {
+      ? await updateReview(initReview!.id, {
           body,
           title,
           score: rating,

@@ -54,7 +54,6 @@ export const HomePageSection = ({
               game={game}
               key={game.id}
               avarageRating={
-                avarages.find &&
                 avarages?.find((avarage) => avarage.gameId === game.id)?.avarage
               }
               isFavourite={
