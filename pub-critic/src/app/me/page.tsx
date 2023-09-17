@@ -9,7 +9,7 @@ import { Favourite } from "api/Shared";
 import { DetailedGame, Genre } from "api/GamesShared";
 import { getGame } from "api/GamesApi";
 import GameCard from "components/GameCard";
-import { myReviews } from "api/ReviewsApi";
+import { Avarage, getAllAvarageRatings, myReviews } from "api/ReviewsApi";
 import { Review } from "api/ReviewsApi";
 import ReviewCard from "components/Review";
 import ReviewsList from "components/ReviewsList";
@@ -28,6 +28,7 @@ const UserPage = () => {
   ]);
   const [favourites, setFavourites] = useState<DetailedGame[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [avarages, setAvareges] = useState<Avarage[]>([]);
 
   const getUser = async () => {
     const response = await getMe();
@@ -41,6 +42,13 @@ const UserPage = () => {
     const respone = await myReviews();
     if (respone) {
       setReviews(respone);
+    }
+  };
+
+  const fetchAvarages = async () => {
+    const response = await getAllAvarageRatings();
+    if (response) {
+      setAvareges(response);
     }
   };
 
@@ -68,6 +76,7 @@ const UserPage = () => {
   useEffect(() => {
     getUser();
     fetchReviews();
+    fetchAvarages();
   }, []);
 
   return (
@@ -118,6 +127,12 @@ const UserPage = () => {
                     favoritesList &&
                     favourites.map((game) => (
                       <GameCard
+                        avarageRating={
+                          avarages.find &&
+                          avarages?.find(
+                            (avarage) => avarage.gameId === game.id
+                          )?.avarage
+                        }
                         game={{
                           id: game.id,
                           name: game.name,

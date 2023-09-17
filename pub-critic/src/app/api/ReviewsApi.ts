@@ -13,6 +13,12 @@ export interface Author {
   name: string;
 }
 
+export interface Avarage {
+  gameId: number;
+  count: number;
+  avarage: number;
+}
+
 export interface Review {
   id: number;
   title: string;
@@ -95,6 +101,28 @@ export const getReview = async (reviewId: number) => {
   try {
     const response = await fetch(baseURL + "/reviews/" + reviewId, {
       cache: "no-store",
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getAllAvarageRatings = async () => {
+  try {
+    const response = await fetch(baseURL + "/reviews/avg", {
+      cache: "no-store",
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getAvarageRatingForGame = async (gameId: number) => {
+  try {
+    const response = await fetch(baseURL + "/reviews/avg/" + gameId, {
+      next: { revalidate: 3600 * 0.25 },
     });
     return await response.json();
   } catch (error) {

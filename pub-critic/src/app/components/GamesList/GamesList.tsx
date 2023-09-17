@@ -8,9 +8,11 @@ import { Favourite } from "api/Shared";
 import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { get } from "http";
 import { getMe } from "api/UserApi";
+import { Avarage } from "api/ReviewsApi";
 
 export interface GamesListProps {
   games: Game[];
+  avarages?: Avarage[];
   searchParams?: {
     search?: string;
     genre?: number;
@@ -20,7 +22,11 @@ export interface GamesListProps {
     pageSize?: number;
   };
 }
-export const GamesList = ({ games, searchParams }: GamesListProps) => {
+export const GamesList = ({
+  avarages,
+  games,
+  searchParams,
+}: GamesListProps) => {
   const list = useRef<HTMLDivElement>(null);
   const [favourites, setFavourites] = useState([]);
   const [currentPage, setCurrentPage] = useState<number>(
@@ -96,6 +102,10 @@ export const GamesList = ({ games, searchParams }: GamesListProps) => {
             <GameCard
               game={game}
               key={game.id}
+              avarageRating={
+                avarages?.find &&
+                avarages?.find((avarage) => avarage.gameId === game.id)?.avarage
+              }
               isFavourite={
                 favourites &&
                 favourites?.find(

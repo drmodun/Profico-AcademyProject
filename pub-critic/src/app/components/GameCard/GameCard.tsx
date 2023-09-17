@@ -11,6 +11,7 @@ import Link from "next/link";
 import Favourite from "components/Favourite";
 interface GameCardProps {
   game: Game;
+  avarageRating?: number | null;
   isFavourite?: boolean;
 }
 
@@ -38,7 +39,11 @@ const attachPlatformImage = (platforms: PlatformFull[]) => {
   return images;
 };
 
-export const GameCard = ({ game, isFavourite }: GameCardProps) => {
+export const GameCard = ({
+  game,
+  avarageRating,
+  isFavourite,
+}: GameCardProps) => {
   return (
     <div className={classes.game}>
       <Favourite
@@ -76,7 +81,9 @@ export const GameCard = ({ game, isFavourite }: GameCardProps) => {
           </div>
           <div className={classes.rating}>
             <span className={classes.ratingTitle}>Pub: </span>
-            <span className={classes.ratingValue}>TODO</span>
+            <span className={classes.ratingValue}>
+              {avarageRating ? avarageRating : "N/A"}
+            </span>
           </div>
         </div>
         <div className={classes.platforms}>

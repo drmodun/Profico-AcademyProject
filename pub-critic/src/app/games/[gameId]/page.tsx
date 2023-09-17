@@ -3,7 +3,7 @@ import classes from "./page.module.scss";
 import { Screenshots } from "components/Screenshots/Screenshots";
 import GameInfo from "components/GameInfo";
 import ReviewCard from "components/Review";
-import { Review, getReviews } from "api/ReviewsApi";
+import { Review, getAvarageRatingForGame, getReviews } from "api/ReviewsApi";
 import ReviewForm from "components/ReviewForm";
 import ReviewsList from "components/ReviewsList";
 
@@ -28,10 +28,19 @@ const fetchReviews = async (gameId: number) => {
   }
 };
 
+const getAvarage = async (gameId: number) => {
+  const response = await getAvarageRatingForGame(gameId);
+  console.log(response);
+  if (response) {
+    return response;
+  }
+};
+
 const GamePage = async ({ params }: { params: any }) => {
   const game = await fetchGameDetails(params.gameId);
   const screenshots = await fetchGameScreenshots(params.gameId);
   const reviews = await fetchReviews(params.gameId);
+  const avarage = await getAvarage(params.gameId);
   console.log(screenshots);
 
   return (
@@ -40,6 +49,7 @@ const GamePage = async ({ params }: { params: any }) => {
         <GameInfo
           background_image={game.background_image}
           description={game.description}
+          avarage={avarage}
           metacritic={game.metacritic}
           metacritic_url={game.metacritic_url}
           name={game.name}

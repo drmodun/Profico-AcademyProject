@@ -8,11 +8,13 @@ import contoller from "assets/controller.svg";
 import { useEffect, useState } from "react";
 import { deleteFavourite, getFavourite, postFavourite } from "api/FavouriteApi";
 import { getFilteredGames } from "api/GamesApi";
+import { Avarage } from "api/ReviewsApi";
 interface GameInfoProps {
   name: string;
   description: string;
   metacritic: number;
   rating: number;
+  avarage?: Avarage;
   released: string;
   background_image: string;
   screenshots: Screenshot[];
@@ -31,6 +33,7 @@ export const GameInfo = ({
   platforms,
   released,
   website,
+  avarage,
   id,
   metacritic_url,
   screenshots,
@@ -139,7 +142,9 @@ export const GameInfo = ({
             </div>
             <div className={classes.rating}>
               <span className={classes.ratingTitle}>Pub: </span>
-              <span className={classes.ratingValue}>TODO</span>
+              <span className={classes.ratingValue}>
+                {avarage ? avarage.avarage : "N/A"}
+              </span>
             </div>
           </div>
         </div>
