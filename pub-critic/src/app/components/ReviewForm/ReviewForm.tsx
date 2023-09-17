@@ -73,7 +73,14 @@ export const ReviewForm = ({
           },
           gameId
         );
-    console.log(response);
+    if (response) {
+      alert(
+        isEdit ? "Review updated successfully" : "Review posted successfully"
+      );
+      window.location.reload();
+      return;
+    }
+    setError("Something went wrong");
   };
 
   return (

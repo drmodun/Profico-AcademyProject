@@ -1,6 +1,6 @@
 "use client";
 import classes from "./Review.module.scss";
-import { Review } from "api/ReviewsApi";
+import { Review, deleteReview } from "api/ReviewsApi";
 import Image from "next/image";
 import user from "assets/user.svg";
 
@@ -19,6 +19,20 @@ export const ReviewCard: React.FC<ReviewProps> = ({ review, isMine }) => {
 
   const handleEdit = () => {
     setEditOpen((prev) => !prev);
+  };
+
+  const handleDelete = async () => {
+    const confirmation = confirm(
+      "Are you sure you want to delete this review?"
+    );
+    if (!confirmation) return;
+    const response = await deleteReview(review.id);
+    if (response) {
+      alert("Review deleted");
+      window.location.reload();
+      return;
+    }
+    alert("Something went wrong");
   };
 
   return (
@@ -65,7 +79,9 @@ export const ReviewCard: React.FC<ReviewProps> = ({ review, isMine }) => {
               <button className={classes.edit} onClick={handleEdit}>
                 Edit
               </button>
-              <button className={classes.delete}>Delete</button>
+              <button className={classes.delete} onClick={handleDelete}>
+                Delete
+              </button>
             </div>
             {editOpen && (
               <ReviewForm

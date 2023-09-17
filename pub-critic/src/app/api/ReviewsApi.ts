@@ -81,7 +81,7 @@ export const getReviews = async (gameId: number) => {
 export const deleteReview = async (reviewId: number) => {
   try {
     const response = await api.delete(`/reviews/${reviewId}`);
-    if (response.status === 204) {
+    if (response.status === 200 || response.status === 204) {
       return true;
     }
     return false;
