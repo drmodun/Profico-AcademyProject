@@ -1,7 +1,7 @@
 import { Game, Platform, PlatformFull } from "common/interfaces";
 import classes from "./GameCard.module.scss";
 import Image from "next/image";
-import attachPlatformImage from "utils/static/platformAttacher";
+import attachPlatformImage from "utils/static/PlatformAttacher";
 import controller from "assets/controller.svg";
 
 interface GameCardProps {

@@ -18,9 +18,12 @@ export const platformImageDictionary = {
 };
 
 const attachPlatformImage = (platforms: FullParentPlatform[]) => {
-  const images = [];
+  const images: string[] = [];
   platforms.forEach((platform) => {
-    const image = platformImageDictionary[platform.platform.slug];
+    const image =
+      platformImageDictionary[
+        platform.platform.slug as keyof typeof platformImageDictionary
+      ];
     if (image) {
       images.push(image);
     }
