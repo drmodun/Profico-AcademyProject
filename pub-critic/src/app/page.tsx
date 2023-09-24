@@ -3,7 +3,7 @@ import classes from "./page.module.scss";
 import gaming from "assets/gaming.webp";
 import { getGames, getLatestGames, getRatedGames } from "api/GamesApi";
 import GameCard from "components/GameCard";
-import { Game } from "api/GamesShared";
+import { Game } from "common/interfaces";
 
 const getGame = async () => {
   const response = await getGames();
@@ -46,7 +46,9 @@ export default async function Home() {
           {games.length ? (
             <div className={classes.list}>
               {games.map((game: Game) => (
-                <GameCard game={game} key={game.id} />
+                <div key={game.id} className={classes.listElement}>
+                  <GameCard game={game} />
+                </div>
               ))}
             </div>
           ) : (
@@ -62,7 +64,9 @@ export default async function Home() {
           {top.length ? (
             <div className={classes.list}>
               {top.map((game: Game) => (
-                <GameCard game={game} key={game.id} />
+                <div key={game.id} className={classes.listElement}>
+                  <GameCard game={game} />
+                </div>
               ))}
             </div>
           ) : (
@@ -78,7 +82,9 @@ export default async function Home() {
           {latest.length ? (
             <div className={classes.list}>
               {latest.map((game: Game) => (
-                <GameCard game={game} key={game.id} />
+                <div key={game.id} className={classes.listElement}>
+                  <GameCard game={game} />
+                </div>
               ))}
             </div>
           ) : (

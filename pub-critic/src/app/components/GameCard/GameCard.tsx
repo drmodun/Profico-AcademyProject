@@ -1,39 +1,12 @@
-import { Game, Platform, PlatformFull } from "api/GamesShared";
+import { Game, Platform, PlatformFull } from "common/interfaces";
 import classes from "./GameCard.module.scss";
 import Image from "next/image";
-import playstation from "assets/playstation.svg";
-import xbox from "assets/xbox.svg";
-import nintendo from "assets/nintendo.svg";
-import epic from "assets/epic.svg";
-import steam from "assets/steam.svg";
+import attachPlatformImage from "utils/static/platformAttacher";
 import controller from "assets/controller.svg";
+
 interface GameCardProps {
   game: Game;
 }
-
-const attachPlatformImage = (platforms: PlatformFull[]) => {
-  const images = [];
-  if (
-    platforms.find((p) => p.platform.name.toLowerCase().includes("playStation"))
-  ) {
-    images.push(playstation);
-  }
-  if (platforms.find((p) => p.platform.name === "PC")) {
-    images.push(steam);
-  }
-  if (platforms.find((p) => p.platform.name.toLowerCase().includes("xbox"))) {
-    images.push(xbox);
-  }
-  if (
-    platforms.find((p) => p.platform.name.toLowerCase().includes("nintendo"))
-  ) {
-    images.push(nintendo);
-  }
-  if (platforms.find((p) => p.platform.name.toLowerCase().includes("epic"))) {
-    images.push(epic);
-  }
-  return images;
-};
 
 export const GameCard = ({ game }: GameCardProps) => {
   return (
@@ -70,7 +43,7 @@ export const GameCard = ({ game }: GameCardProps) => {
           </div>
         </div>
         <div className={classes.platforms}>
-          {attachPlatformImage(game.platforms).map((platform, index) => (
+          {attachPlatformImage(game.parent_platforms).map((platform, index) => (
             <div className={classes.platform} key={game.id + index}>
               {<Image src={platform} alt="platform" layout="fill" />}
             </div>
