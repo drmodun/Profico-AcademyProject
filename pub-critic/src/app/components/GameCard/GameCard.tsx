@@ -35,7 +35,7 @@ const attachPlatformImage = (platforms: PlatformFull[]) => {
   return images;
 };
 
-export const GameCard = ({ game }: GameCardProps) => {
+export const GameCard: React.FC<GameCardProps> = ({ game }: GameCardProps) => {
   return (
     <div className={classes.game}>
       <div className={classes.image}>

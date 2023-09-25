@@ -51,7 +51,7 @@
     width: 100%;
     margin-bottom: vw-calc(20);
 
-    > span {
+    > .title {
       font-size: vw-calc(16);
       font-weight: 500;
       margin-bottom: vw-calc(10);
@@ -116,7 +116,7 @@
       margin-bottom: vw-mobile-calc(20);
     }
 
-    > span {
+    > .ratingElement {
       font-size: vw-calc(16);
       font-weight: 500;
       min-width: vw-calc(50);
