@@ -57,8 +57,8 @@ export const ReviewForm = ({
       return;
     }
 
-    if (isEdit !== (initReview !== undefined)) {
-      setError("You cannot edit an empty review");
+    if (isEdit && body === initReview!.body && title === initReview!.title) {
+      setError("You must change something to update your review");
       return;
     }
 
