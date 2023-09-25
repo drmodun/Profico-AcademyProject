@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import classes from "./Filter.module.scss";
 import Dropdown from "components/Dropdown";
-import { Genre, Platform } from "api/GamesShared";
+import { Genre, Platform } from "common/interfaces";
 import { FilterProps } from "api/GamesApi";
 import Slider from "react-slider";
 import FilterInput from "components/FilterInput";

@@ -1,5 +1,5 @@
-import exp from "constants";
-import { apiKey, gamesApi } from "./GamesShared";
+export const gamesApi = "https://api.rawg.io/api";
+export const apiKey = "464bc085dbbf4f33bcb2ccb39d36a6ec";
 
 export const getGames = async (page: number = 1, pageSize: number = 20) => {
   try {

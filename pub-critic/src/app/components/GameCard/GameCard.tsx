@@ -1,4 +1,4 @@
-import { Game, Platform, PlatformFull } from "api/GamesShared";
+import { Game, Platform, PlatformFull } from "common/interfaces";
 import classes from "./GameCard.module.scss";
 import Image from "next/image";
 import playstation from "assets/playstation.svg";

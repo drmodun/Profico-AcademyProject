@@ -2,8 +2,9 @@
 import Image from "next/image";
 import classes from "./Screenshots.module.scss";
 import { useState } from "react";
-import { Screenshot } from "api/GamesShared";
+import { Screenshot } from "common/interfaces";
 import contoller from "assets/controller.svg";
+import clsx from "clsx";
 
 interface ScreenshotsProps {
   screenshots: Screenshot[];
@@ -11,6 +12,10 @@ interface ScreenshotsProps {
 
 export const Screenshots = ({ screenshots }: ScreenshotsProps) => {
   const [selected, setSelected] = useState(0);
+
+  const handleSelect = (index: number) => {
+    setSelected(index);
+  };
 
   return (
     <div className={classes.container}>
@@ -25,13 +30,13 @@ export const Screenshots = ({ screenshots }: ScreenshotsProps) => {
         {screenshots.map((screenshot, index) => (
           <div className={classes.screenshot} key={screenshot.id}>
             <Image
-              className={index === selected ? classes.selected : ""}
+              className={clsx(selected === index && classes.selected)}
               key={index}
               src={screenshot.image}
               alt="screenshot"
               layout="fill"
               objectFit="cover"
-              onClick={() => setSelected(index)}
+              onClick={handleSelect.bind(null, index)}
             />
           </div>
         ))}

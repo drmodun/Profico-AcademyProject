@@ -1,5 +1,5 @@
 "use client";
-import { Game } from "api/GamesShared";
+import { Game } from "common/interfaces";
 import classes from "./GamesList.module.scss";
 import GameCard from "components/GameCard";
 import { useRef, useState, useEffect } from "react";

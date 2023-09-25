@@ -2,9 +2,11 @@
 
 import { Screenshots } from "components/Screenshots/Screenshots";
 import classes from "./GameInfo.module.scss";
-import { Platform, PlatformFull, Screenshot } from "api/GamesShared";
+import { Platform, PlatformFull, Screenshot } from "common/interfaces";
 import Image from "next/image";
 import contoller from "assets/controller.svg";
+import Link from "next/link";
+
 interface GameInfoProps {
   name: string;
   description: string;
@@ -18,7 +20,7 @@ interface GameInfoProps {
   metacritic_url: string;
 }
 
-export const GameInfo = ({
+export const GameInfo: React.FC<GameInfoProps> = ({
   name,
   description,
   metacritic,
@@ -30,7 +32,6 @@ export const GameInfo = ({
   metacritic_url,
   screenshots,
 }: GameInfoProps) => {
-  console.log(screenshots);
   return (
     <div className={classes.container}>
       <h2>{name}</h2>
@@ -56,15 +57,15 @@ export const GameInfo = ({
             <span>Released: {released} </span>
           </div>
           <div className={classes.buttons}>
-            <a href={website} className={classes.link}>
+            <Link href={website} className={classes.link}>
               <button className={classes.visit}>Visit Website</button>
-            </a>
-            <a href={"#"} className={classes.link}>
+            </Link>
+            <Link href={"#"} className={classes.link}>
               <button className={classes.favourite}>Add to favourites</button>
-            </a>
-            <a href={"#"} className={classes.link}>
+            </Link>
+            <Link href={"#"} className={classes.link}>
               <button className={classes.review}>Leave a review</button>
-            </a>
+            </Link>
           </div>
           <div className={classes.ratings}>
             <div className={classes.rating}>
