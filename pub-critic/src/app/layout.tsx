@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "./globals.scss";
 import { Inter } from "next/font/google";
 import { Navigation } from "./components/navigation/Navigation";
-import Footer from "components/Footer";
+import Footer from "components/footer";
 import { useState } from "react";
 import SideMenu from "components/sideMenu";
 
