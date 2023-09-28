@@ -1,13 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import classes from "./ReviewsList.module.scss";
-import { Review } from "api/ReviewsApi";
+import { Review } from "common/interfaces";
 import Switch from "components/Switch";
 import ReviewCard from "components/Review";
 
 export interface ReviewsListProps {
   reviews: Review[];
   areMine?: boolean;
+  refetch?: () => Promise<void>;
 }
 
 enum SortProps {
@@ -21,7 +22,11 @@ enum SortOrder {
   Descending,
 }
 
-export const ReviewsList = ({ reviews, areMine }: ReviewsListProps) => {
+export const ReviewsList = ({
+  reviews,
+  areMine,
+  refetch,
+}: ReviewsListProps) => {
   const [sortBy, setSortBy] = useState<SortProps>(SortProps.Date);
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.Ascending);
   const [visibleReviews, setVisibleReviews] = useState<Review[]>();
@@ -58,10 +63,6 @@ export const ReviewsList = ({ reviews, areMine }: ReviewsListProps) => {
     handleSort(reviews);
   }, [sortBy, sortOrder, reviews]);
 
-  useEffect(() => {
-    handleSort(reviews);
-  }, []);
-
   return (
     <div className={classes.list}>
       <span className={classes.title}>
@@ -72,11 +73,11 @@ export const ReviewsList = ({ reviews, areMine }: ReviewsListProps) => {
           <span>Sort by: </span>
           <Switch
             options={[
-              { label: "Date", value: SortProps.Date as number },
-              { label: "Rating", value: SortProps.Rating as number },
+              { label: "Date", value: SortProps.Date },
+              { label: "Rating", value: SortProps.Rating },
               {
                 label: "Alphabetical",
-                value: SortProps.Alphabetical as number,
+                value: SortProps.Alphabetical,
               },
             ]}
             onSwitch={handleSetSortBy}
@@ -96,7 +97,12 @@ export const ReviewsList = ({ reviews, areMine }: ReviewsListProps) => {
       <div className={classes.reviews}>
         {visibleReviews &&
           visibleReviews.map((review: Review) => (
-            <ReviewCard isMine={areMine} review={review} key={review.id} />
+            <ReviewCard
+              isMine={areMine}
+              review={review}
+              key={review.id}
+              refetch={refetch}
+            />
           ))}
       </div>
     </div>

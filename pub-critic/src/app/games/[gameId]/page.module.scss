@@ -99,6 +99,7 @@
     padding: 0 vw-calc(50);
     background-color: $background-color;
     margin-bottom: vw-calc(20);
+    
     @media (max-width: 768px) {
       width: 100%;
       row-gap: vw-mobile-calc(5);

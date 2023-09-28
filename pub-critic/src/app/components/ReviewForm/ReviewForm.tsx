@@ -12,6 +12,7 @@ import { postReview, updateReview } from "api/ReviewsApi";
 interface ReviewFormProps {
   gameId: number;
   isEdit?: boolean;
+  refetch?: () => Promise<void>;
   initReview?: {
     score: number;
     title: string;
@@ -25,6 +26,7 @@ export const ReviewForm = ({
   gameId,
   gameName,
   initReview,
+  refetch,
   isEdit,
 }: ReviewFormProps) => {
   const [rating, setRating] = useState<number>(
@@ -82,7 +84,7 @@ export const ReviewForm = ({
       alert(
         isEdit ? "Review updated successfully" : "Review posted successfully"
       );
-      window.location.reload();
+      refetch!();
       return;
     }
     setError("Something went wrong");

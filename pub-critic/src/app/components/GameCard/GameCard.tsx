@@ -11,7 +11,7 @@ import Link from "next/link";
 import Favourite from "components/Favourite";
 interface GameCardProps {
   game: Game;
-  avarageRating?: number | null;
+  avarageRating?: number;
   isFavourite?: boolean;
 }
 
@@ -82,7 +82,7 @@ export const GameCard = ({
           <div className={classes.rating}>
             <span className={classes.ratingTitle}>Pub: </span>
             <span className={classes.ratingValue}>
-              {avarageRating ? avarageRating : "N/A"}
+              {avarageRating ?? "N/A"}
             </span>
           </div>
         </div>

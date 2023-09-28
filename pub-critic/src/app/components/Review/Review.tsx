@@ -1,6 +1,7 @@
 "use client";
 import classes from "./Review.module.scss";
-import { Review, deleteReview } from "api/ReviewsApi";
+import { Review } from "common/interfaces";
+import { deleteReview } from "api/ReviewsApi";
 import Image from "next/image";
 import user from "assets/user.svg";
 
@@ -12,9 +13,14 @@ import { useState } from "react";
 interface ReviewProps {
   isMine?: boolean;
   review: Review;
+  refetch?: () => Promise<void>;
 }
 
-export const ReviewCard: React.FC<ReviewProps> = ({ review, isMine }) => {
+export const ReviewCard: React.FC<ReviewProps> = ({
+  review,
+  isMine,
+  refetch,
+}) => {
   const [editOpen, setEditOpen] = useState<boolean>(false);
 
   const handleEdit = () => {
@@ -29,7 +35,7 @@ export const ReviewCard: React.FC<ReviewProps> = ({ review, isMine }) => {
     const response = await deleteReview(review.id);
     if (response) {
       alert("Review deleted");
-      window.location.reload();
+      refetch!();
       return;
     }
     alert("Something went wrong");
@@ -87,6 +93,7 @@ export const ReviewCard: React.FC<ReviewProps> = ({ review, isMine }) => {
               <ReviewForm
                 gameId={review.gameId}
                 gameName={review.gameName}
+                refetch={refetch}
                 isEdit
                 initReview={review}
               />

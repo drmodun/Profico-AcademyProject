@@ -9,9 +9,8 @@ import { Favourite } from "api/Shared";
 import { DetailedGame, Genre } from "api/GamesShared";
 import { getGame } from "api/GamesApi";
 import GameCard from "components/GameCard";
-import { Avarage, getAllAvarageRatings, myReviews } from "api/ReviewsApi";
-import { Review } from "api/ReviewsApi";
-import ReviewCard from "components/Review";
+import { getAllAvarageRatings, myReviews } from "api/ReviewsApi";
+import { Avarage, Review } from "common/interfaces";
 import ReviewsList from "components/ReviewsList";
 
 enum tabs {
@@ -110,7 +109,9 @@ const UserPage = () => {
               ))}
           </div>
           <div className={classes.tabContent}>
-            {tab === "Reviews" && <ReviewsList areMine reviews={reviews} />}
+            {tab === "Reviews" && (
+              <ReviewsList refetch={fetchReviews} areMine reviews={reviews} />
+            )}
             {tab === "Info" && (
               <EditableUserInfo
                 getMe={getUser}

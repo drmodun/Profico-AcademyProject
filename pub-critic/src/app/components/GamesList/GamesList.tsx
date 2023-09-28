@@ -8,7 +8,7 @@ import { Favourite } from "api/Shared";
 import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { get } from "http";
 import { getMe } from "api/UserApi";
-import { Avarage } from "api/ReviewsApi";
+import { Avarage } from "common/interfaces";
 
 export interface GamesListProps {
   games: Game[];
