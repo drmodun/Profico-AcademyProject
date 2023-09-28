@@ -16,13 +16,13 @@
     align-items: center;
     background-color: transparent;
     border-radius: vw-calc(5);
-    padding: vw-calc(10) vw-calc(20);
+    padding: vw-calc(10 20);
     border: 1px solid;
     border-color: $secondary;
 
     @media (max-width: 768px) {
       height: vw-mobile-calc(20);
-      padding: vw-mobile-calc(5) vw-mobile-calc(10);
+      padding: vw-mobile-calc(5 10);
       border-radius: vw-mobile-calc(5);
     }
 
@@ -94,7 +94,7 @@
         width: vw-mobile-calc(200);
         height: vw-mobile-calc(20);
         font-size: vw-mobile-calc(10);
-        padding: vw-mobile-calc(5) vw-mobile-calc(10);
+        padding: vw-mobile-calc(5 10);
       }
 
       &:hover {

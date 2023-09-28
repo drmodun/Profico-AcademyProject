@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import classes from "./Dropdown.module.scss";
+import clsx from "clsx";
 
 interface DropdownProps {
   options: Option[];
@@ -52,7 +53,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div className={classes.dropdown}>
       <div
-        className={`${visible ? classes.active : ""} ${classes.top} `}
+        className={clsx(classes.top, visible && classes.active)}
         onClick={toggleVisible}
       >
         <input

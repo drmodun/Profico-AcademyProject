@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import classes from "./Filter.module.scss";
 import Dropdown from "components/Dropdown";
 import { Genre, Platform } from "api/GamesShared";
 import { FilterProps } from "api/GamesApi";
@@ -8,6 +7,7 @@ import Slider from "react-slider";
 import FilterInput from "components/FilterInput";
 import Link from "next/link";
 import Switch from "components/Switch";
+import classes from "./Filter.module.scss";
 
 interface Props {
   genres: Genre[];
