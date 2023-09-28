@@ -5,7 +5,7 @@ import GameCard from "components/GameCard";
 import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { useState, useEffect } from "react";
 import { Favourite } from "api/Shared";
-import { Avarage } from "api/ReviewsApi";
+import { Avarage } from "common/interfaces";
 
 interface HomePageSectionProps {
   title: string;

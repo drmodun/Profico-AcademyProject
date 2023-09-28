@@ -8,7 +8,7 @@ import contoller from "assets/controller.svg";
 import { useEffect, useState } from "react";
 import { deleteFavourite, getFavourite, postFavourite } from "api/FavouriteApi";
 import { getFilteredGames } from "api/GamesApi";
-import { Avarage } from "api/ReviewsApi";
+import { Avarage } from "common/interfaces";
 interface GameInfoProps {
   name: string;
   description: string;

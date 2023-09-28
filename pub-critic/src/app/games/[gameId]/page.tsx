@@ -3,7 +3,8 @@ import classes from "./page.module.scss";
 import { Screenshots } from "components/Screenshots/Screenshots";
 import GameInfo from "components/GameInfo";
 import ReviewCard from "components/Review";
-import { Review, getAvarageRatingForGame, getReviews } from "api/ReviewsApi";
+import { getAvarageRatingForGame, getReviews } from "api/ReviewsApi";
+import { Avarage } from "common/interfaces";
 import ReviewForm from "components/ReviewForm";
 import ReviewsList from "components/ReviewsList";
 
