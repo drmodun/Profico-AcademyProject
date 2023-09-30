@@ -4,6 +4,7 @@ import chevron_down from "assets/chevron-down.svg";
 import chevron_up from "assets/chevron-up.svg";
 import classes from "./Switch.module.scss";
 import Image from "next/image";
+import { Option } from "common/interfaces";
 
 interface SwitchProps {
   options: Option[];

@@ -65,7 +65,7 @@ export interface DetailedGame {
   website: string;
   metacritic_url: string;
 }
-interface Option {
+export interface Option {
   label: string;
   value: string | number;
 }
