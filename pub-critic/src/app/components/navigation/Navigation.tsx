@@ -23,6 +23,11 @@ export const Navigation = ({
   name,
 }: NavigationProps) => {
   const [searchValue, setSearchValue] = useState<string>(search ? search : "");
+
+  const handleSearch = () => {
+    if (searchValue) searchHandler(searchValue);
+  };
+
   return (
     <div className={classes.navigation}>
       <Link href="/" className={classes.name}>
@@ -51,11 +56,7 @@ export const Navigation = ({
             },
           }}
         >
-          <Image
-            src={searchImage}
-            alt="search"
-            onClick={() => search && searchHandler(search)}
-          />
+          <Image src={searchImage} alt="search" onClick={handleSearch} />
         </Link>
       </div>
       <Link

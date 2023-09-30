@@ -1,5 +1,6 @@
 export const gamesApi = "https://api.rawg.io/api";
 export const apiKey = "464bc085dbbf4f33bcb2ccb39d36a6ec";
+import queryString from "query-string";
 
 export const getGames = async (page: number = 1, pageSize: number = 20) => {
   try {
@@ -85,15 +86,17 @@ export const getFilteredGames = async ({
   metacritic,
 }: FilterProps) => {
   try {
-    const response = await fetch(
-      `${gamesApi}/games?key=${apiKey}&page=${page}&page_size=${pageSize}${
-        genre && `&genres=${genre}`
-      }${platform && `&platforms=${platform}`}${
-        metacritic && `&metacritic=${metacritic}`
-      }${search && `&search=${search}`}${ordering && `&ordering=${ordering}`}
-      `
-    );
-    console.log(response.url);
+    const query = queryString.stringify({
+      key: apiKey,
+      page,
+      ...(search && { search }),
+      page_size: pageSize,
+      ...(genre && { genres: genre }),
+      ...(platform && { platforms: platform }),
+      ...(metacritic && { metacritic }),
+      ...(ordering && { ordering }),
+    });
+    const response = await fetch(`${gamesApi}/games?${query}`);
     return response.json();
   } catch (error) {
     console.log(error);

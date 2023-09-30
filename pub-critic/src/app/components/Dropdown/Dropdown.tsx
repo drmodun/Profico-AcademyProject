@@ -1,19 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import classes from "./Dropdown.module.scss";
-interface Option {
-  label: string;
-  value: string | number;
-}
+import clsx from "clsx";
 
-interface Props {
+interface DropdownProps {
   options: Option[];
   onSelect: (value: string | number) => void;
   cancel?: boolean;
   closer?: Function;
 }
 
-export const Dropdown = ({ options, onSelect, cancel, closer }: Props) => {
+export const Dropdown: React.FC<DropdownProps> = ({
+  options,
+  onSelect,
+  cancel,
+  closer,
+}) => {
   const [searchTerm, setSearchTerm] = useState<string | number>("");
   const [selected, setSelected] = useState<string | number>("");
   const [visible, setVisible] = useState<boolean>(false);
@@ -31,6 +33,19 @@ export const Dropdown = ({ options, onSelect, cancel, closer }: Props) => {
     setVisible(false);
   };
 
+  const toggleVisible = () => {
+    closer && closer();
+    setVisible((prev) => !prev);
+  };
+
+  const handleReset = () => {
+    setSelected("");
+    setSearchTerm("");
+    setPlaceholder("Search");
+    onSelect("");
+    setVisible(false);
+  };
+
   useEffect(() => {
     setVisible(false);
   }, [cancel]);
@@ -38,11 +53,8 @@ export const Dropdown = ({ options, onSelect, cancel, closer }: Props) => {
   return (
     <div className={classes.dropdown}>
       <div
-        className={`${visible ? classes.active : ""} ${classes.top} `}
-        onClick={() => {
-          closer && closer();
-          setVisible((prev) => !prev);
-        }}
+        className={clsx(classes.top, visible && classes.active)}
+        onClick={toggleVisible}
       >
         <input
           type="text"
@@ -52,18 +64,7 @@ export const Dropdown = ({ options, onSelect, cancel, closer }: Props) => {
         />
       </div>
       <div className={visible ? classes.menu : classes.hidden}>
-        {
-          <li
-            key=""
-            onClick={() => {
-              setSelected("");
-              setSearchTerm("");
-              setPlaceholder("Search");
-              onSelect("");
-              setVisible(false);
-            }}
-          ></li>
-        }
+        {<li key="" onClick={handleReset}></li>}
         {options
           .filter((option) =>
             option.label

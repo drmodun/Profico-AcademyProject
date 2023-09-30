@@ -11,7 +11,7 @@
   padding: vw-calc(70) vw-calc(20);
 
   @media (max-width: 768px) {
-    padding: vw-mobile-calc(70) vw-mobile-calc(10);
+    padding: vw-mobile-calc(70 10);
   }
 
   .page {

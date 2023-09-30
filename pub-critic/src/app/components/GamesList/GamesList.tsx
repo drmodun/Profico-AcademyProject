@@ -16,7 +16,10 @@ export interface GamesListProps {
     pageSize?: number;
   };
 }
-export const GamesList = ({ games, searchParams }: GamesListProps) => {
+export const GamesList: React.FC<GamesListProps> = ({
+  games,
+  searchParams,
+}: GamesListProps) => {
   const list = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState<number>(
     searchParams?.page || 1
@@ -55,17 +58,17 @@ export const GamesList = ({ games, searchParams }: GamesListProps) => {
     }
   }, []);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  });
-
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight - 5) {
       fetchMore();
     }
   };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   return (
     <>
