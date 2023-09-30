@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./Dropdown.module.scss";
 import clsx from "clsx";
+import { Option } from "common/interfaces";
 
 interface DropdownProps {
   options: Option[];

@@ -3,7 +3,7 @@ import classes from "./page.module.scss";
 import gaming from "assets/gaming.webp";
 import { getGames, getLatestGames, getRatedGames } from "api/GamesApi";
 import GameCard from "components/GameCard";
-import { Game } from "api/GamesShared";
+import { Game } from "common/interfaces";
 
 const getGame = async () => {
   const response = await getGames();

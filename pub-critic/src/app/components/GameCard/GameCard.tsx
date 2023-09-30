@@ -1,4 +1,4 @@
-import { Game, Platform, PlatformFull } from "api/GamesShared";
+import { Game, Platform, PlatformFull } from "common/interfaces";
 import classes from "./GameCard.module.scss";
 import Image from "next/image";
 import playstation from "assets/playstation.svg";
@@ -7,6 +7,7 @@ import nintendo from "assets/nintendo.svg";
 import epic from "assets/epic.svg";
 import steam from "assets/steam.svg";
 import controller from "assets/controller.svg";
+import Link from "next/link";
 interface GameCardProps {
   game: Game;
 }
@@ -54,7 +55,9 @@ export const GameCard: React.FC<GameCardProps> = ({ game }: GameCardProps) => {
         <span className={classes.releaseDate}>
           {new Date(game.released).toLocaleDateString()}
         </span>
-        <h2 className={classes.name}>{game.name}</h2>
+        <Link href={`/games/${game.id}`} className={classes.name}>
+          {game.name}
+        </Link>
         <div className={classes.ratings}>
           <div className={classes.rating}>
             <span className={classes.ratingTitle}>Source: </span>

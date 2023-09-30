@@ -1,5 +1,6 @@
+export const gamesApi = "https://api.rawg.io/api";
+export const apiKey = "464bc085dbbf4f33bcb2ccb39d36a6ec";
 import queryString from "query-string";
-import { apiKey, gamesApi } from "./GamesShared";
 
 export const getGames = async (page: number = 1, pageSize: number = 20) => {
   try {
@@ -96,6 +97,31 @@ export const getFilteredGames = async ({
       ...(ordering && { ordering }),
     });
     const response = await fetch(`${gamesApi}/games?${query}`);
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getGame = async (id: number) => {
+  try {
+    const response = await fetch(`${gamesApi}/games/${id}?key=${apiKey}`, {
+      next: { revalidate: 3600 * 24 * 31 },
+    });
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getScreenshots = async (id: number) => {
+  try {
+    const response = await fetch(
+      `${gamesApi}/games/${id}/screenshots?key=${apiKey}`,
+      {
+        cache: "force-cache",
+      }
+    );
     return response.json();
   } catch (error) {
     console.log(error);
