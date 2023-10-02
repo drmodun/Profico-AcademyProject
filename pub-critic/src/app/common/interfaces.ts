@@ -23,7 +23,6 @@ export interface Genre {
   image_background: string;
 }
 
-
 export interface PlatformFull {
   platform: Platform;
   released_at: string;
@@ -61,6 +60,7 @@ export interface Game {
   tags: Tag[];
   genres: Genre[];
   platforms: PlatformFull[];
+  parent_platforms: FullParentPlatform[];
 }
 
 export interface DetailedGame {
@@ -74,11 +74,10 @@ export interface DetailedGame {
   platforms: PlatformFull[];
   website: string;
   metacritic_url: string;
-   parent_platforms: FullParentPlatform[];
 }
 export interface Option {
   label: string;
-  value: string | number; 
+  value: string | number;
 }
 
 export interface ParentPlatform {
