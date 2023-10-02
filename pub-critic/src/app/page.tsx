@@ -46,7 +46,9 @@ export default async function Home() {
           {games.length ? (
             <div className={classes.list}>
               {games.map((game: Game) => (
-                <GameCard game={game} key={game.id} />
+                <div key={game.id} className={classes.listElement}>
+                  <GameCard game={game} />
+                </div>
               ))}
             </div>
           ) : (
@@ -62,7 +64,9 @@ export default async function Home() {
           {top.length ? (
             <div className={classes.list}>
               {top.map((game: Game) => (
-                <GameCard game={game} key={game.id} />
+                <div key={game.id} className={classes.listElement}>
+                  <GameCard game={game} />
+                </div>
               ))}
             </div>
           ) : (
@@ -78,7 +82,9 @@ export default async function Home() {
           {latest.length ? (
             <div className={classes.list}>
               {latest.map((game: Game) => (
-                <GameCard game={game} key={game.id} />
+                <div key={game.id} className={classes.listElement}>
+                  <GameCard game={game} />
+                </div>
               ))}
             </div>
           ) : (

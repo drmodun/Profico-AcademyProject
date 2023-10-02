@@ -112,9 +112,11 @@
         justify-content: flex-start;
         overflow-x: scroll;
         margin-top: 20px;
-        > div {
+
+        .listElement {
           margin-right: vw-calc(20);
         }
+
         &::-webkit-scrollbar {
           scroll-behavior: smooth;
           scroll-snap-type: x mandatory;

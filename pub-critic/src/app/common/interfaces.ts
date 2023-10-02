@@ -10,6 +10,10 @@ export interface Screenshot {
   height: number;
   is_deleted: boolean;
 }
+export interface Screenshot {
+  id: number;
+  image: string;
+}
 
 export interface Genre {
   id: number;
@@ -17,6 +21,12 @@ export interface Genre {
   slug: string;
   games_count: number;
   image_background: string;
+}
+
+
+export interface PlatformFull {
+  platform: Platform;
+  released_at: string;
 }
 
 export interface Platform {
@@ -64,8 +74,19 @@ export interface DetailedGame {
   platforms: PlatformFull[];
   website: string;
   metacritic_url: string;
+   parent_platforms: FullParentPlatform[];
 }
 export interface Option {
   label: string;
-  value: string | number;
+  value: string | number; 
+}
+
+export interface ParentPlatform {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+export interface FullParentPlatform {
+  platform: ParentPlatform;
 }
