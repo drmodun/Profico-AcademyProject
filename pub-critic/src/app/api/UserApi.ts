@@ -1,14 +1,7 @@
 import axios from "axios";
 import { baseURL, setJWT } from "./Shared";
 import exp from "constants";
-
-export interface User {
-  email: string;
-  password: string;
-  name: string;
-  id?: number;
-  bio: string;
-}
+import { User } from "common/interfaces";
 
 export interface UserEdit {
   name?: string;

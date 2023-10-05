@@ -57,12 +57,31 @@
     }
   }
 
+  .follows {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: $secondary;
+    font-size: vw-calc(20);
+    margin-top: vw-calc(10);
+
+    > p {
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+        color: $primary;
+      }
+    }
+  }
+
   .info {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     color: $primary;
     font-size: vw-calc(28);
     font-weight: 600;

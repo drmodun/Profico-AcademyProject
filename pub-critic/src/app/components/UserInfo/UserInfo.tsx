@@ -1,4 +1,5 @@
 import { User } from "api/UserApi";
+import classes from "./UserInfo.module.scss";
 
 interface UserInfoProps {
   user: User;
@@ -6,11 +7,13 @@ interface UserInfoProps {
 
 export const UserInfo = ({ user }: UserInfoProps) => {
   return (
-    <div>
+    <div className={classes.container}>
       <h1>User info</h1>
-      <p>Username: {user.name}</p>
-      <p>Email: {user.email}</p>
-      <p>Bio: {user.bio}</p>
+      <div className={classes.info}>
+        <p className={classes.label}>Username: {user.name}</p>
+        <p className={classes.label}>Email: {user.email}</p>
+        <p className={classes.label}>Bio: {user.bio}</p>
+      </div>
     </div>
   );
 };

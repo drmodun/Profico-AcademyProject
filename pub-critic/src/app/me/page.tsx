@@ -1,5 +1,5 @@
 "use client";
-import { User, getMe, logoutUser } from "api/UserApi";
+import {  getMe, logoutUser } from "api/UserApi";
 import classes from "./page.module.scss";
 import { useEffect, useState } from "react";
 import ProfileCard from "components/profileCard";
@@ -10,7 +10,7 @@ import { DetailedGame, Genre } from "api/GamesShared";
 import { getGame } from "api/GamesApi";
 import GameCard from "components/GameCard";
 import { getAllAvarageRatings, myReviews } from "api/ReviewsApi";
-import { Avarage, Review } from "common/interfaces";
+import { Avarage, Review, User } from "common/interfaces";
 import ReviewsList from "components/ReviewsList";
 
 enum tabs {

@@ -1,4 +1,4 @@
-import { User, getMe, getUser, logoutUser } from "api/UserApi";
+import { getMe, getUser, logoutUser } from "api/UserApi";
 import classes from "./page.module.scss";
 import { useEffect, useState } from "react";
 import ProfileCard from "components/profileCard";
@@ -13,7 +13,7 @@ import {
   getReviewsForUser,
   myReviews,
 } from "api/ReviewsApi";
-import { Avarage, Review } from "common/interfaces";
+import { Avarage, Review, User } from "common/interfaces";
 import ReviewsList from "components/ReviewsList";
 import { Tabs } from "components/Tabs/Tabs";
 import UserPageBody from "components/UserPageBody";
@@ -61,7 +61,7 @@ const fetchAvarages = async () => {
 };
 
 const ProfilePage = async ({ params }: { params: any }) => {
-  const user = await fetchUser(params.userId);
+  const user: User = await fetchUser(params.userId);
   const favourites = await fetchFavourites(params.userId);
   const reviews = await fetchReviews(params.userId);
   //{ genres: ["Action"], gameId: 0, userId: 0 },
@@ -74,8 +74,10 @@ const ProfilePage = async ({ params }: { params: any }) => {
         <div className={classes.short}>
           <ProfileCard
             name={user?.name || "Loading..."}
-            totalReviews={0}
-            likeScore={0}
+            totalReviews={reviews.length}
+            likeScore={user.likeScore}
+            followers={user.followers}
+            following={user.following}
           />
           <button className={classes.logout}>Logout</button>
         </div>

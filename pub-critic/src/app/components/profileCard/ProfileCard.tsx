@@ -7,11 +7,15 @@ interface ProfileCardProps {
   totalReviews: number;
   //    totalFollowers: number; if I end up adding follower and following functionality
   likeScore: number;
+  following?: number;
+  followers?: number;
 }
 
 export const ProfileCard = ({
   name,
+  following = 0,
   totalReviews,
+  followers = 0,
   likeScore,
 }: ProfileCardProps) => {
   return (
@@ -23,6 +27,10 @@ export const ProfileCard = ({
       <div className={classes.info}>
         <p>{totalReviews} reviews</p>
         <p>{likeScore} like score</p>
+      </div>
+      <div className={classes.follows}>
+        <p>{followers} followers</p>
+        <p>{following} following</p>
       </div>
     </div>
   );
