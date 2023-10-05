@@ -1,8 +1,8 @@
 "use client";
-import { Avarage, Review } from "common/interfaces";
+import { Avarage, Review, User } from "common/interfaces";
 import classes from "./UserPageBody.module.scss";
 import { DetailedGame } from "api/GamesShared";
-import { User, getUser } from "api/UserApi";
+import { getUser } from "api/UserApi";
 import ReviewsList from "components/ReviewsList";
 import EditableUserInfo from "components/editableUserInfo";
 import GameCard from "components/GameCard";

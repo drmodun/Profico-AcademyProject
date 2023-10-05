@@ -17,6 +17,7 @@ import { Avarage, Review, User } from "common/interfaces";
 import ReviewsList from "components/ReviewsList";
 import { Tabs } from "components/Tabs/Tabs";
 import UserPageBody from "components/UserPageBody";
+import FollowButton from "components/FollowButton";
 
 enum tabs {
   Info,
@@ -79,7 +80,7 @@ const ProfilePage = async ({ params }: { params: any }) => {
             followers={user.followers}
             following={user.following}
           />
-          <button className={classes.logout}>Logout</button>
+          <FollowButton userId={user.id} />
         </div>
         <UserPageBody
           reviews={reviews}

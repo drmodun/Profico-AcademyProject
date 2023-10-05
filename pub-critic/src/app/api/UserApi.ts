@@ -88,7 +88,9 @@ export const getByJwt = async (jwt: string) => {
 
 export const getUser = async (id: number) => {
   try {
-    const response = await fetch(baseURL + `/users/${id}`);
+    const response = await fetch(baseURL + `/users/${id}`, {
+      cache: "no-store",
+    });
     const data = await response.json();
     return data;
   } catch (error) {
