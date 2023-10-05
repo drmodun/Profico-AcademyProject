@@ -13,7 +13,9 @@ api.interceptors.request.use(
     const token = localStorage.getItem("jwtToken");
     if (
       (token &&
-        ["post", "put", "delete", "patch"].includes(config.method || "")) ||
+        ["post", "put", "delete", "patch", "get"].includes(
+          config.method || ""
+        )) ||
       (token && config.url?.includes("me"))
     ) {
       config.headers.Authorization = `Bearer ${token}`;
