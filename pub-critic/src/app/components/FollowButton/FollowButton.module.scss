@@ -35,7 +35,7 @@
 
   @media screen and (max-width: 768px) {
     height: vw-calc(100);
-    font-size: vw-calc(30);
+    font-size: vw-mobile-calc(15);
   }
 }
 
@@ -49,21 +49,21 @@
   border: none;
   border-radius: vw-calc(10);
   align-items: center;
-  background-color: $light-base-black;
+  background-color: $secondary;
   padding: 0 vw-calc(50);
   font-size: vw-calc(20);
   margin-top: vw-calc(30);
-  color: $primary;
+  color: $light-base-black;
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    background-color: $secondary;
-    color: $background-color;
+    background-color: $light-base-black;
+    color: $secondary;
     cursor: pointer;
   }
 
   @media screen and (max-width: 768px) {
     height: vw-calc(100);
-    font-size: vw-calc(30);
+    font-size: vw-mobile-calc(15);
   }
 }

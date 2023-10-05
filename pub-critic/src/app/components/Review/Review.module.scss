@@ -53,6 +53,11 @@
           font-size: vw-mobile-calc(14);
           margin-bottom: vw-mobile-calc(10);
         }
+
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
       }
 
       .gameName {
