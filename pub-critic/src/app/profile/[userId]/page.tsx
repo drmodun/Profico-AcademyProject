@@ -19,12 +19,6 @@ import { Tabs } from "components/Tabs/Tabs";
 import UserPageBody from "components/UserPageBody";
 import FollowButton from "components/FollowButton";
 
-enum tabs {
-  Info,
-  Reviews,
-  Favourites,
-}
-
 const fetchUser = async (userId: number) => {
   const response = await getUser(userId);
   if (response) {
@@ -76,11 +70,11 @@ const ProfilePage = async ({ params }: { params: any }) => {
           <ProfileCard
             name={user?.name || "Loading..."}
             totalReviews={reviews.length}
-            likeScore={user.likeScore}
-            followers={user.followers}
-            following={user.following}
+            likeScore={user.likeScore!}
+            followers={user.followers!}
+            following={user.following!}
           />
-          <FollowButton userId={user.id} />
+          <FollowButton userId={user.id!} />
         </div>
         <UserPageBody
           reviews={reviews}

@@ -1,4 +1,5 @@
-import { User, getMe } from "./UserApi";
+import { User } from "common/interfaces";
+import { getMe } from "./UserApi";
 
 let accountInfo: User | null = null;
 

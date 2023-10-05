@@ -1,4 +1,4 @@
-import { User } from "api/UserApi";
+import { User } from "common/interfaces";
 import classes from "./UserInfo.module.scss";
 
 interface UserInfoProps {
