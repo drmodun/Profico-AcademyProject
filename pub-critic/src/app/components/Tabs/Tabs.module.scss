@@ -1,0 +1,48 @@
+@import "styles/variables.scss";
+@import "styles/vw-calc.scss";
+
+.tabRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  @media screen and (max-width: 768px) {
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+.tab {
+  width: vw-calc(150);
+  height: vw-calc(50);
+  min-height: 48px;
+  border-radius: vw-calc(10);
+  border: 1px solid $secondary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $background-color;
+  font-size: vw-calc(18);
+  font-weight: 600;
+  color: $primary;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: $secondary;
+    color: $backdrop-color;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: vw-calc(250);
+    height: vw-calc(90);
+    font-size: vw-calc(25);
+  }
+}
+
+.active {
+  background-color: $secondary;
+  color: $background-color;
+}

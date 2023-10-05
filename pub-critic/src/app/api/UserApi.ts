@@ -93,6 +93,16 @@ export const getByJwt = async (jwt: string) => {
   }
 };
 
+export const getUser = async (id: number) => {
+  try {
+    const response = await fetch(baseURL + `/users/${id}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const editMe = async (user: UserEdit) => {
   try {
     const response = await api.patch("/users/", user);
