@@ -9,6 +9,7 @@ import { starMaker } from "utils/starMaker";
 import Link from "next/link";
 import ReviewForm from "components/ReviewForm";
 import { useState } from "react";
+import LikeAndDislike from "components/LikeAndDislikeRow";
 
 interface ReviewProps {
   isMine?: boolean;
@@ -77,7 +78,7 @@ export const ReviewCard: React.FC<ReviewProps> = ({
         </div>
         <div className={classes.body}>{review.body}</div>
         <div className={classes.reviewFooter}>
-          TODO - add likes and dislikes
+          <LikeAndDislike reviewId={review.id} likeScore={review.likeScore}/>
         </div>
         {isMine && (
           <>

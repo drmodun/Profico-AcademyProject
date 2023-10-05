@@ -26,4 +26,5 @@ export interface Review {
   gameName: string;
   author: Author;
   date: string;
+  likeScore: number;
 }
