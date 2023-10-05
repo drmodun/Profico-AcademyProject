@@ -26,6 +26,7 @@ export const LikeAndDislike = ({
   const [isDisliked, setIsDisliked] = useState<boolean>(false);
   const [likes, setLikes] = useState<number>(likeScore);
   const [status, setStatus] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     checkStatus();
@@ -41,6 +42,7 @@ export const LikeAndDislike = ({
       alert("You must be logged in to like a review");
       return;
     }
+    setLoading(true);
     switch (status) {
       case 1:
         setLikes((prev) => prev - 1);
@@ -54,6 +56,7 @@ export const LikeAndDislike = ({
     }
 
     const oldStatus = status;
+    const disliked = isDisliked;
     try {
       setStatus(isLiked ? 0 : 1);
       setIsLiked((prev) => !prev);
@@ -64,10 +67,11 @@ export const LikeAndDislike = ({
       }
     } catch (error) {
       setIsLiked((prev) => !prev);
-      setIsDisliked(false);
+      setIsDisliked(disliked);
       setStatus(oldStatus);
       console.error(error);
     }
+    setLoading(false);
   };
 
   const handleDislike = async () => {
@@ -76,6 +80,7 @@ export const LikeAndDislike = ({
       alert("You must be logged in to dislike a review");
       return;
     }
+    setLoading(true);
     switch (status) {
       case 1:
         setLikes((prev) => prev - 2);
@@ -88,6 +93,7 @@ export const LikeAndDislike = ({
         break;
     }
     const oldStatus = status;
+    const liked = isLiked;
     setStatus(isDisliked ? 0 : -1);
     try {
       setIsDisliked((prev) => !prev);
@@ -98,10 +104,11 @@ export const LikeAndDislike = ({
       }
     } catch (error) {
       setIsDisliked((prev) => !prev);
-      setIsLiked(true);
+      setIsLiked(liked);
       setStatus(oldStatus);
       console.error(error);
     }
+    setLoading(false);
   };
 
   const checkStatus = async () => {
@@ -132,14 +139,14 @@ export const LikeAndDislike = ({
     <div className={classes.container}>
       <Image
         className={clsx(classes.icon, isDisliked && classes.active)}
-        onClick={handleDislike}
+        onClick={!loading ? handleDislike : undefined}
         src={Dislike}
         alt="Dislike"
       />
       <span className={classes.score}>{likes}</span>
       <Image
         className={clsx(classes.icon, isLiked && classes.active)}
-        onClick={handleLike}
+        onClick={!loading ? handleLike : undefined}
         src={Like}
         alt="like"
       />

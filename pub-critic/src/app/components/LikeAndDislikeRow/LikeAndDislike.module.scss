@@ -9,10 +9,20 @@
   align-items: center;
   width: vw-calc(200);
 
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: vw-mobile-calc(30);
+  }
+
   .icon {
     width: vw-calc(50);
     height: vw-calc(50);
     filter: invert(0);
+
+    @media (max-width: 768px) {
+      width: vw-mobile-calc(40);
+      height: vw-mobile-calc(40);
+    }
 
     &:hover {
       cursor: pointer;
@@ -33,6 +43,10 @@
     color: $primary;
     font-size: vw-calc(26);
     font-weight: 500;
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(20);
+    }
   }
 
   .active {
