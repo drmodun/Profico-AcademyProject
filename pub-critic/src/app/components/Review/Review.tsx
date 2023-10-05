@@ -78,7 +78,7 @@ export const ReviewCard: React.FC<ReviewProps> = ({
         </div>
         <div className={classes.body}>{review.body}</div>
         <div className={classes.reviewFooter}>
-          <LikeAndDislike reviewId={review.id} likeScore={review.likeScore}/>
+          <LikeAndDislike reviewId={review.id} likeScore={review.likeScore} />
         </div>
         {isMine && (
           <>
