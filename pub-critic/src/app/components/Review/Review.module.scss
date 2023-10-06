@@ -105,6 +105,11 @@
       background-color: $secondary;
       color: $card-background-color;
     }
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(15);
+      height: vw-mobile-calc(30);
+    }
   }
 
   .delete {
@@ -133,6 +138,11 @@
     &:active {
       background-color: $secondary;
       color: $card-background-color;
+    }
+
+    @media (max-width: 768px) {
+      height: vw-mobile-calc(30);
+      font-size: vw-mobile-calc(14);
     }
   }
 

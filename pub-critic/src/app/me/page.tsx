@@ -1,5 +1,5 @@
 "use client";
-import {  getMe, logoutUser } from "api/UserApi";
+import { getMe, logoutUser } from "api/UserApi";
 import classes from "./page.module.scss";
 import { useEffect, useState } from "react";
 import ProfileCard from "components/profileCard";
@@ -12,6 +12,8 @@ import GameCard from "components/GameCard";
 import { getAllAvarageRatings, myReviews } from "api/ReviewsApi";
 import { Avarage, Review, User } from "common/interfaces";
 import ReviewsList from "components/ReviewsList";
+import Tabs from "components/Tabs";
+import UserPageBody from "components/UserPageBody";
 
 enum tabs {
   Info,
@@ -85,73 +87,26 @@ const UserPage = () => {
         <div className={classes.short}>
           <ProfileCard
             name={user?.name || "Loading..."}
-            totalReviews={0}
-            likeScore={0}
+            totalReviews={reviews.length || 0}
+            likeScore={user?.likeScore! || 0}
+            followers={user?.followers! || 0}
+            following={user?.following! || 0}
           />
           <button className={classes.logout} onClick={logoutUser}>
             Logout
           </button>
         </div>
-        <div className={classes.content}>
-          <div className={classes.tabRow}>
-            {Object.values(tabs)
-              .filter((t) => typeof t === "string")
-              .map((t) => (
-                <div
-                  className={
-                    tab === t ? classes.tab + " " + classes.active : classes.tab
-                  }
-                  onClick={() => setTab(t as string)}
-                  key={t}
-                >
-                  {t}
-                </div>
-              ))}
-          </div>
-          <div className={classes.tabContent}>
-            {tab === "Reviews" && (
-              <ReviewsList refetch={fetchReviews} areMine reviews={reviews} />
-            )}
-            {tab === "Info" && (
-              <EditableUserInfo
-                getMe={getUser}
-                initName={user?.name || "Loading..."}
-                initEmail={user?.email || "Loading..."}
-                initBio={user?.bio || "Loading..."}
-              />
-            )}
-            {tab === "Favourites" && (
-              <div className={classes.favourites}>
-                Favourites
-                <div className={classes.list}>
-                  {favourites &&
-                    favoritesList &&
-                    favourites.map((game) => (
-                      <GameCard
-                        avarageRating={
-                          avarages?.find(
-                            (avarage) => avarage.gameId === game.id
-                          )?.avarage
-                        }
-                        game={{
-                          id: game.id,
-                          name: game.name,
-                          background_image: game.background_image,
-                          released: game.released,
-                          rating: game.rating,
-                          metacritic: game.metacritic,
-                          genres: game.genres,
-                          platforms: game.platforms,
-                        }}
-                        key={game.id}
-                        isFavourite={true}
-                      />
-                    ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+        {user ? (
+          <UserPageBody
+            reviews={reviews}
+            favourites={favourites}
+            user={user}
+            avarages={avarages}
+            isMine
+          />
+        ) : (
+          <h1>Loading...</h1>
+        )}
       </div>
     </div>
   );

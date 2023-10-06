@@ -36,9 +36,10 @@
   }
 
   @media screen and (max-width: 768px) {
-    width: vw-calc(250);
-    height: vw-calc(90);
-    font-size: vw-calc(25);
+    width: vw-mobile-calc(100);
+    height: vw-mobile-calc(60);
+    font-size: vw-mobile-calc(15);
+    border-radius: vw-mobile-calc(15);
   }
 }
 
