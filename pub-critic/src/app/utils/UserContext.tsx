@@ -2,7 +2,7 @@
 
 import { getMyFavourites } from "api/FavouriteApi";
 import { getLikesAndDislikes } from "api/LikesAndDislikesApi";
-import { Favourite } from "api/Shared";
+import { Favourite } from "api/FavouriteApi";
 import { getMe } from "api/UserApi";
 import { User } from "common/interfaces";
 import React, {
@@ -21,6 +21,9 @@ interface UserContextProps {
   dislikes?: number[];
   logout?: () => void;
   setUser: Dispatch<User>;
+  updateLikes: (id: number, type: number) => void;
+  updateFavourites: (favourite: Favourite) => void;
+  updateDislikes: (id: number, type: number) => void;
 }
 
 const defaultUserContext: UserContextProps = {
@@ -30,6 +33,9 @@ const defaultUserContext: UserContextProps = {
   dislikes: undefined,
   logout: () => {},
   setUser: () => {},
+  updateLikes: (id: number, type: number) => {},
+  updateDislikes: (id: number, type: number) => {},
+  updateFavourites: (favourite: Favourite) => {},
 };
 
 export const UserContext = createContext<UserContextProps>(defaultUserContext);
@@ -49,6 +55,48 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
     setUser(undefined);
+  };
+
+  const updateLikes = (id: number, type: number) => {
+    const possibleDislike = dislikes?.find((dislike) => dislike === id);
+    if (possibleDislike) {
+      updateDislikes(id, 0);
+    }
+
+    if (!likes) return;
+    if (type === 1) {
+      setLikes((prev) => [...prev, id]);
+      return;
+    }
+    setLikes((prev) => prev.filter((like) => like !== id));
+  };
+
+  const updateFavourites = (favourite: Favourite) => {
+    if (!favourites) return;
+    const possibleFavourite = favourites.find(
+      (fav) => fav.gameId === favourite.gameId
+    );
+    if (possibleFavourite) {
+      setFavourites((prev) =>
+        prev.filter((fav) => fav.gameId !== favourite.gameId)
+      );
+      return;
+    }
+    setFavourites((prev) => [...prev, favourite]);
+  };
+
+  const updateDislikes = (id: number, type: number) => {
+    const possibeLike = likes?.find((like) => like === id);
+    if (possibeLike) {
+      updateLikes(id, 0);
+    }
+
+    if (!dislikes) return;
+    if (type === 1) {
+      setDislikes((prev) => [...prev, id]);
+      return;
+    }
+    setDislikes((prev) => prev.filter((dislike) => dislike !== id));
   };
 
   const logout = () => {
@@ -98,7 +146,17 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, likes, favourites, dislikes, setUser, logout }}
+      value={{
+        user,
+        likes,
+        favourites,
+        dislikes,
+        setUser,
+        logout,
+        updateLikes,
+        updateDislikes,
+        updateFavourites,
+      }}
     >
       0 {children}
     </UserContext.Provider>

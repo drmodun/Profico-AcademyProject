@@ -14,6 +14,7 @@ import { Avarage, Review, User } from "common/interfaces";
 import ReviewsList from "components/ReviewsList";
 import Tabs from "components/Tabs";
 import UserPageBody from "components/UserPageBody";
+import useUser from "utils/UserContext";
 
 enum tabs {
   Info,
@@ -24,10 +25,8 @@ enum tabs {
 const UserPage = () => {
   const [user, setUser] = useState<User | null>(null);
   const [tab, setTab] = useState<string>("Info");
-  const [favoritesList, setFavoritesList] = useState<Favourite[]>([
-    //{ genres: ["Action"], gameId: 0, userId: 0 },
-  ]);
-  const [favourites, setFavourites] = useState<DetailedGame[]>([]);
+  const { favourites } = useUser();
+  const [favouritesList, setFavouritesList] = useState<DetailedGame[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [avarages, setAvareges] = useState<Avarage[]>([]);
 
@@ -35,7 +34,7 @@ const UserPage = () => {
     const response = await getMe();
     if (response) {
       setUser(response);
-      await fetchFavourites();
+      fetchFavouriteGames(response.favourites);
     }
   };
 
@@ -53,24 +52,13 @@ const UserPage = () => {
     }
   };
 
-  const fetchFavourites = async () => {
-    const response: Favourite[] = await getMyFavourites();
-    console.log(response);
-    if (response) {
-      setFavoritesList(response);
-      await fetchFavouriteGames(response);
-      return;
-    }
-    setFavoritesList([]);
-  };
-
   const fetchFavouriteGames = async (games: Favourite[]) => {
     const response: DetailedGame[] = await Promise.all(
       games.map((f) => f.gameId).map((id) => getGame(id))
     );
     console.log(response);
     if (response) {
-      setFavourites(response);
+      setFavouritesList(response);
     }
   };
 
@@ -99,7 +87,7 @@ const UserPage = () => {
         {user ? (
           <UserPageBody
             reviews={reviews}
-            favourites={favourites}
+            favourites={favouritesList}
             user={user}
             avarages={avarages}
             isMine

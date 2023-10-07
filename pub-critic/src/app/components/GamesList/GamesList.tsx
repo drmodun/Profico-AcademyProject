@@ -9,6 +9,7 @@ import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { get } from "http";
 import { getMe } from "api/UserApi";
 import { Avarage } from "common/interfaces";
+import useUser from "utils/UserContext";
 
 export interface GamesListProps {
   games: Game[];
@@ -28,35 +29,18 @@ export const GamesList = ({
   searchParams,
 }: GamesListProps) => {
   const list = useRef<HTMLDivElement>(null);
-  const [favourites, setFavourites] = useState([]);
   const [currentPage, setCurrentPage] = useState<number>(
     searchParams?.page || 1
   );
   const [visibleGames, setVisibleGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchFavourites = async () => {
-    const token = localStorage.getItem("jwtToken");
-    if (!token) {
-      setVisibleGames(games);
-    }
-    const response = await getMyFavourites();
-    console.log(response);
-    if (response) {
-      setFavourites(response);
-      setVisibleGames(games);
-    }
-  };
-
-  useEffect(() => {
-    fetchFavourites();
-  }, [games]);
+  const { favourites, updateFavourites } = useUser();
 
   useEffect(() => {
     if (list.current) {
       list.current.scrollIntoView({ behavior: "smooth" });
     }
-    fetchFavourites();
   }, []);
 
   const fetchMore = async () => {

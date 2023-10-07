@@ -10,6 +10,7 @@ import Tabs from "components/Tabs";
 import { useEffect, useState } from "react";
 import UserInfo from "components/UserInfo";
 import { Favourite, getMyFavourites } from "api/FavouriteApi";
+import useUser from "utils/UserContext";
 
 interface UserPageBodyProps {
   reviews: Review[];
@@ -27,22 +28,8 @@ export const UserPageBody = ({
   avarages,
 }: UserPageBodyProps) => {
   const [tab, setTab] = useState<string>("Info");
-  const [localFavourites, setFavourites] = useState<Favourite[]>([]);
+  const { favourites: localFavourites, updateFavourites } = useUser();
 
-  const fetchLocalFavourites = async () => {
-    const jwt = localStorage.getItem("jwtToken");
-    if (!jwt || isMine) {
-      return;
-    }
-    const response = await getMyFavourites();
-    if (response) {
-      setFavourites(response);
-    }
-  };
-
-  useEffect(() => {
-    fetchLocalFavourites();
-  }, []);
   return (
     <div className={classes.content}>
       <Tabs tab={tab} setTab={setTab}></Tabs>

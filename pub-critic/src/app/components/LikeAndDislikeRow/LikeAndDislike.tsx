@@ -1,10 +1,5 @@
 "use client";
-
-import {
-  checkLikeStatus,
-  toggleDislike,
-  toggleLike,
-} from "api/LikesAndDislikesApi";
+import { toggleDislike, toggleLike } from "api/LikesAndDislikesApi";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Like from "assets/Like.svg";
@@ -12,6 +7,7 @@ import Dislike from "assets/Dislike.svg";
 import classes from "./LikeAndDislike.module.scss";
 import clsx from "clsx";
 import { set } from "react-hook-form";
+import useUser from "utils/UserContext";
 
 export interface LikeAndDislikeProps {
   reviewId: number;
@@ -24,17 +20,11 @@ export const LikeAndDislike = ({
 }: LikeAndDislikeProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isDisliked, setIsDisliked] = useState<boolean>(false);
-  const [likes, setLikes] = useState<number>(likeScore);
+  const [totalLikes, setTotalLikes] = useState<number>(likeScore);
   const [status, setStatus] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    checkStatus();
-  }, []);
-
-  useEffect(() => {
-    checkStatus();
-  }, [reviewId]);
+  const { likes, dislikes, updateDislikes, updateLikes } = useUser();
 
   const handleLike = async () => {
     const jwt = localStorage.getItem("jwtToken");
@@ -45,13 +35,16 @@ export const LikeAndDislike = ({
     setLoading(true);
     switch (status) {
       case 1:
-        setLikes((prev) => prev - 1);
+        setTotalLikes((prev) => prev - 1);
+        updateLikes(reviewId, 0);
         break;
       case -1:
-        setLikes((prev) => prev + 2);
+        setTotalLikes((prev) => prev + 2);
+        updateLikes(reviewId, 1);
         break;
       default:
-        setLikes((prev) => prev + 1);
+        setTotalLikes((prev) => prev + 1);
+        updateLikes(reviewId, 1);
         break;
     }
 
@@ -83,13 +76,16 @@ export const LikeAndDislike = ({
     setLoading(true);
     switch (status) {
       case 1:
-        setLikes((prev) => prev - 2);
+        setTotalLikes((prev) => prev - 2);
+        updateDislikes(reviewId, 1);
         break;
       case -1:
-        setLikes((prev) => prev + 1);
+        setTotalLikes((prev) => prev + 1);
+        updateDislikes(reviewId, 0);
         break;
       default:
-        setLikes((prev) => prev - 1);
+        setTotalLikes((prev) => prev - 1);
+        updateDislikes(reviewId, 1);
         break;
     }
     const oldStatus = status;
@@ -111,30 +107,6 @@ export const LikeAndDislike = ({
     setLoading(false);
   };
 
-  const checkStatus = async () => {
-    const jwt = localStorage.getItem("jwtToken");
-    if (!jwt) return;
-    try {
-      const response = await checkLikeStatus(reviewId);
-      if (!response) throw new Error("Something went wrong");
-      console.log(response);
-      const status = response.liked;
-      setStatus(status);
-      switch (status) {
-        case 1:
-          setIsLiked(true);
-          break;
-        case -1:
-          setIsDisliked(true);
-          break;
-        default:
-          break;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <div className={classes.container}>
       <Image
@@ -143,7 +115,7 @@ export const LikeAndDislike = ({
         src={Dislike}
         alt="Dislike"
       />
-      <span className={classes.score}>{likes}</span>
+      <span className={classes.score}>{totalLikes}</span>
       <Image
         className={clsx(classes.icon, isLiked && classes.active)}
         onClick={!loading ? handleLike : undefined}
