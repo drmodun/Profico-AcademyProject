@@ -37,7 +37,7 @@ export const HomePageSection = ({
                 avarages?.find((avarage) => avarage.gameId === game.id)?.avarage
               }
               isFavourite={
-                favourites.find((favourite) => favourite.gameId === game.id) !==
+                favourites?.find((favourite) => favourite.gameId === game.id) !==
                 undefined
               }
             />

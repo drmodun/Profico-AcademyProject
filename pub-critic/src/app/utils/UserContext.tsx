@@ -28,9 +28,9 @@ interface UserContextProps {
 
 const defaultUserContext: UserContextProps = {
   user: undefined,
-  favourites: undefined,
-  likes: undefined,
-  dislikes: undefined,
+  favourites: [],
+  likes: [],
+  dislikes: [],
   logout: () => {},
   setUser: () => {},
   updateLikes: (id: number, type: number) => {},
@@ -42,11 +42,9 @@ export const UserContext = createContext<UserContextProps>(defaultUserContext);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | undefined>(undefined);
-  const [favourites, setFavourites] = useState<Favourite[] | undefined>(
-    undefined
-  );
-  const [likes, setLikes] = useState<number[] | undefined>(undefined);
-  const [dislikes, setDislikes] = useState<number[] | undefined>(undefined);
+  const [favourites, setFavourites] = useState<Favourite[]>([]);
+  const [likes, setLikes] = useState<number[]>([]);
+  const [dislikes, setDislikes] = useState<number[]>([]);
 
   const getMyData = async () => {
     const response = await getMe();
@@ -111,7 +109,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       setFavourites(response);
       return;
     }
-    setFavourites(undefined);
+    setFavourites([]);
   };
 
   const getMyLikesData = async () => {
@@ -121,16 +119,16 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       setDislikes(response.dislikes);
       return;
     }
-    setLikes(undefined);
-    setDislikes(undefined);
+    setLikes([]);
+    setDislikes([]);
   };
 
   useEffect(() => {
     const user = localStorage.getItem("jwtToken");
     const loggInDate = localStorage.getItem("time");
+    if (!user || !loggInDate) return;
     const time = new Date(loggInDate).getTime();
     console.log(time, user);
-    if (!user) return;
     if (Date.now() - time > 3600 * 24) {
       logout();
       return;

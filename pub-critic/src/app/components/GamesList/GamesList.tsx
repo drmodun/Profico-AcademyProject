@@ -4,7 +4,7 @@ import classes from "./GamesList.module.scss";
 import GameCard from "components/GameCard";
 import { useRef, useState, useEffect } from "react";
 import { getFilteredGames } from "api/GamesApi";
-import { Favourite } from "api/Shared";
+import { Favourite } from "api/FavouriteApi";
 import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { get } from "http";
 import { getMe } from "api/UserApi";

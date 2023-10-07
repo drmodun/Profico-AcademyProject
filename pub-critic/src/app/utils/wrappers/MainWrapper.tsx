@@ -3,7 +3,11 @@
 import { SideMenuProvider } from "utils/SideMenuContext";
 import useUser, { UserProvider } from "utils/UserContext";
 
-export const MainWrapper = ({ children }) => {
+interface MainWrapperProps {
+  children: React.ReactNode;
+}
+
+export const MainWrapper = ({ children } : MainWrapperProps) => {
   return (
     <SideMenuProvider>
       <UserProvider>{children}</UserProvider>

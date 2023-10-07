@@ -28,7 +28,6 @@ export const Favourite = ({ initActive, id, genres = [] }: FavouriteProps) => {
     updateFavourites(favourite);
 
     if (active) {
-      updateFavourites(favourite.gameId, 0);
       const deletion = await deleteFavourite(favourite.gameId);
       return deletion;
     }
