@@ -162,7 +162,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const onUserLoad = async () => {
     setLoading(true);
     if (!user) {
-      setLoading(false);
+      if (!localStorage.getItem("jwtToken")) {
+        setLoading(false);
+        return;
+      }
       return;
     }
     await getMyFavouritesData();
