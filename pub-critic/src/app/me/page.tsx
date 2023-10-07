@@ -71,6 +71,7 @@ const UserPage = () => {
       <div className={classes.user}>
         <div className={classes.short}>
           <ProfileCard
+            id={user?.id || 0}
             name={user?.name || "Loading..."}
             totalReviews={reviews.length || 0}
             likeScore={user?.likeScore! || 0}

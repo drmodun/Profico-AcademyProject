@@ -68,6 +68,7 @@ const ProfilePage = async ({ params }: { params: any }) => {
       <div className={classes.user}>
         <div className={classes.short}>
           <ProfileCard
+            id={user.id!}
             name={user?.name || "Loading..."}
             totalReviews={reviews.length}
             likeScore={user.likeScore!}
