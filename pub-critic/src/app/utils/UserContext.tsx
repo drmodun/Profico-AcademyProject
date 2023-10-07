@@ -1,5 +1,6 @@
 "use client";
 
+import "./spinnerStyle.css";
 import { getMyFavourites } from "api/FavouriteApi";
 import { getLikesAndDislikes } from "api/LikesAndDislikesApi";
 import { Favourite } from "api/FavouriteApi";
@@ -8,6 +9,7 @@ import { User } from "common/interfaces";
 import React, {
   Dispatch,
   createContext,
+  use,
   useContext,
   useEffect,
   useReducer,
@@ -126,7 +128,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const initLoad = async () => {
-    setLoading(true);
     console.log("init");
     const user = localStorage.getItem("jwtToken");
     const loggInDate = localStorage.getItem("time");
@@ -139,6 +140,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     console.log(time, user);
     if (Date.now() - time > 1000 * 3600 * 24) {
       logout();
+      console.log("logout");
       setLoading(false);
       return;
     }
@@ -148,6 +150,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     initLoad();
   }, []);
+
+  useEffect(() => {
+    console.log(loading);
+  }, [loading]);
 
   useEffect(() => {
     onUserLoad();
@@ -164,24 +170,26 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setLoading(false);
   };
 
-  return (
-    !loading && (
-      <UserContext.Provider
-        value={{
-          user,
-          likes,
-          favourites,
-          dislikes,
-          setUser,
-          logout,
-          updateLikes,
-          updateDislikes,
-          updateFavourites,
-        }}
-      >
-        0 {children}
-      </UserContext.Provider>
-    )
+  return !loading ? (
+    <UserContext.Provider
+      value={{
+        user,
+        likes,
+        favourites,
+        dislikes,
+        setUser,
+        logout,
+        updateLikes,
+        updateDislikes,
+        updateFavourites,
+      }}
+    >
+      0 {children}
+    </UserContext.Provider>
+  ) : (
+    <div className="spinner-container">
+      <div className="loading-spinner"></div>
+    </div>
   );
 };
 
