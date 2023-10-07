@@ -16,9 +16,8 @@
   @media screen and (max-width: 768px) {
     width: 100%;
     min-width: 300px;
-    min-height: 500px;
-    height: vw-calc(1000);
-    padding: vw-calc(20);
+    height: vw-mobile-calc(350);
+    padding: vw-mobile-calc(20);
   }
 
   .pic {

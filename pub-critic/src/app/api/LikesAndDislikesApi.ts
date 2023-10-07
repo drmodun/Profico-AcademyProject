@@ -27,9 +27,9 @@ api.interceptors.request.use(
   }
 );
 
-export const checkLikeStatus = async (reviewId: number) => {
+export const getLikesAndDislikes = async () => {
   try {
-    const response = await api.get(`/likes/${reviewId}`);
+    const response = await api.get(`/likes/`);
     return response.data;
   } catch (error) {
     console.error(error);

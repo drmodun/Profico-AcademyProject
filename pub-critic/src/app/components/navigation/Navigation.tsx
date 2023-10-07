@@ -6,23 +6,19 @@ import menuIcon from "assets/menu-icon.svg";
 import { useState } from "react";
 import Link from "next/link";
 import Hamburger from "components/hamburger";
+import useUser from "utils/UserContext";
+import useSideMenu from "utils/SideMenuContext";
 
-interface NavigationProps {
-  name?: string;
-  search?: string;
-  menuOpen: boolean;
-  searchHandler: (search: string) => void;
-  toggleMenu: () => void;
-}
+export const Navigation = ({ params }: any) => {
+  const { user } = useUser();
+  const { active, toggleActive } = useSideMenu();
+  const [searchValue, setSearchValue] = useState<string>(
+    params?.search ? params.search : ""
+  );
 
-export const Navigation = ({
-  searchHandler,
-  toggleMenu,
-  search,
-  menuOpen,
-  name,
-}: NavigationProps) => {
-  const [searchValue, setSearchValue] = useState<string>(search ? search : "");
+  const toggleMenu = () => {
+    toggleActive();
+  };
   return (
     <div className={classes.navigation}>
       <Link href="/" className={classes.name}>
@@ -51,28 +47,24 @@ export const Navigation = ({
             },
           }}
         >
-          <Image
-            src={searchImage}
-            alt="search"
-            onClick={() => search && searchHandler(search)}
-          />
+          <Image src={searchImage} alt="search" />
         </Link>
       </div>
       <Link
         href={
-          name
+          user
             ? {
                 pathname: "/me",
-                query: { name: name },
+                query: { name: user.name, id: user.id },
               }
             : "/login"
         }
         className={classes.account}
       >
-        <h1>{name ? name : "Sign In"}</h1>
+        <h1>{user ? user.name : "Sign In"}</h1>
       </Link>
       <div className={classes.menu}>
-        <Hamburger open={menuOpen} onToggle={toggleMenu} />
+        <Hamburger open={active} onToggle={toggleMenu} />
       </div>
     </div>
   );
