@@ -23,25 +23,22 @@ enum tabs {
 }
 
 const UserPage = () => {
-  const [user, setUser] = useState<User | null>(null);
   const [tab, setTab] = useState<string>("Info");
-  const { favourites } = useUser();
+  const { favourites, user, setUser } = useUser();
   const [favouritesList, setFavouritesList] = useState<DetailedGame[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [avarages, setAvareges] = useState<Avarage[]>([]);
 
   const getUser = async () => {
-    const response = await getMe();
-    if (response) {
-      setUser(response);
-      fetchFavouriteGames(favourites);
+    if (user) {
+      fetchFavouriteGames(favourites || []);
     }
   };
 
   const fetchReviews = async () => {
-    const respone = await myReviews();
-    if (respone) {
-      setReviews(respone);
+    const response = await myReviews();
+    if (response) {
+      setReviews(response);
     }
   };
 
