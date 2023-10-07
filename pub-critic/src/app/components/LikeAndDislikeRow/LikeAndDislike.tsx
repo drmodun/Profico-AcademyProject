@@ -107,6 +107,17 @@ export const LikeAndDislike = ({
     setLoading(false);
   };
 
+  useEffect(() => {
+    if (likes?.find((like) => like === reviewId)) {
+      setIsLiked(true);
+      setStatus(1);
+    }
+    if (dislikes?.find((dislike) => dislike === reviewId)) {
+      setIsDisliked(true);
+      setStatus(-1);
+    }
+  }, [likes, dislikes]);
+
   return (
     <div className={classes.container}>
       <Image

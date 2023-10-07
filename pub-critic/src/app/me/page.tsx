@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import ProfileCard from "components/profileCard";
 import { EditableUserInfo } from "components/editableUserInfo/EditableUserInfo";
 import { getFavourites, getMyFavourites } from "api/FavouriteApi";
-import { Favourite } from "api/Shared";
+import { Favourite } from "api/FavouriteApi";
 import { DetailedGame, Genre } from "api/GamesShared";
 import { getGame } from "api/GamesApi";
 import GameCard from "components/GameCard";
@@ -34,7 +34,7 @@ const UserPage = () => {
     const response = await getMe();
     if (response) {
       setUser(response);
-      fetchFavouriteGames(response.favourites);
+      fetchFavouriteGames(favourites);
     }
   };
 

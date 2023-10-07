@@ -13,6 +13,7 @@ import React, {
   useReducer,
   useState,
 } from "react";
+import { set } from "react-hook-form";
 
 interface UserContextProps {
   user?: User;
@@ -45,6 +46,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [favourites, setFavourites] = useState<Favourite[]>([]);
   const [likes, setLikes] = useState<number[]>([]);
   const [dislikes, setDislikes] = useState<number[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getMyData = async () => {
     const response = await getMe();
@@ -123,41 +125,63 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setDislikes([]);
   };
 
-  useEffect(() => {
+  const initLoad = async () => {
+    setLoading(true);
+    console.log("init");
     const user = localStorage.getItem("jwtToken");
     const loggInDate = localStorage.getItem("time");
-    if (!user || !loggInDate) return;
-    const time = new Date(loggInDate).getTime();
-    console.log(time, user);
-    if (Date.now() - time > 3600 * 24) {
-      logout();
+    if (!user || !loggInDate) {
+      setLoading(false);
+      console.log("no user");
       return;
     }
-    getMyData();
+    const time = new Date(loggInDate).getTime();
+    console.log(time, user);
+    if (Date.now() - time > 1000 * 3600 * 24) {
+      logout();
+      setLoading(false);
+      return;
+    }
+    await getMyData();
+  };
+
+  useEffect(() => {
+    initLoad();
   }, []);
 
   useEffect(() => {
-    if (!user) return;
-    getMyFavouritesData();
-    getMyLikesData();
+    onUserLoad();
   }, [user]);
 
+  const onUserLoad = async () => {
+    setLoading(true);
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+    await getMyFavouritesData();
+    await getMyLikesData();
+    setLoading(false);
+  };
+
   return (
-    <UserContext.Provider
-      value={{
-        user,
-        likes,
-        favourites,
-        dislikes,
-        setUser,
-        logout,
-        updateLikes,
-        updateDislikes,
-        updateFavourites,
-      }}
-    >
-      0 {children}
-    </UserContext.Provider>
+    !loading && (
+      <UserContext.Provider
+        value={{
+          user,
+          likes,
+          favourites,
+          dislikes,
+          setUser,
+          logout,
+          updateLikes,
+          updateDislikes,
+          updateFavourites,
+        }}
+      >
+        0 {children}
+      </UserContext.Provider>
+    )
   );
 };
 

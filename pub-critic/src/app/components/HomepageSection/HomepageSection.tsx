@@ -19,7 +19,7 @@ export const HomePageSection = ({
   avarages,
   games,
 }: HomePageSectionProps) => {
-  const [visibleGames, setVisibleGames] = useState<Game[]>([]);
+  const [visibleGames, setVisibleGames] = useState<Game[]>(games);
   const [loading, setLoading] = useState<boolean>(false);
 
   const { favourites } = useUser();
@@ -37,8 +37,9 @@ export const HomePageSection = ({
                 avarages?.find((avarage) => avarage.gameId === game.id)?.avarage
               }
               isFavourite={
-                favourites?.find((favourite) => favourite.gameId === game.id) !==
-                undefined
+                favourites?.find(
+                  (favourite) => favourite.gameId === game.id
+                ) !== undefined
               }
             />
           ))}
