@@ -32,7 +32,7 @@ export const GamesList = ({
   const [currentPage, setCurrentPage] = useState<number>(
     searchParams?.page || 1
   );
-  const [visibleGames, setVisibleGames] = useState<Game[]>([]);
+  const [visibleGames, setVisibleGames] = useState<Game[]>(games);
   const [loading, setLoading] = useState<boolean>(false);
 
   const { favourites, updateFavourites } = useUser();
