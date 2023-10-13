@@ -23,6 +23,11 @@ export const Navigation = ({
   name,
 }: NavigationProps) => {
   const [searchValue, setSearchValue] = useState<string>(search ? search : "");
+
+  const handleSearch = () => {
+    if (searchValue) searchHandler(searchValue);
+  };
+
   return (
     <div className={classes.navigation}>
       <Link href="/" className={classes.name}>
@@ -37,11 +42,22 @@ export const Navigation = ({
             setSearchValue(event.target.value);
           }}
         />
-        <Image
-          src={searchImage}
-          alt="search"
-          onClick={() => search && searchHandler(search)}
-        />
+        <Link
+          href={{
+            pathname: "/games",
+            query: {
+              search: searchValue,
+              page: 1,
+              pageSize: 10,
+              platform: undefined,
+              genre: undefined,
+              metacritic: "0,100",
+              ordering: "",
+            },
+          }}
+        >
+          <Image src={searchImage} alt="search" onClick={handleSearch} />
+        </Link>
       </div>
       <Link
         href={

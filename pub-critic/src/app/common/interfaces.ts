@@ -1,3 +1,15 @@
+export interface PlatformFull {
+  platform: Platform;
+  released_at: string;
+}
+
+export interface Screenshot {
+  id: number;
+  image: string;
+  width: number;
+  height: number;
+  is_deleted: boolean;
+}
 export interface Screenshot {
   id: number;
   image: string;
@@ -49,6 +61,23 @@ export interface Game {
   genres: Genre[];
   platforms: PlatformFull[];
   parent_platforms: FullParentPlatform[];
+}
+
+export interface DetailedGame {
+  id: number;
+  name: string;
+  metacritic: number;
+  released: string;
+  background_image: string;
+  description: string;
+  rating: number;
+  platforms: PlatformFull[];
+  website: string;
+  metacritic_url: string;
+}
+export interface Option {
+  label: string;
+  value: string | number;
 }
 
 export interface ParentPlatform {

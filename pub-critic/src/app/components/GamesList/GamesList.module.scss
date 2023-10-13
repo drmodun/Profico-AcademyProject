@@ -1,0 +1,34 @@
+@import "styles/vw-calc.scss";
+@import "styles/variables.scss";
+
+.gamesList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  column-gap: vw-calc(20);
+  row-gap: vw-calc(20);
+
+  @media (max-width: 768px) {
+    column-gap: vw-mobile-calc(10);
+    row-gap: vw-mobile-calc(20);
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: $primary;
+  font-size: vw-calc(20);
+  margin-top: vw-calc(20);
+  font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: vw-mobile-calc(16);
+    margin-top: vw-mobile-calc(20);
+  }
+}
