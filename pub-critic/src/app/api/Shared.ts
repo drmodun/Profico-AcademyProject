@@ -1,4 +1,4 @@
-export const baseURL = "https://tricky-dove-pullover.cyclic.app";
+export const baseURL = "https://agreeable-puce-suit.cyclic.app";
 export const altBaseURL = "https://pub-critic.fly.dev"; //if the other one is down
 
 export const setJWT = (token: string) => {

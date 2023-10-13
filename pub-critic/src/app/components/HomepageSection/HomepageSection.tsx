@@ -1,5 +1,5 @@
 "use client";
-import { Game } from "api/GamesShared";
+import { Game } from "common/interfaces";
 import classes from "./HomepageSection.module.scss";
 import GameCard from "components/GameCard";
 import { getFavourites, getMyFavourites } from "api/FavouriteApi";

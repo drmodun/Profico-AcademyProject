@@ -10,7 +10,10 @@ interface GameCardProps {
   isFavourite?: boolean;
 }
 
-export const GameCard: React.FC<GameCardProps> = ({ game, isFavourite }: GameCardProps) => {
+export const GameCard: React.FC<GameCardProps> = ({
+  game,
+  isFavourite,
+}: GameCardProps) => {
   return (
     <div className={classes.game}>
       <Favourite
