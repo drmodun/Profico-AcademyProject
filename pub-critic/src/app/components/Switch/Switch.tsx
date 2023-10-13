@@ -4,35 +4,32 @@ import chevron_down from "assets/chevron-down.svg";
 import chevron_up from "assets/chevron-up.svg";
 import classes from "./Switch.module.scss";
 import Image from "next/image";
+import { Option } from "common/interfaces";
 
-interface Option {
-  label: string;
-  value: number | string;
-}
-
-interface Props {
+interface SwitchProps {
   options: Option[];
   onSwitch: (value: number | string) => void;
 }
 
-export const Switch = ({ options, onSwitch }: Props) => {
+export const Switch: React.FC<SwitchProps> = ({
+  options,
+  onSwitch,
+}: SwitchProps) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>(
     options[0].label
   );
+
+  const toggleVisible = () => {
+    setVisible((prev) => !prev);
+  };
+
   return (
     <div className={classes.container}>
       <div className={classes.main}>
-        <button
-          className={classes.open}
-          onClick={() => setVisible((prev) => !prev)}
-        >
+        <button className={classes.open} onClick={toggleVisible}>
           {selectedOption}
-          {visible ? (
-            <Image src={chevron_up} alt="close" />
-          ) : (
-            <Image src={chevron_down} alt="close" />
-          )}
+          <Image src={visible ? chevron_up : chevron_down} alt="close" />
         </button>
       </div>
       {visible && (

@@ -6,7 +6,7 @@ import ProfileCard from "components/profileCard";
 import { EditableUserInfo } from "components/editableUserInfo/EditableUserInfo";
 import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { Favourite } from "api/Shared";
-import { DetailedGame, Genre } from "api/GamesShared";
+import { DetailedGame, Game, Genre } from "common/interfaces";
 import { getGame } from "api/GamesApi";
 import GameCard from "components/GameCard";
 import { getAllAvarageRatings, myReviews } from "api/ReviewsApi";
@@ -25,7 +25,7 @@ const UserPage = () => {
   const [favoritesList, setFavoritesList] = useState<Favourite[]>([
     //{ genres: ["Action"], gameId: 0, userId: 0 },
   ]);
-  const [favourites, setFavourites] = useState<DetailedGame[]>([]);
+  const [favourites, setFavourites] = useState<Game[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [avarages, setAvareges] = useState<Avarage[]>([]);
 
@@ -63,7 +63,7 @@ const UserPage = () => {
   };
 
   const fetchFavouriteGames = async (games: Favourite[]) => {
-    const response: DetailedGame[] = await Promise.all(
+    const response: Game[] = await Promise.all(
       games.map((f) => f.gameId).map((id) => getGame(id))
     );
     console.log(response);
@@ -141,6 +141,7 @@ const UserPage = () => {
                           rating: game.rating,
                           metacritic: game.metacritic,
                           genres: game.genres,
+                          parent_platforms: game.parent_platforms,
                           platforms: game.platforms,
                         }}
                         key={game.id}

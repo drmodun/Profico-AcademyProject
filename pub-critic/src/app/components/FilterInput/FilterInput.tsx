@@ -8,7 +8,11 @@ interface FilterInputProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export const FilterInput = ({ label, value, onChange }: FilterInputProps) => {
+export const FilterInput: React.FC<FilterInputProps> = ({
+  label,
+  value,
+  onChange,
+}: FilterInputProps) => {
   return (
     <div className={classes.filterInput}>
       <label htmlFor={label}>{label}</label>

@@ -65,5 +65,79 @@
         }
       }
     }
+    .section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-top: 40px;
+
+      @media (max-width: 768px) {
+        align-items: center;
+      }
+
+      > h1 {
+        font-size: 4vw;
+        font-weight: 900;
+        margin-bottom: 20px;
+
+        @media (max-width: 768px) {
+          font-size: 8vw;
+        }
+      }
+
+      .notFound {
+        font-size: 2.5vw;
+        font-weight: 500;
+        color: $primary;
+        width: 100%;
+        height: 55vw; // approximate height of game component
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        @media (max-width: 768px) {
+          font-size: 4vw;
+          height: 150vw;
+          text-align: center;
+        }
+      }
+
+      .list {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        overflow-x: scroll;
+        margin-top: 20px;
+
+        .listElement {
+          margin-right: vw-calc(20);
+        }
+
+        &::-webkit-scrollbar {
+          scroll-behavior: smooth;
+          scroll-snap-type: x mandatory;
+          position: relative;
+          top: 20px;
+          height: 20px;
+        }
+
+        &::-webkit-scrollbar-track {
+          border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-track-piece {
+          background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: $primary;
+          border-radius: 10px;
+        }
+      }
+    }
   }
 }
