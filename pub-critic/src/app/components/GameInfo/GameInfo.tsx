@@ -73,7 +73,6 @@ export const GameInfo = ({
   const handleReviewClick = () => {
     const review = document.getElementById("#review");
     if (!review) return;
-    console.log(review.getBoundingClientRect().top);
     if (review) {
       window.scrollTo({
         top: review.getBoundingClientRect().top - 100,
