@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: $backdrop-color;
+  background-color: $background-color;
 
   .logout {
     width: 100%;
@@ -21,7 +21,7 @@
     border: none;
     border-radius: vw-calc(10);
     align-items: center;
-    background-color: $background-color;
+    background-color: $light-base-black;
     padding: 0 vw-calc(50);
     font-size: vw-calc(20);
     margin-top: vw-calc(30);
@@ -45,7 +45,7 @@
     height: vw-calc(150);
     top: 70;
     left: 0;
-    background-color: $background-color;
+    background-color: $backdrop-color;
 
     @media screen and (max-width: 768px) {
       height: vw-calc(250);
@@ -59,7 +59,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: $backdrop-color;
+    background-color: $background-color;
     padding: 0 vw-calc(50);
     font-size: vw-calc(20);
     margin-top: vw-calc(150);
@@ -72,7 +72,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    background-color: $backdrop-color;
+    background-color: $background-color;
     padding: 0 vw-calc(50);
 
     @media screen and (max-width: 768px) {
@@ -95,7 +95,7 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      background-color: $backdrop-color;
+      background-color: $background-color;
       padding: vw-calc(50);
 
       @media screen and (max-width: 768px) {
@@ -127,7 +127,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $backdrop-color;
+    background-color: $background-color;
     font-size: vw-calc(18);
     font-weight: 600;
     color: $primary;
@@ -136,7 +136,7 @@
 
     &:hover {
       background-color: $secondary;
-      color: $background-color;
+      color: $backdrop-color;
     }
 
     @media screen and (max-width: 768px) {
@@ -144,6 +144,27 @@
       height: vw-calc(90);
       font-size: vw-calc(25);
     }
+  }
+
+  .favourites {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: vw-calc(20);
+    margin-top: vw-calc(20);
+  }
+  .list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: vw-calc(20);
+    flex-wrap: wrap;
+    align-items: flex-start;
+    font-size: vw-calc(20);
   }
 
   .active {

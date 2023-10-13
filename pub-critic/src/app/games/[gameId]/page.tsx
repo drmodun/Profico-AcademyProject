@@ -37,6 +37,7 @@ const GamePage = async ({ params }: { params: any }) => {
           rating={game.rating}
           released={game.released}
           screenshots={screenshots.results}
+          id={game.id}
           website={game.website}
         />
       </div>

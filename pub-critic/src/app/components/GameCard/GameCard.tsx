@@ -4,14 +4,23 @@ import Image from "next/image";
 import attachPlatformImage from "utils/static/PlatformAttacher";
 import controller from "assets/controller.svg";
 import Link from "next/link";
-
+import Favourite from "components/Favourite";
 interface GameCardProps {
   game: Game;
+  isFavourite?: boolean;
 }
 
-export const GameCard: React.FC<GameCardProps> = ({ game }: GameCardProps) => {
+export const GameCard: React.FC<GameCardProps> = ({
+  game,
+  isFavourite,
+}: GameCardProps) => {
   return (
     <div className={classes.game}>
+      <Favourite
+        genres={game.genres}
+        id={game.id}
+        initActive={isFavourite || false}
+      />
       <div className={classes.image}>
         {game.background_image ? (
           <Image
@@ -53,11 +62,12 @@ export const GameCard: React.FC<GameCardProps> = ({ game }: GameCardProps) => {
           ))}
         </div>
         <div className={classes.genres}>
-          {game.genres.map((genre) => (
-            <span className={classes.genre} key={genre.id}>
-              {genre.name}
-            </span>
-          ))}
+          {game.genres &&
+            game.genres.map((genre) => (
+              <span className={classes.genre} key={genre.id || undefined}>
+                {genre.name}
+              </span>
+            ))}
         </div>
       </div>
     </div>

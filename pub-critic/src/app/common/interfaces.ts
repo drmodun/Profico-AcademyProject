@@ -16,11 +16,8 @@ export interface Screenshot {
 }
 
 export interface Genre {
-  id: number;
+  id?: number;
   name: string;
-  slug: string;
-  games_count: number;
-  image_background: string;
 }
 
 export interface PlatformFull {
@@ -50,15 +47,12 @@ export interface Tag {
 
 export interface Game {
   id: number;
-  slug: string;
   name: string;
   released: string;
   background_image: string;
   metacritic: number;
   rating: number;
-  short_screenshots: Screenshot[];
-  tags: Tag[];
-  genres: Genre[];
+  genres: Genre[] | undefined ;
   platforms: PlatformFull[];
   parent_platforms: FullParentPlatform[];
 }

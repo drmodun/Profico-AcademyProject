@@ -6,6 +6,7 @@ export interface User {
   email: string;
   password: string;
   name: string;
+  id?: number;
   bio: string;
 }
 
@@ -74,6 +75,19 @@ export const getMe = async () => {
   try {
     const response = await api.get("/users/me");
     return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getByJwt = async (jwt: string) => {
+  try {
+    const response = await fetch(baseURL + "/users/me", {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    return await response.json();
   } catch (error) {
     console.error(error);
   }

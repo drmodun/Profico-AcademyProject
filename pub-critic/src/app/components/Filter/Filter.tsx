@@ -91,7 +91,7 @@ export const Filter = ({ genres, platforms, searchParams }: Props) => {
             closer={handleGenreCloser}
             options={genres.map((genre) => ({
               label: genre.name,
-              value: genre.id,
+              value: genre.id!,
             }))}
             onSelect={handleGenreSelect}
           />

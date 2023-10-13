@@ -1,0 +1,28 @@
+@import "styles/vw-calc.scss";
+
+.favourite {
+  position: relative;
+  top: vw-calc(70);
+  width: vw-calc(60);
+  height: vw-calc(60);
+  cursor: pointer;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &.active {
+    transform: scale(1.5);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0 vw-calc(10);
+  width: 100%;
+}
