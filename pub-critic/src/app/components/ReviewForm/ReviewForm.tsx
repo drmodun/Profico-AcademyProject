@@ -95,15 +95,15 @@ export const ReviewForm = ({
     setToken(localStorage.getItem("jwtToken"));
   }, []);
 
-  const handleSetRating = (rating) => {
+  const handleSetRating = (rating: number) => {
     setRating(rating);
   };
 
-  const handleSetBody = (e) => {
+  const handleSetBody = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setBody(e.target.value);
   };
 
-  const handleSetTitle = (title) => {
+  const handleSetTitle = (title: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(title.target.value);
   };
 
