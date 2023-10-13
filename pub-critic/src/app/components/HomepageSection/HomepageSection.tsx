@@ -5,13 +5,19 @@ import GameCard from "components/GameCard";
 import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { useState, useEffect } from "react";
 import { Favourite } from "api/Shared";
+import { Avarage } from "common/interfaces";
 
 interface HomePageSectionProps {
   title: string;
   games: Game[];
+  avarages?: Avarage[];
 }
 
-export const HomePageSection = ({ title, games }: HomePageSectionProps) => {
+export const HomePageSection = ({
+  title,
+  avarages,
+  games,
+}: HomePageSectionProps) => {
   const [favourites, setFavourites] = useState<Favourite[]>([]);
   const [visibleGames, setVisibleGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -47,6 +53,9 @@ export const HomePageSection = ({ title, games }: HomePageSectionProps) => {
             <GameCard
               game={game}
               key={game.id}
+              avarageRating={
+                avarages?.find((avarage) => avarage.gameId === game.id)?.avarage
+              }
               isFavourite={
                 favourites.find((favourite) => favourite.gameId === game.id) !==
                 undefined

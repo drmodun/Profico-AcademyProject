@@ -1,0 +1,212 @@
+@import "styles/variables.scss";
+@import "styles/vw-calc.scss";
+
+.review {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: vw-calc(20);
+  padding: vw-calc(20);
+  background-color: $light-base-black;
+  border-radius: vw-calc(10);
+
+  @media (max-width: 768px) {
+    padding: vw-mobile-calc(10);
+    border-radius: vw-mobile-calc(10);
+  }
+
+  .reviewHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    .image {
+      width: vw-calc(80);
+      height: vw-calc(80);
+      border-radius: 50%;
+      position: relative;
+      filter: invert(1);
+      margin-right: vw-calc(10);
+
+      @media (max-width: 768px) {
+        width: vw-mobile-calc(50);
+        height: vw-mobile-calc(50);
+        margin-right: vw-mobile-calc(10);
+      }
+    }
+
+    .names {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      .username {
+        color: $primary;
+        font-size: vw-calc(16);
+        margin-bottom: vw-calc(15);
+
+        @media (max-width: 768px) {
+          font-size: vw-mobile-calc(14);
+          margin-bottom: vw-mobile-calc(10);
+        }
+      }
+
+      .gameName {
+        color: $secondary;
+        font-size: vw-calc(16);
+
+        @media (max-width: 768px) {
+          font-size: vw-mobile-calc(14);
+        }
+
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .edit {
+    display: flex;
+    width: 100%;                      
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border: none;
+    margin-bottom: vw-calc(20);
+    margin-top: vw-calc(20);
+    height: vw-calc(20);
+    font-size: vw-calc(16);
+    padding: vw-calc(20);
+    border-radius: vw-calc(5);
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $primary;
+      color: $card-background-color;
+    }
+
+    &:active {
+      background-color: $secondary;
+      color: $card-background-color;
+    }
+  }
+
+  .delete {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    margin-bottom: vw-calc(20);
+    margin-top: vw-calc(20);
+    height: vw-calc(20);
+    font-size: vw-calc(16);
+    padding: vw-calc(20);
+    border-radius: vw-calc(5);
+    background-color: $error;
+
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $primary;
+      color: $card-background-color;
+    }
+
+    &:active {
+      background-color: $secondary;
+      color: $card-background-color;
+    }
+  }
+
+  .reviewBody {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: vw-calc(20);
+
+    .upper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: vw-calc(30);
+
+      .score {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        .star {
+          width: vw-calc(40);
+          height: vw-calc(40);
+          margin-right: vw-calc(15);
+          position: relative;
+          margin-bottom: vw-calc(10);
+
+          @media (max-width: 768px) {
+            width: vw-mobile-calc(30);
+            height: vw-mobile-calc(30);
+            margin-right: vw-mobile-calc(10);
+            margin-bottom: vw-mobile-calc(10);
+          }
+
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
+
+      .date {
+        color: $secondary;
+        font-size: vw-calc(16);
+
+        @media (max-width: 768px) {
+          font-size: vw-mobile-calc(14);
+        }
+      }
+    }
+
+    .title {
+      color: $primary;
+      font-size: vw-calc(26);
+      margin-bottom: vw-calc(10);
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(20);
+        margin-bottom: vw-mobile-calc(10);
+      }
+    }
+
+    .body {
+      color: $secondary;
+      font-size: vw-calc(16);
+      min-height: vw-calc(70);
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(14);
+        min-height: vw-mobile-calc(70);
+      }
+    }
+  }
+}
+
+.reviewFooter {
+  display: none;
+}

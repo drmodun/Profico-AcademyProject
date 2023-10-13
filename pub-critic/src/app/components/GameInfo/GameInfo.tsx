@@ -10,12 +10,13 @@ import { deleteFavourite, getFavourite, postFavourite } from "api/FavouriteApi";
 import { getFilteredGames } from "api/GamesApi";
 import Link from "next/link";
 import { Genre } from "common/interfaces";
-
+import { Avarage } from "common/interfaces";
 interface GameInfoProps {
   name: string;
   description: string;
   metacritic: number;
   rating: number;
+  avarage?: Avarage;
   released: string;
   background_image: string;
   screenshots: Screenshot[];
@@ -34,6 +35,7 @@ export const GameInfo: React.FC<GameInfoProps> = ({
   platforms,
   released,
   website,
+  avarage,
   id,
   metacritic_url,
   screenshots,
@@ -68,6 +70,17 @@ export const GameInfo: React.FC<GameInfoProps> = ({
       genres: genres,
     };
     await postFavourite(newFavourite);
+  };
+
+  const handleReviewClick = () => {
+    const review = document.getElementById("#review");
+    if (!review) return;
+    if (review) {
+      window.scrollTo({
+        top: review.getBoundingClientRect().top - 100,
+        behavior: "smooth",
+      });
+    }
   };
 
   useEffect(() => {
@@ -106,14 +119,14 @@ export const GameInfo: React.FC<GameInfoProps> = ({
             <Link href={website} className={classes.link}>
               <button className={classes.visit}>Visit Website</button>
             </Link>
-            <Link href={"#"} className={classes.link}>
+            <a href={"#"} className={classes.link}>
               <button
                 className={isFavourite ? classes.visit : classes.favourite}
                 onClick={handleToggleFavourite}
               >
                 {isFavourite ? "Remove from favourites" : "Add to favourites"}
               </button>
-            </Link>
+            </a>
             <Link href={"#"} className={classes.link}>
               <button className={classes.review}>Leave a review</button>
             </Link>
@@ -131,7 +144,9 @@ export const GameInfo: React.FC<GameInfoProps> = ({
             </div>
             <div className={classes.rating}>
               <span className={classes.ratingTitle}>Pub: </span>
-              <span className={classes.ratingValue}>TODO</span>
+              <span className={classes.ratingValue}>
+                {avarage ? avarage.avarage : "N/A"}
+              </span>
             </div>
           </div>
         </div>

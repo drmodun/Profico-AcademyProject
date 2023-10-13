@@ -7,12 +7,14 @@ import Link from "next/link";
 import Favourite from "components/Favourite";
 interface GameCardProps {
   game: Game;
+  avarageRating?: number;
   isFavourite?: boolean;
 }
 
 export const GameCard: React.FC<GameCardProps> = ({
   game,
   isFavourite,
+  avarageRating,
 }: GameCardProps) => {
   return (
     <div className={classes.game}>
@@ -51,7 +53,9 @@ export const GameCard: React.FC<GameCardProps> = ({
           </div>
           <div className={classes.rating}>
             <span className={classes.ratingTitle}>Pub: </span>
-            <span className={classes.ratingValue}>TODO</span>
+            <span className={classes.ratingValue}>
+              {avarageRating ?? "N/A"}
+            </span>
           </div>
         </div>
         <div className={classes.platforms}>

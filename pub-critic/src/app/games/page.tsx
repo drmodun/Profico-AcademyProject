@@ -9,11 +9,20 @@ import Filter from "components/Filter";
 import GameCard from "components/GameCard";
 import { get } from "http";
 import GamesList from "components/GamesList";
+import { getAllAvarageRatings } from "api/ReviewsApi";
 
 const fetchGenres = async () => {
   const response = await getGenres();
   if (response) {
     return response.results;
+  }
+};
+
+const getAvarages = async () => {
+  const response = await getAllAvarageRatings();
+  console.log(response);
+  if (response) {
+    return response;
   }
 };
 
@@ -34,6 +43,7 @@ const GamesPage = async ({
   };
 }) => {
   const genres = await fetchGenres();
+  const avarages = await getAvarages();
   const platforms = await fetchPlatforms();
   console.log(searchParams);
   const games = await getFilteredGames({
@@ -55,7 +65,11 @@ const GamesPage = async ({
           platforms={platforms}
           searchParams={searchParams}
         />
-        <GamesList games={games.results} searchParams={searchParams} />
+        <GamesList
+          games={games.results}
+          avarages={avarages}
+          searchParams={searchParams}
+        />
       </div>
     </div>
   );

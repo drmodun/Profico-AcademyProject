@@ -9,6 +9,9 @@ import { Favourite } from "api/Shared";
 import { DetailedGame, Game, Genre } from "common/interfaces";
 import { getGame } from "api/GamesApi";
 import GameCard from "components/GameCard";
+import { getAllAvarageRatings, myReviews } from "api/ReviewsApi";
+import { Avarage, Review } from "common/interfaces";
+import ReviewsList from "components/ReviewsList";
 
 enum tabs {
   Info,
@@ -23,12 +26,28 @@ const UserPage = () => {
     //{ genres: ["Action"], gameId: 0, userId: 0 },
   ]);
   const [favourites, setFavourites] = useState<Game[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [avarages, setAvareges] = useState<Avarage[]>([]);
 
   const getUser = async () => {
     const response = await getMe();
     if (response) {
       setUser(response);
       await fetchFavourites();
+    }
+  };
+
+  const fetchReviews = async () => {
+    const respone = await myReviews();
+    if (respone) {
+      setReviews(respone);
+    }
+  };
+
+  const fetchAvarages = async () => {
+    const response = await getAllAvarageRatings();
+    if (response) {
+      setAvareges(response);
     }
   };
 
@@ -55,6 +74,8 @@ const UserPage = () => {
 
   useEffect(() => {
     getUser();
+    fetchReviews();
+    fetchAvarages();
   }, []);
 
   return (
@@ -89,7 +110,7 @@ const UserPage = () => {
           </div>
           <div className={classes.tabContent}>
             {tab === "Reviews" && (
-              <div className={classes.later}>Reviews (to add after games)</div>
+              <ReviewsList refetch={fetchReviews} areMine reviews={reviews} />
             )}
             {tab === "Info" && (
               <EditableUserInfo
@@ -107,6 +128,11 @@ const UserPage = () => {
                     favoritesList &&
                     favourites.map((game) => (
                       <GameCard
+                        avarageRating={
+                          avarages?.find(
+                            (avarage) => avarage.gameId === game.id
+                          )?.avarage
+                        }
                         game={{
                           id: game.id,
                           name: game.name,
@@ -114,11 +140,7 @@ const UserPage = () => {
                           released: game.released,
                           rating: game.rating,
                           metacritic: game.metacritic,
-                          genres: favoritesList
-                            .filter((f) => f.gameId === game.id)[0]
-                            .genres.map((genre: string) => {
-                              return { name: genre };
-                            }),
+                          genres: game.genres,
                           parent_platforms: game.parent_platforms,
                           platforms: game.platforms,
                         }}

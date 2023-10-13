@@ -10,6 +10,7 @@ import { Game } from "common/interfaces";
 import { getFavourites } from "api/FavouriteApi";
 import { Favourite } from "api/Shared";
 import HomePageSection from "components/HomepageSection";
+import { getAllAvarageRatings } from "api/ReviewsApi";
 
 const getGame = async () => {
   const response = await getGames();
@@ -18,17 +19,18 @@ const getGame = async () => {
   }
 };
 
-const getFavorites = async () => {
-  const response = await getFavourites(1);
-  if (response) {
-    return response;
-  }
-};
-
 const getLatest = async () => {
   const response = await getLatestGames();
   if (response) {
     return response.results;
+  }
+};
+
+const getAvarages = async () => {
+  const response = await getAllAvarageRatings();
+  console.log(response);
+  if (response) {
+    return response;
   }
 };
 
@@ -43,7 +45,7 @@ export default async function Home() {
   const games = await getGame();
   const latest = await getLatest();
   const top = await getRated();
-  const favourites = await getFavorites();
+  const avarages = await getAvarages();
 
   return (
     <div className={classes.container}>
@@ -56,9 +58,9 @@ export default async function Home() {
             <span>The best place to find real game reviews by real people</span>
           </div>
         </div>
-        <HomePageSection title="Featured" games={games} />
-        <HomePageSection title="Top Rated" games={top} />
-        <HomePageSection title="Upcoming" games={latest} />
+        <HomePageSection title="Featured" avarages={avarages} games={games} />
+        <HomePageSection title="Top Rated" games={top} avarages={avarages} />
+        <HomePageSection title="Upcoming" games={latest} avarages={avarages} />
       </div>
     </div>
   );

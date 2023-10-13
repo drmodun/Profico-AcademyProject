@@ -8,9 +8,11 @@ import { Favourite } from "api/Shared";
 import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { get } from "http";
 import { getMe } from "api/UserApi";
+import { Avarage } from "common/interfaces";
 
 export interface GamesListProps {
   games: Game[];
+  avarages?: Avarage[];
   searchParams?: {
     search?: string;
     genre?: number;
@@ -20,7 +22,8 @@ export interface GamesListProps {
     pageSize?: number;
   };
 }
-export const GamesList: React.FC<GamesListProps> = ({
+export const GamesList = ({
+  avarages,
   games,
   searchParams,
 }: GamesListProps) => {
@@ -112,6 +115,10 @@ export const GamesList: React.FC<GamesListProps> = ({
             <GameCard
               game={game}
               key={game.id}
+              avarageRating={
+                avarages?.find &&
+                avarages?.find((avarage) => avarage.gameId === game.id)?.avarage
+              }
               isFavourite={
                 favourites &&
                 favourites?.find(

@@ -49,13 +49,13 @@
       }
 
       .image {
-        width: vw-calc(400);
+        width: vw-calc(550);
         display: flex;
         justify-content: center;
         align-items: center;
         margin-right: vw-calc(20);
         position: relative;
-        height: vw-calc(225);
+        height: vw-calc(310);
 
         @media (max-width: 768px) {
           display: none;

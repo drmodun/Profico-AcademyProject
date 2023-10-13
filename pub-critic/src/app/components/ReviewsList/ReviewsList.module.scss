@@ -1,0 +1,81 @@
+@import "styles/vw-calc.scss";
+@import "styles/variables.scss";
+
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: $background-color;
+  padding: vw-calc(20) 0;
+
+  .title {
+    font-size: vw-calc(20);
+    font-weight: 600;
+    margin-bottom: vw-calc(20);
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(16);
+      margin-bottom: vw-mobile-calc(20);
+    }
+  }
+
+  .sort {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: vw-calc(20);
+
+    @media (max-width: 768px) {
+      margin-bottom: vw-mobile-calc(20);
+    }
+
+    .element {
+      display: flex;
+      margin-right: vw-calc(20);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: $primary;
+      width: vw-calc(200);
+
+      @media (max-width: 768px) {
+        margin-right: vw-mobile-calc(20);
+        width: 100%;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      > span {
+        font-size: vw-calc(16);
+        font-weight: 500;
+        margin-bottom: vw-calc(10);
+
+        @media (max-width: 768px) {
+          font-size: vw-mobile-calc(10);
+          margin-bottom: vw-mobile-calc(10);
+        }
+      }
+    }
+  }
+
+  .reviews {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    column-gap: vw-calc(20);
+    row-gap: vw-calc(20);
+
+    @media (max-width: 768px) {
+      column-gap: vw-mobile-calc(10);
+      row-gap: vw-mobile-calc(20);
+    }
+  }
+}
