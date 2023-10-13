@@ -1,13 +1,16 @@
 "use client";
 
-import { Screenshots } from "components/Screenshots/Screenshots";
+import Screenshots from "components/Screenshots";
 import classes from "./GameInfo.module.scss";
-import { Genre, Platform, PlatformFull, Screenshot } from "api/GamesShared";
+import { Platform, PlatformFull, Screenshot } from "common/interfaces";
 import Image from "next/image";
 import contoller from "assets/controller.svg";
 import { useEffect, useState } from "react";
 import { deleteFavourite, getFavourite, postFavourite } from "api/FavouriteApi";
 import { getFilteredGames } from "api/GamesApi";
+import Link from "next/link";
+import { Genre } from "common/interfaces";
+
 interface GameInfoProps {
   name: string;
   description: string;
@@ -22,7 +25,7 @@ interface GameInfoProps {
   metacritic_url: string;
 }
 
-export const GameInfo = ({
+export const GameInfo: React.FC<GameInfoProps> = ({
   name,
   description,
   metacritic,
@@ -100,20 +103,20 @@ export const GameInfo = ({
             <span>Released: {released} </span>
           </div>
           <div className={classes.buttons}>
-            <a href={website} className={classes.link}>
+            <Link href={website} className={classes.link}>
               <button className={classes.visit}>Visit Website</button>
-            </a>
-            <a href={"#"} className={classes.link}>
+            </Link>
+            <Link href={"#"} className={classes.link}>
               <button
                 className={isFavourite ? classes.visit : classes.favourite}
                 onClick={handleToggleFavourite}
               >
                 {isFavourite ? "Remove from favourites" : "Add to favourites"}
               </button>
-            </a>
-            <a href={"#"} className={classes.link}>
+            </Link>
+            <Link href={"#"} className={classes.link}>
               <button className={classes.review}>Leave a review</button>
-            </a>
+            </Link>
           </div>
           <div className={classes.ratings}>
             <div className={classes.rating}>
@@ -121,9 +124,9 @@ export const GameInfo = ({
               <span className={classes.ratingValue}>{rating}</span>
             </div>
             <div className={classes.rating}>
-              <a href={metacritic_url} className={classes.ratingTitle}>
+              <Link href={metacritic_url} className={classes.ratingTitle}>
                 Metacritic:{" "}
-              </a>
+              </Link>
               <span className={classes.ratingValue}>{metacritic}</span>
             </div>
             <div className={classes.rating}>

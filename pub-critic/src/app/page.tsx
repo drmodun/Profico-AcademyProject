@@ -6,7 +6,7 @@ import LoginForm from "components/forms/loginForm";
 import ProfileCard from "components/profileCard";
 import { getGames, getLatestGames, getRatedGames } from "api/GamesApi";
 import GameCard from "components/GameCard";
-import { Game } from "api/GamesShared";
+import { Game } from "common/interfaces";
 import { getFavourites } from "api/FavouriteApi";
 import { Favourite } from "api/Shared";
 import HomePageSection from "components/HomepageSection";
