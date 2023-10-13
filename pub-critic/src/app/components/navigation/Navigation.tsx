@@ -66,7 +66,7 @@ export const Navigation = ({
                 pathname: "/me",
                 query: { name: name },
               }
-            : "/"
+            : "/login"
         }
         className={classes.account}
       >
