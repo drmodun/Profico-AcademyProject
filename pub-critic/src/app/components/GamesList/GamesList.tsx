@@ -10,6 +10,7 @@ import { get } from "http";
 import { getMe } from "api/UserApi";
 import { Avarage } from "common/interfaces";
 import useUser from "utils/UserContext";
+import Spinner from "components/LoadingSpinner";
 
 export interface GamesListProps {
   games: Game[];
@@ -21,6 +22,7 @@ export interface GamesListProps {
     metacritic?: string;
     page?: number;
     pageSize?: number;
+    ordering?: string;
   };
 }
 export const GamesList = ({
@@ -34,6 +36,7 @@ export const GamesList = ({
   );
   const [visibleGames, setVisibleGames] = useState<Game[]>(games);
   const [loading, setLoading] = useState<boolean>(false);
+  const [failed, setFailed] = useState<boolean>(false);
 
   const { favourites, updateFavourites } = useUser();
 
@@ -43,20 +46,44 @@ export const GamesList = ({
     }
   }, []);
 
+  useEffect(() => {
+    setFailed(false);
+    setVisibleGames(games);
+    setCurrentPage(searchParams?.page || 1);
+  }, [
+    games,
+    searchParams?.search,
+    searchParams?.genre,
+    searchParams?.platform,
+    searchParams?.metacritic,
+  ]);
+
+  useEffect(() => {
+    if (searchParams?.page) {
+      setCurrentPage(searchParams.page);
+    }
+  }, [searchParams?.page]);
+
   const fetchMore = async () => {
-    if (loading) return;
+    if (loading || failed) return;
     setLoading(true);
     const newGames = await getFilteredGames({
       search: searchParams?.search as string,
       genre: searchParams?.genre as number,
       platform: searchParams?.platform as number,
       metacritic: searchParams?.metacritic as string,
-      page: currentPage + 1,
+      page: Number(currentPage) + 1,
       pageSize: searchParams?.pageSize as number,
+      ordering: searchParams?.ordering,
     });
+    console.log(newGames);
     if (newGames.results) {
       setVisibleGames((prev) => [...prev, ...newGames.results]);
-      setCurrentPage((prev) => prev + 1);
+      setCurrentPage((prev) => Number(prev) + 1);
+    }
+    if (!newGames.results) {
+      setFailed(true);
+      console.log("failed");
     }
     setLoading(false);
   };
@@ -100,7 +127,7 @@ export const GamesList = ({
           );
         })}
       </div>
-      {loading && <div className={classes.loading}>Loading...</div>}
+      {loading && <Spinner />}
     </>
   );
 };
