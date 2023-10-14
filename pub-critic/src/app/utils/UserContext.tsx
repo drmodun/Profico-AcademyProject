@@ -187,7 +187,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         updateFavourites,
       }}
     >
-      0 {children}
+      {children}
     </UserContext.Provider>
   ) : (
     <Spinner />
