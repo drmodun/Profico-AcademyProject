@@ -1,6 +1,5 @@
 "use client";
 
-import "./spinnerStyle.css";
 import { getMyFavourites } from "api/FavouriteApi";
 import { getLikesAndDislikes } from "api/LikesAndDislikesApi";
 import { Favourite } from "api/FavouriteApi";

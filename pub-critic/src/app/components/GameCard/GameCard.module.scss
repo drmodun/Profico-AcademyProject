@@ -57,6 +57,7 @@
       @media (max-width: 768px) {
         font-size: vw-mobile-calc(14);
         margin-bottom: vw-mobile-calc(5);
+        height: vw-mobile-calc(35);
       }
 
       font-size: vw-calc(16);
@@ -126,6 +127,7 @@
 
       @media (max-width: 768px) {
         margin-top: vw-mobile-calc(5);
+        height: vw-mobile-calc(80);
       }
 
       .genre {
