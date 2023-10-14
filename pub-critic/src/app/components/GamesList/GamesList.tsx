@@ -101,7 +101,7 @@ export const GamesList = ({
   };
 
   return (
-    <>
+    <div className={classes.container}>
       <div className={classes.gamesList} ref={list} id="#list">
         {visibleGames.map((game: Game) => {
           console.log(
@@ -128,6 +128,6 @@ export const GamesList = ({
         })}
       </div>
       {loading && <Spinner />}
-    </>
+    </div>
   );
 };

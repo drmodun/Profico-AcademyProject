@@ -1,6 +1,12 @@
 @import "styles/vw-calc.scss";
 @import "styles/variables.scss";
 
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .gamesList {
   display: flex;
   flex-wrap: wrap;
