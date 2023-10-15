@@ -4,7 +4,6 @@ import classes from "./HomepageSection.module.scss";
 import GameCard from "components/GameCard";
 import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { useState, useEffect } from "react";
-import { Favourite } from "api/Shared";
 import { Avarage } from "common/interfaces";
 import useUser from "utils/UserContext";
 
@@ -20,9 +19,8 @@ export const HomePageSection = ({
   games,
 }: HomePageSectionProps) => {
   const [visibleGames, setVisibleGames] = useState<Game[]>(games);
-  const [loading, setLoading] = useState<boolean>(false);
 
-  const { favourites } = useUser();
+  const { favourites, loading } = useUser();
 
   return (
     <section className={classes.section}>

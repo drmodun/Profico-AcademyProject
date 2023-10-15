@@ -10,7 +10,7 @@ import useUser from "utils/UserContext";
 import useSideMenu from "utils/SideMenuContext";
 
 export const Navigation = ({ params }: any) => {
-  const { user } = useUser();
+  const { user, loading } = useUser();
   const { active, toggleActive } = useSideMenu();
   const [searchValue, setSearchValue] = useState<string>(
     params?.search ? params.search : ""
@@ -61,7 +61,7 @@ export const Navigation = ({ params }: any) => {
         }
         className={classes.account}
       >
-        <h1>{user ? user.name : "Sign In"}</h1>
+        <h1>{user ? user.name : loading ? "Loading..." : "Sign In"}</h1>
       </Link>
       <div className={classes.menu}>
         <Hamburger open={active} onToggle={toggleMenu} />

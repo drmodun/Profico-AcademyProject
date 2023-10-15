@@ -9,10 +9,8 @@ import Spinner from "components/LoadingSpinner";
 import React, {
   Dispatch,
   createContext,
-  use,
   useContext,
   useEffect,
-  useReducer,
   useState,
 } from "react";
 import { set } from "react-hook-form";
@@ -27,6 +25,7 @@ interface UserContextProps {
   updateLikes: (id: number, type: number) => void;
   updateFavourites: (favourite: Favourite) => void;
   updateDislikes: (id: number, type: number) => void;
+  loading: boolean;
 }
 
 const defaultUserContext: UserContextProps = {
@@ -39,6 +38,7 @@ const defaultUserContext: UserContextProps = {
   updateLikes: (id: number, type: number) => {},
   updateDislikes: (id: number, type: number) => {},
   updateFavourites: (favourite: Favourite) => {},
+  loading: false,
 };
 
 export const UserContext = createContext<UserContextProps>(defaultUserContext);
@@ -173,7 +173,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setLoading(false);
   };
 
-  return !loading ? (
+  return (
     <UserContext.Provider
       value={{
         user,
@@ -185,12 +185,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         updateLikes,
         updateDislikes,
         updateFavourites,
+        loading,
       }}
     >
       {children}
     </UserContext.Provider>
-  ) : (
-    <Spinner />
   );
 };
 

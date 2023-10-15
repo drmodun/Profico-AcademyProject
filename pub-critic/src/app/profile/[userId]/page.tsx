@@ -3,8 +3,8 @@ import classes from "./page.module.scss";
 import { useEffect, useState } from "react";
 import ProfileCard from "components/profileCard";
 import { EditableUserInfo } from "components/editableUserInfo/EditableUserInfo";
-import { getFavourites, getMyFavourites } from "api/FavouriteApi";
-import { Favourite } from "api/Shared";
+import { Favourite, getFavourites, getMyFavourites } from "api/FavouriteApi";
+
 import { DetailedGame, Genre } from "common/interfaces";
 import { getGame } from "api/GamesApi";
 import GameCard from "components/GameCard";

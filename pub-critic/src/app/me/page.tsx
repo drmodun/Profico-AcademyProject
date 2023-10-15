@@ -15,6 +15,7 @@ import ReviewsList from "components/ReviewsList";
 import Tabs from "components/Tabs";
 import UserPageBody from "components/UserPageBody";
 import useUser from "utils/UserContext";
+import Spinner from "components/LoadingSpinner";
 
 enum tabs {
   Info,
@@ -23,8 +24,7 @@ enum tabs {
 }
 
 const UserPage = () => {
-  const [tab, setTab] = useState<string>("Info");
-  const { favourites, user, setUser } = useUser();
+  const { favourites, user, setUser, loading } = useUser();
   const [favouritesList, setFavouritesList] = useState<Game[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [avarages, setAvareges] = useState<Avarage[]>([]);
@@ -82,7 +82,7 @@ const UserPage = () => {
             Logout
           </button>
         </div>
-        {user ? (
+        {!loading && user && favouritesList && avarages && reviews ? (
           <UserPageBody
             reviews={reviews}
             favourites={favouritesList}
@@ -91,7 +91,7 @@ const UserPage = () => {
             isMine
           />
         ) : (
-          <h1>Loading...</h1>
+          <Spinner />
         )}
       </div>
     </div>

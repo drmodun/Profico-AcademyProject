@@ -5,9 +5,3 @@ export const setJWT = (token: string) => {
   localStorage.setItem("jwtToken", token);
   localStorage.setItem("time", new Date().toString());
 };
-
-export interface Favourite {
-  userId: number;
-  gameId: number;
-  genres: string[];
-}

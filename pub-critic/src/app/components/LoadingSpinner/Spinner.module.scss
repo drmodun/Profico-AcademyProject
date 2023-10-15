@@ -1,3 +1,5 @@
+@import "styles/vw-calc.scss";
+
 @keyframes spinner {
   0% {
     transform: rotate(0deg);
@@ -8,8 +10,8 @@
 }
 
 .spinner {
-  width: 20vw;
-  height: 20vw;
+  width: vw-calc(50);
+  height: vw-calc(50);
   border: 10px solid #f3f3f3; /* Light grey */
   border-top: 10px solid #383636; /* Black */
   border-radius: 50%;
@@ -20,6 +22,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   width: 100%;
 }
