@@ -175,7 +175,6 @@ export const Filter = ({ genres, platforms, searchParams }: Props) => {
                   { label: "Ascending", value: "" },
                   { label: "Descending", value: "-" },
                 ]}
-          
                 initValue={
                   sorting.startsWith("-")
                     ? { label: "Descending", value: "-" }
@@ -200,17 +199,6 @@ export const Filter = ({ genres, platforms, searchParams }: Props) => {
               ordering: sorting ? sorting : undefined,
             },
           }}
-          onClick={() =>
-            filter({
-              genre: genre ? genre : undefined,
-              platform: platform ? platform : undefined,
-              search: name ? name : undefined,
-              metacritic: minRating + "," + maxRating,
-              page: 1,
-              pageSize: 12,
-              ordering: sorting ? sorting : undefined,
-            })
-          }
         >
           Filtriraj
         </Link>

@@ -12,14 +12,13 @@ interface DropdownProps {
   initSelected?: string | number;
 }
 
-
 export const Dropdown: React.FC<DropdownProps> = ({
   options,
   onSelect,
   cancel,
   closer,
   initSelected,
-}: Props) => {
+}: DropdownProps) => {
   const [searchTerm, setSearchTerm] = useState<string | number>("");
   const [selected, setSelected] = useState<string | number>("");
   const [visible, setVisible] = useState<boolean>(false);

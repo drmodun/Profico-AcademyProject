@@ -10,12 +10,14 @@ import { Option } from "common/interfaces";
 interface SwitchProps {
   options: Option[];
   onSwitch: (value: number | string) => void;
+  initValue?: Option;
 }
 
 
 export const Switch: React.FC<SwitchProps> = ({
   options,
   onSwitch,
+  initValue,
 }: SwitchProps) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>(

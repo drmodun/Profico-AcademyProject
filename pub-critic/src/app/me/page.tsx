@@ -25,7 +25,7 @@ enum tabs {
 const UserPage = () => {
   const [tab, setTab] = useState<string>("Info");
   const { favourites, user, setUser } = useUser();
-  const [favouritesList, setFavouritesList] = useState<DetailedGame[]>([]);
+  const [favouritesList, setFavouritesList] = useState<Game[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [avarages, setAvareges] = useState<Avarage[]>([]);
 

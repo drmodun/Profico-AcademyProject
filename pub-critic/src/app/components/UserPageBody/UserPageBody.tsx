@@ -1,7 +1,6 @@
 "use client";
-import { Avarage, Review, User } from "common/interfaces";
+import { Avarage, Game, Review, User } from "common/interfaces";
 import classes from "./UserPageBody.module.scss";
-import { DetailedGame } from "api/GamesShared";
 import { getUser } from "api/UserApi";
 import ReviewsList from "components/ReviewsList";
 import EditableUserInfo from "components/editableUserInfo";
@@ -14,7 +13,7 @@ import useUser from "utils/UserContext";
 
 interface UserPageBodyProps {
   reviews: Review[];
-  favourites: DetailedGame[];
+  favourites: Game[];
   user: User;
   avarages: Avarage[];
   isMine?: boolean;
@@ -67,6 +66,7 @@ export const UserPageBody = ({
                       rating: game.rating,
                       metacritic: game.metacritic,
                       genres: game.genres,
+                      parent_platforms: game.parent_platforms,
                       platforms: game.platforms,
                     }}
                     key={game.id}

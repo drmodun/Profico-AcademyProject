@@ -52,7 +52,7 @@ export interface Game {
   background_image: string;
   metacritic: number;
   rating: number;
-  genres: Genre[] | undefined ;
+  genres: Genre[] | undefined;
   platforms: PlatformFull[];
   parent_platforms: FullParentPlatform[];
 }
@@ -66,6 +66,8 @@ export interface DetailedGame {
   description: string;
   rating: number;
   platforms: PlatformFull[];
+  parent_platforms: FullParentPlatform[];
+  genres: Genre[];
   website: string;
   metacritic_url: string;
 }
