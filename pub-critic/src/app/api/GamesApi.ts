@@ -1,5 +1,6 @@
 import exp from "constants";
 import { apiKey, gamesApi } from "./GamesShared";
+import queryString from "query-string";
 
 export const getGames = async (page: number = 1, pageSize: number = 20) => {
   try {
@@ -78,22 +79,24 @@ export interface FilterProps {
 export const getFilteredGames = async ({
   search = "",
   page = 1,
-  pageSize = 20,
+  pageSize = 12,
   genre,
   platform,
   ordering,
   metacritic,
 }: FilterProps) => {
   try {
-    const response = await fetch(
-      `${gamesApi}/games?key=${apiKey}&page=${page}&page_size=${pageSize}${
-        genre && `&genres=${genre}`
-      }${platform && `&platforms=${platform}`}${
-        metacritic && `&metacritic=${metacritic}`
-      }${search && `&search=${search}`}${ordering && `&ordering=${ordering}`}
-      `
-    );
-    console.log(response.url);
+    const query = queryString.stringify({
+      key: apiKey,
+      page,
+      ...(search && { search }),
+      page_size: pageSize,
+      ...(genre && { genres: genre }),
+      ...(platform && { platforms: platform }),
+      ...(metacritic && { metacritic }),
+      ...(ordering && { ordering }),
+    });
+    const response = await fetch(`${gamesApi}/games?${query}`);
     return response.json();
   } catch (error) {
     console.log(error);

@@ -8,6 +8,7 @@ import Slider from "react-slider";
 import FilterInput from "components/FilterInput";
 import Link from "next/link";
 import Switch from "components/Switch";
+import { set } from "react-hook-form";
 
 interface Props {
   filter?: (value: FilterProps) => void;
@@ -61,6 +62,25 @@ export const Filter = ({
     setGenreCloser((prev) => !prev);
   };
 
+  console.log(searchParams, genre);
+
+  useEffect(() => {
+    setGenre(searchParams?.genre || undefined);
+    setPlatform(searchParams?.platform || undefined);
+    setName(searchParams?.search || "");
+    setMinRating(
+      searchParams?.metacritic
+        ? parseInt(searchParams.metacritic.split(",")[0])
+        : 0
+    );
+    setMaxRating(
+      searchParams?.metacritic
+        ? parseInt(searchParams.metacritic.split(",")[1])
+        : 100
+    );
+    setSorting(searchParams?.ordering || "");
+  }, [searchParams]);
+
   //add better ways to filtrate
 
   return (
@@ -87,6 +107,7 @@ export const Filter = ({
             onSelect={(value) => {
               setGenre(value as number);
             }}
+            initSelected={genre}
           />
         </div>
         <div className={classes.section}>
@@ -101,6 +122,7 @@ export const Filter = ({
             onSelect={(value) => {
               setPlatform(value as number);
             }}
+            initSelected={platform}
           />
         </div>
         <div className={classes.section}>
@@ -137,6 +159,14 @@ export const Filter = ({
                 { label: "Updated", value: "updated" },
               ]}
               onSwitch={(value) => setSorting(value as string)}
+              initValue={
+                sorting
+                  ? {
+                      label: sorting.replace("-", ""),
+                      value: sorting.replace("-", ""),
+                    }
+                  : undefined
+              }
             />
             {sorting && (
               <Switch
@@ -148,6 +178,11 @@ export const Filter = ({
                   setSorting(
                     (prev) => (value as string) + prev.replace("-", "")
                   )
+                }
+                initValue={
+                  sorting.startsWith("-")
+                    ? { label: "Descending", value: "-" }
+                    : { label: "Ascending", value: "" }
                 }
               />
             )}
@@ -163,7 +198,7 @@ export const Filter = ({
               search: name.length ? name : undefined,
               metacritic: minRating + "," + maxRating,
               page: 1,
-              pageSize: 10,
+              pageSize: 12,
               ordering: sorting ? sorting : undefined,
             },
           }}
@@ -174,7 +209,7 @@ export const Filter = ({
               search: name ? name : undefined,
               metacritic: minRating + "," + maxRating,
               page: 1,
-              pageSize: 10,
+              pageSize: 12,
               ordering: sorting ? sorting : undefined,
             })
           }

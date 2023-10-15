@@ -1,0 +1,164 @@
+@import "styles/vw-calc.scss";
+@import "styles/variables.scss";
+
+.container {
+  min-width: vw-calc(500);
+  width: 80%;
+  height: vw-calc(400);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: vw-calc(20);
+  background-color: $light-base-black;
+  border-radius: vw-calc(20);
+  margin-bottom: vw-calc(20);
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    min-width: 300px;
+    border-radius: vw-mobile-calc(10);
+    min-height: vw-mobile-calc(350);
+    padding: vw-mobile-calc(20);
+  }
+
+  .main {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: vw-calc(20);
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 0;
+    }
+
+    .pic {
+      width: vw-calc(300);
+      height: vw-calc(300);
+      border-radius: 50%;
+      display: flex;
+      padding: vw-calc(50);
+      position: relative;
+      border: 5px solid $secondary;
+
+      @media screen and (max-width: 768px) {
+        width: vw-mobile-calc(75);
+        height: vw-mobile-calc(75);
+        padding: vw-mobile-calc(50);
+      }
+
+      img {
+        filter: invert(1);
+      }
+    }
+
+    .content {
+      padding: vw-calc(20);
+      display: flex;
+      height: 100%;
+      width: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      @media screen and (max-width: 768px) {
+        align-items: center;
+        padding: vw-mobile-calc(20);
+        min-height: none;
+      }
+
+      .name {
+        font-size: vw-calc(50);
+        font-weight: 600;
+        color: $primary;
+        margin-bottom: vw-calc(20);
+
+        @media screen and (max-width: 768px) {
+          font-size: vw-mobile-calc(20);
+        }
+      }
+
+      .email {
+        font-size: vw-calc(30);
+        font-weight: 600;
+        color: $secondary;
+        margin-bottom: vw-calc(20);
+
+        @media screen and (max-width: 768px) {
+          font-size: vw-mobile-calc(10);
+        }
+      }
+
+      .desc {
+        font-size: vw-calc(15);
+        font-weight: 600;
+        margin-bottom: vw-calc(20);
+
+        @media screen and (max-width: 768px) {
+          font-size: vw-mobile-calc(10);
+          text-align: center;
+          min-height: vw-mobile-calc(60);
+        }
+      }
+
+      .info {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        p {
+          font-size: vw-calc(20);
+          font-weight: 600;
+          color: $secondary;
+          margin-bottom: vw-calc(20);
+
+          @media screen and (max-width: 768px) {
+            font-size: vw-mobile-calc(10);
+          }
+        }
+
+        @media screen and (max-width: 768px) {
+          align-items: center;
+        }
+      }
+    }
+  }
+  .button {
+    width: 100%;
+    display: flex;
+    height: vw-calc(30);
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: $primary;
+    background-color: $secondary;
+    border-radius: vw-calc(20);
+    font-size: vw-calc(20);
+    margin-top: vw-calc(10);
+    outline: none;
+    border: none;
+    transition: all 0.2s ease-in-out;
+
+    @media screen and (max-width: 768px) {
+      height: vw-mobile-calc(30);
+      font-size: vw-mobile-calc(10);
+      border-radius: vw-mobile-calc(10);
+      margin-top: vw-mobile-calc(0);
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $secondary;
+      background-color: $primary;
+    }
+
+    .icon {
+      margin-right: vw-calc(10);
+    }
+  }
+}

@@ -43,3 +43,26 @@ export const toggleFollow = async (userId: number) => {
     console.error(error);
   }
 };
+
+export const getUserFollowers = async (userId: number) => {
+  try {
+    const response = await fetch(`${baseURL}/followers/${userId}/followers`, {
+      cache: "no-store",
+    });
+    return response.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const getUserFollowing = async (userId: number) => {
+  try {
+    const response = await fetch(`${baseURL}/followers/${userId}/following`, {
+      cache: "no-store",
+    });
+    return response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
