@@ -4,7 +4,7 @@ import classes from "./Favourite.module.scss";
 import heartActive from "assets/favourite-active.svg";
 import Image from "next/image";
 import { useState } from "react";
-import { Genre } from "api/GamesShared";
+import { Genre } from "common/interfaces";
 import { deleteFavourite, postFavourite } from "api/FavouriteApi";
 import useUser from "utils/UserContext";
 

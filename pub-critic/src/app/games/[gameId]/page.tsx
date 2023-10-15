@@ -11,6 +11,8 @@ import ReviewsList from "components/ReviewsList";
 const fetchGameDetails = async (gameId: number) => {
   const response = await getGame(gameId);
   if (response) {
+    console.log("No game found with this id");
+    //404 page later, redirect when I implement it
     return response;
   }
 };
@@ -18,6 +20,7 @@ const fetchGameDetails = async (gameId: number) => {
 const fetchGameScreenshots = async (gameId: number) => {
   const response = await getScreenshots(gameId);
   if (response) {
+    console.log("Fetching screenshots failed"); //not sure what to do here
     return response;
   }
 };

@@ -1,17 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import classes from "./Filter.module.scss";
 import Dropdown from "components/Dropdown";
-import { Genre, Platform } from "api/GamesShared";
+import { Genre, Platform } from "common/interfaces";
 import { FilterProps } from "api/GamesApi";
 import Slider from "react-slider";
 import FilterInput from "components/FilterInput";
 import Link from "next/link";
 import Switch from "components/Switch";
-import { set } from "react-hook-form";
+import classes from "./Filter.module.scss";
 
 interface Props {
-  filter?: (value: FilterProps) => void;
   genres: Genre[];
   platforms: Platform[];
   searchParams?: {
@@ -25,14 +23,7 @@ interface Props {
   };
 }
 
-export const Filter = ({
-  filter = (value: FilterProps) => {
-    console.log(value);
-  },
-  genres,
-  platforms,
-  searchParams,
-}: Props) => {
+export const Filter = ({ genres, platforms, searchParams }: Props) => {
   const [genre, setGenre] = useState<number | undefined>(
     searchParams?.genre || undefined
   );
@@ -56,6 +47,23 @@ export const Filter = ({
 
   const handleGenreCloser = () => {
     setPlatformCloser((prev) => !prev);
+  };
+
+  const handleSliderChange = (value: number[]) => {
+    setMinRating(value[0]);
+    setMaxRating(value[1]);
+  };
+
+  const handleGenreSelect = (value: string | number) => {
+    setGenre(value as number);
+  };
+
+  const handlePlatformSelect = (value: string | number) => {
+    setPlatform(value as number);
+  };
+
+  const handleSortingSelect = (value: string | number) => {
+    setSorting((prev) => (value as string) + prev.replace("-", ""));
   };
 
   const handlePlatformCloser = () => {
@@ -96,7 +104,7 @@ export const Filter = ({
           />
         </div>
         <div className={classes.section}>
-          <span>Genre</span>
+          <span className={classes.title}>Genre</span>
           <Dropdown
             cancel={genreCloser}
             closer={handleGenreCloser}
@@ -104,14 +112,12 @@ export const Filter = ({
               label: genre.name,
               value: genre.id!,
             }))}
-            onSelect={(value) => {
-              setGenre(value as number);
-            }}
             initSelected={genre}
+            onSelect={handleGenreSelect}
           />
         </div>
         <div className={classes.section}>
-          <span>Platform</span>
+          <span className={classes.title}>Platform</span>
           <Dropdown
             cancel={platformCloser}
             closer={handlePlatformCloser}
@@ -119,17 +125,15 @@ export const Filter = ({
               label: platform.name,
               value: platform.id,
             }))}
-            onSelect={(value) => {
-              setPlatform(value as number);
-            }}
             initSelected={platform}
+            onSelect={handlePlatformSelect}
           />
         </div>
         <div className={classes.section}>
-          <span>Rating</span>
+          <span className={classes.title}>Rating</span>
           <div className={classes.ratings}>
-            <span>{minRating}</span>
-            <span>{maxRating}</span>
+            <span className={classes.ratingElement}>{minRating}</span>
+            <span className={classes.ratingElement}>{maxRating}</span>
           </div>
           <Slider
             className={classes.slider}
@@ -141,14 +145,11 @@ export const Filter = ({
             value={[minRating, maxRating]}
             max={100}
             min={0}
-            onChange={(value) => {
-              setMinRating(value[0]);
-              setMaxRating(value[1]);
-            }}
+            onChange={handleSliderChange}
           />
         </div>
         <div className={classes.section}>
-          <span>Order by</span>
+          <span className={classes.title}>Order by</span>
           <div className={classes.sorting}>
             <Switch
               options={[
@@ -174,16 +175,13 @@ export const Filter = ({
                   { label: "Ascending", value: "" },
                   { label: "Descending", value: "-" },
                 ]}
-                onSwitch={(value) =>
-                  setSorting(
-                    (prev) => (value as string) + prev.replace("-", "")
-                  )
-                }
+          
                 initValue={
                   sorting.startsWith("-")
                     ? { label: "Descending", value: "-" }
                     : { label: "Ascending", value: "" }
                 }
+                onSwitch={handleSortingSelect}
               />
             )}
           </div>
@@ -195,7 +193,7 @@ export const Filter = ({
             query: {
               genre: genre ? genre : undefined,
               platform: platform,
-              search: name.length ? name : undefined,
+              search: name.length > 0 ? name : undefined,
               metacritic: minRating + "," + maxRating,
               page: 1,
               pageSize: 12,

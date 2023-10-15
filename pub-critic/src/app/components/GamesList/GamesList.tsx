@@ -1,5 +1,5 @@
 "use client";
-import { Game } from "api/GamesShared";
+import { Game } from "common/interfaces";
 import classes from "./GamesList.module.scss";
 import GameCard from "components/GameCard";
 import { useRef, useState, useEffect } from "react";
@@ -89,9 +89,17 @@ export const GamesList = ({
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  });
+    if (list.current) {
+      list.current.scrollIntoView({ behavior: "smooth" });
+    }
+    setVisibleGames(games);
+  }, [games]);
+
+  useEffect(() => {
+    if (list.current) {
+      list.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
@@ -99,6 +107,11 @@ export const GamesList = ({
       fetchMore();
     }
   };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   return (
     <div className={classes.container}>

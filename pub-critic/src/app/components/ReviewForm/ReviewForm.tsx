@@ -2,12 +2,13 @@
 //form is custom (stars rating) so cannot use default form handling
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./ReviewForm.module.scss";
 import Image from "next/image";
 import star from "assets/star.svg";
 import lackOfStar from "assets/lackOfStar.svg";
 import { postReview, updateReview } from "api/ReviewsApi";
+import { set } from "react-hook-form";
 
 interface ReviewFormProps {
   gameId: number;
@@ -37,6 +38,7 @@ export const ReviewForm = ({
   );
   const [body, setBody] = useState<string>(initReview ? initReview.body : "");
   const [error, setError] = useState<string>("");
+  const [token, setToken] = useState<string | null>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -89,6 +91,21 @@ export const ReviewForm = ({
     }
     setError("Something went wrong");
   };
+  useEffect(() => {
+    setToken(localStorage.getItem("jwtToken"));
+  }, []);
+
+  const handleSetRating = (rating: number) => {
+    setRating(rating);
+  };
+
+  const handleSetBody = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setBody(e.target.value);
+  };
+
+  const handleSetTitle = (title: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(title.target.value);
+  };
 
   return (
     <form id="#review" onSubmit={handleSubmit} className={classes.form}>
@@ -97,41 +114,19 @@ export const ReviewForm = ({
       </h2>
       <div className={classes.stars}>
         <span>Rating: </span>
-        <label htmlFor="rating-1" onClick={() => setRating(1)}>
-          <Image
-            src={rating >= 1 ? star : lackOfStar}
-            alt="star"
-            layout="fill"
-          />
-        </label>
-        <label htmlFor="rating-2" onClick={() => setRating(2)}>
-          <Image
-            src={rating >= 2 ? star : lackOfStar}
-            alt="star"
-            layout="fill"
-          />
-        </label>
-        <label htmlFor="rating-3" onClick={() => setRating(3)}>
-          <Image
-            src={rating >= 3 ? star : lackOfStar}
-            alt="star"
-            layout="fill"
-          />
-        </label>
-        <label htmlFor="rating-4" onClick={() => setRating(4)}>
-          <Image
-            src={rating >= 4 ? star : lackOfStar}
-            alt="star"
-            layout="fill"
-          />
-        </label>
-        <label htmlFor="rating-5" onClick={() => setRating(5)}>
-          <Image
-            src={rating >= 5 ? star : lackOfStar}
-            alt="star"
-            layout="fill"
-          />
-        </label>
+        {[1, 2, 3, 4, 5].map((starNumber) => (
+          <label
+            key={starNumber + "star"}
+            htmlFor={`rating-${starNumber}`}
+            onClick={handleSetRating.bind(null, starNumber)}
+          >
+            <Image
+              src={rating >= starNumber ? star : lackOfStar}
+              alt="star"
+              layout="fill"
+            />
+          </label>
+        ))}
       </div>
       <input
         type="text"
@@ -139,7 +134,7 @@ export const ReviewForm = ({
         id="#title"
         className={classes.title}
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={handleSetTitle}
         placeholder="Title"
       />
 
@@ -149,18 +144,16 @@ export const ReviewForm = ({
         rows={10}
         className={classes.body}
         value={body}
-        onChange={(e) => setBody(e.target.value)}
+        onChange={handleSetBody}
         placeholder="Body"
       />
 
       <button
         type="submit"
-        disabled={!localStorage.getItem("jwtToken")}
-        className={
-          localStorage.getItem("jwtToken") ? classes.submit : classes.disabled
-        }
+        disabled={!token}
+        className={token ? classes.submit : classes.disabled}
       >
-        {localStorage.getItem("jwtToken") ? "Submit" : "Login to submit"}
+        {token ? "Submit" : "Login to submit"}
       </button>
       <span className={classes.error}>{error ? "Error: " + error : ""}</span>
     </form>

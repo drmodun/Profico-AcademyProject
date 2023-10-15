@@ -6,7 +6,7 @@ import ProfileCard from "components/profileCard";
 import { EditableUserInfo } from "components/editableUserInfo/EditableUserInfo";
 import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { Favourite } from "api/FavouriteApi";
-import { DetailedGame, Genre } from "api/GamesShared";
+import { DetailedGame, Game, Genre } from "common/interfaces";
 import { getGame } from "api/GamesApi";
 import GameCard from "components/GameCard";
 import { getAllAvarageRatings, myReviews } from "api/ReviewsApi";
@@ -50,7 +50,7 @@ const UserPage = () => {
   };
 
   const fetchFavouriteGames = async (games: Favourite[]) => {
-    const response: DetailedGame[] = await Promise.all(
+    const response: Game[] = await Promise.all(
       games.map((f) => f.gameId).map((id) => getGame(id))
     );
     console.log(response);
