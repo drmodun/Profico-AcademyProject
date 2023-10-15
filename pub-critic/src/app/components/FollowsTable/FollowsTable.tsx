@@ -15,7 +15,7 @@ interface FollowsTableProps {
 export const FollowsTable = ({
   followers,
   following,
-  firstTab,
+  firstTab = 0,
 }: FollowsTableProps) => {
   const [tab, setTab] = useState<number>(firstTab);
   const [listToRender, setListToRender] = useState(
