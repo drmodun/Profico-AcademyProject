@@ -53,6 +53,11 @@
           font-size: vw-mobile-calc(14);
           margin-bottom: vw-mobile-calc(10);
         }
+
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
       }
 
       .gameName {
@@ -100,6 +105,11 @@
       background-color: $secondary;
       color: $card-background-color;
     }
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(15);
+      height: vw-mobile-calc(30);
+    }
   }
 
   .delete {
@@ -128,6 +138,11 @@
     &:active {
       background-color: $secondary;
       color: $card-background-color;
+    }
+
+    @media (max-width: 768px) {
+      height: vw-mobile-calc(30);
+      font-size: vw-mobile-calc(14);
     }
   }
 

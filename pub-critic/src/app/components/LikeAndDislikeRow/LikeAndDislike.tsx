@@ -1,10 +1,5 @@
 "use client";
-
-import {
-  checkLikeStatus,
-  toggleDislike,
-  toggleLike,
-} from "api/LikesAndDislikesApi";
+import { toggleDislike, toggleLike } from "api/LikesAndDislikesApi";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Like from "assets/Like.svg";
@@ -12,7 +7,7 @@ import Dislike from "assets/Dislike.svg";
 import classes from "./LikeAndDislike.module.scss";
 import clsx from "clsx";
 import { set } from "react-hook-form";
-import { stat } from "fs";
+import useUser from "utils/UserContext";
 
 enum likeStatus {
   liked = 1,
@@ -31,13 +26,11 @@ export const LikeAndDislike = ({
 }: LikeAndDislikeProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isDisliked, setIsDisliked] = useState<boolean>(false);
-  const [likes, setLikes] = useState<number>(likeScore);
-  const [status, setStatus] = useState<likeStatus>(likeStatus.neutral);
+  const [totalLikes, setTotalLikes] = useState<number>(likeScore);
+  const [status, setStatus] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    checkStatus();
-  }, [reviewId]);
+  const { likes, dislikes, updateDislikes, updateLikes } = useUser();
 
   const handleLikeDislike = async (action: string) => {
     const jwt = localStorage.getItem("jwtToken");
@@ -52,12 +45,21 @@ export const LikeAndDislike = ({
     switch (status) {
       case likeStatus.liked:
         likeIncrement = action === "like" ? -1 : -2;
+        action === "like"
+          ? updateLikes(reviewId, 0)
+          : updateDislikes(reviewId, 1);
         break;
       case likeStatus.disliked:
         likeIncrement = action === "like" ? 2 : 1;
+        action === "like"
+          ? updateLikes(reviewId, 1)
+          : updateDislikes(reviewId, 0);
         break;
       default:
         likeIncrement = action === "like" ? 1 : -1;
+        action === "like"
+          ? updateLikes(reviewId, 1)
+          : updateDislikes(reviewId, 1);
         break;
     }
 
@@ -89,7 +91,7 @@ export const LikeAndDislike = ({
       console.error(error);
     }
 
-    setLikes((prev) => prev + likeIncrement);
+    setTotalLikes((prev) => prev + likeIncrement);
     setLoading(false);
   };
 
@@ -101,29 +103,16 @@ export const LikeAndDislike = ({
     handleLikeDislike("dislike");
   };
 
-  const checkStatus = async () => {
-    const jwt = localStorage.getItem("jwtToken");
-    if (!jwt) return;
-    try {
-      const response = await checkLikeStatus(reviewId);
-      if (!response) throw new Error("Something went wrong");
-      console.log(response);
-      const status = response.liked;
-      setStatus(status);
-      switch (status) {
-        case 1:
-          setIsLiked(true);
-          break;
-        case -1:
-          setIsDisliked(true);
-          break;
-        default:
-          break;
-      }
-    } catch (error) {
-      console.error(error);
+  useEffect(() => {
+    if (likes?.find((like) => like === reviewId)) {
+      setIsLiked(true);
+      setStatus(1);
     }
-  };
+    if (dislikes?.find((dislike) => dislike === reviewId)) {
+      setIsDisliked(true);
+      setStatus(-1);
+    }
+  }, [likes, dislikes]);
 
   return (
     <div className={classes.container}>
@@ -133,7 +122,7 @@ export const LikeAndDislike = ({
         src={Dislike}
         alt="Dislike"
       />
-      <span className={classes.score}>{likes}</span>
+      <span className={classes.score}>{totalLikes}</span>
       <Image
         className={clsx(classes.icon, isLiked && classes.active)}
         onClick={!loading ? handleLike : undefined}

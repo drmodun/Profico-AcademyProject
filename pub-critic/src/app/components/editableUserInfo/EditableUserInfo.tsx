@@ -4,6 +4,7 @@ import Input from "components/input";
 import user from "assets/user.svg";
 import show from "assets/Show.svg";
 import { deleteUser, editMe } from "api/UserApi";
+import useUser from "utils/UserContext";
 
 interface EditableUserInfoProps {
   initName: string;
@@ -23,12 +24,10 @@ export const EditableUserInfo = (
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [bio, setBio] = useState<string>("");
+  const { setUser } = useUser();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    /*if (name && email && bio) {
-        const response = await updateUserInfo(name, email, bio);
-    }*/
     console.log(`Name: ${name} Email: ${email} Bio: ${bio}`);
     const newUser = {
       name: name || initName,
@@ -39,6 +38,7 @@ export const EditableUserInfo = (
     if (update) {
       alert("User info updated");
       getMe();
+      setUser(update);
     }
     console.log(update);
   };

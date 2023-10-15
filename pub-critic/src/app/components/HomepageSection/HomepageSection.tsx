@@ -6,6 +6,7 @@ import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { useState, useEffect } from "react";
 import { Favourite } from "api/Shared";
 import { Avarage } from "common/interfaces";
+import useUser from "utils/UserContext";
 
 interface HomePageSectionProps {
   title: string;
@@ -18,34 +19,13 @@ export const HomePageSection = ({
   avarages,
   games,
 }: HomePageSectionProps) => {
-  const [favourites, setFavourites] = useState<Favourite[]>([]);
-  const [visibleGames, setVisibleGames] = useState<Game[]>([]);
+  const [visibleGames, setVisibleGames] = useState<Game[]>(games);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchFavourites = async () => {
-    const token = localStorage.getItem("jwtToken");
-
-    if (!token) {
-      setLoading(false);
-      setVisibleGames(games);
-      return;
-    }
-
-    const response = await getMyFavourites();
-    if (response) {
-      setFavourites(response);
-    }
-    setLoading(false);
-    setVisibleGames(games);
-  };
-
-  useEffect(() => {
-    setLoading(true);
-    fetchFavourites();
-  }, [games]);
+  const { favourites } = useUser();
 
   return (
-    <div className={classes.section}>
+    <section className={classes.section}>
       <h1>{title}</h1>
       {visibleGames.length ? (
         <div className={classes.list}>
@@ -57,8 +37,9 @@ export const HomePageSection = ({
                 avarages?.find((avarage) => avarage.gameId === game.id)?.avarage
               }
               isFavourite={
-                favourites.find((favourite) => favourite.gameId === game.id) !==
-                undefined
+                favourites?.find(
+                  (favourite) => favourite.gameId === game.id
+                ) !== undefined
               }
             />
           ))}
@@ -72,6 +53,6 @@ export const HomePageSection = ({
             : "No games found, please try again later or change your search parameters."}
         </div>
       )}
-    </div>
+    </section>
   );
 };

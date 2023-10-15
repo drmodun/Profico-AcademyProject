@@ -1,24 +1,18 @@
 "use client";
 import Link from "next/link";
 import classes from "./SideMenu.module.scss";
+import useSideMenu from "utils/SideMenuContext";
+import useUser from "utils/UserContext";
 
-interface SideMenuProps {
-  toggleMenu: () => void;
-  active: boolean;
-  user?: boolean;
-}
-
-export const SideMenu = ({ toggleMenu, active, user }: SideMenuProps) => {
+export const SideMenu = () => {
+  const { active, toggleActive } = useSideMenu();
+  const { user } = useUser();
   return (
-    <div
-      className={`${classes.sideMenu} ${active ? classes.active : ""}`}
-      onClick={toggleMenu}
-    >
+    <div className={`${classes.sideMenu} ${active ? classes.active : ""}`}>
       <div
         className={`${classes.sideMenuContent} ${active ? classes.active : ""}`}
-        onClick={toggleMenu}
       >
-        <div className={classes.links}>
+        <div className={classes.links} onClick={toggleActive}>
           <Link className={classes.link} href="/">
             Home
           </Link>
@@ -39,7 +33,7 @@ export const SideMenu = ({ toggleMenu, active, user }: SideMenuProps) => {
       </div>
       <div
         className={`${classes.backdrop} ${active ? classes.active : ""}`}
-        onClick={toggleMenu}
+        onClick={toggleActive}
       ></div>
     </div>
   );

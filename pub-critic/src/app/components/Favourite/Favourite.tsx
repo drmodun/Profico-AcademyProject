@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Genre } from "api/GamesShared";
 import { deleteFavourite, postFavourite } from "api/FavouriteApi";
+import useUser from "utils/UserContext";
 
 interface FavouriteProps {
   initActive: boolean;
@@ -15,16 +16,19 @@ interface FavouriteProps {
 
 export const Favourite = ({ initActive, id, genres = [] }: FavouriteProps) => {
   const [active, setActive] = useState<boolean>(initActive);
+  const { updateFavourites } = useUser();
 
-  const handleToggleFavourite = () => {
+  const handleToggleFavourite = async () => {
     setActive((prev) => !prev);
     const favourite = {
       gameId: id,
       genres: genres.map((genre: Genre) => genre.name) || [],
     };
 
+    updateFavourites(favourite);
+
     if (active) {
-      const deletion = deleteFavourite(favourite.gameId);
+      const deletion = await deleteFavourite(favourite.gameId);
       return deletion;
     }
 

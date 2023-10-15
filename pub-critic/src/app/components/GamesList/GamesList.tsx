@@ -4,11 +4,13 @@ import classes from "./GamesList.module.scss";
 import GameCard from "components/GameCard";
 import { useRef, useState, useEffect } from "react";
 import { getFilteredGames } from "api/GamesApi";
-import { Favourite } from "api/Shared";
+import { Favourite } from "api/FavouriteApi";
 import { getFavourites, getMyFavourites } from "api/FavouriteApi";
 import { get } from "http";
 import { getMe } from "api/UserApi";
 import { Avarage } from "common/interfaces";
+import useUser from "utils/UserContext";
+import Spinner from "components/LoadingSpinner";
 
 export interface GamesListProps {
   games: Game[];
@@ -20,6 +22,7 @@ export interface GamesListProps {
     metacritic?: string;
     page?: number;
     pageSize?: number;
+    ordering?: string;
   };
 }
 export const GamesList = ({
@@ -28,51 +31,59 @@ export const GamesList = ({
   searchParams,
 }: GamesListProps) => {
   const list = useRef<HTMLDivElement>(null);
-  const [favourites, setFavourites] = useState([]);
   const [currentPage, setCurrentPage] = useState<number>(
     searchParams?.page || 1
   );
-  const [visibleGames, setVisibleGames] = useState<Game[]>([]);
+  const [visibleGames, setVisibleGames] = useState<Game[]>(games);
   const [loading, setLoading] = useState<boolean>(false);
+  const [failed, setFailed] = useState<boolean>(false);
 
-  const fetchFavourites = async () => {
-    const token = localStorage.getItem("jwtToken");
-    if (!token) {
-      setVisibleGames(games);
-    }
-    const response = await getMyFavourites();
-    console.log(response);
-    if (response) {
-      setFavourites(response);
-      setVisibleGames(games);
-    }
-  };
-
-  useEffect(() => {
-    fetchFavourites();
-  }, [games]);
+  const { favourites, updateFavourites } = useUser();
 
   useEffect(() => {
     if (list.current) {
       list.current.scrollIntoView({ behavior: "smooth" });
     }
-    fetchFavourites();
   }, []);
 
+  useEffect(() => {
+    setFailed(false);
+    setVisibleGames(games);
+    setCurrentPage(searchParams?.page || 1);
+  }, [
+    games,
+    searchParams?.search,
+    searchParams?.genre,
+    searchParams?.platform,
+    searchParams?.metacritic,
+  ]);
+
+  useEffect(() => {
+    if (searchParams?.page) {
+      setCurrentPage(searchParams.page);
+    }
+  }, [searchParams?.page]);
+
   const fetchMore = async () => {
-    if (loading) return;
+    if (loading || failed) return;
     setLoading(true);
     const newGames = await getFilteredGames({
       search: searchParams?.search as string,
       genre: searchParams?.genre as number,
       platform: searchParams?.platform as number,
       metacritic: searchParams?.metacritic as string,
-      page: currentPage + 1,
+      page: Number(currentPage) + 1,
       pageSize: searchParams?.pageSize as number,
+      ordering: searchParams?.ordering,
     });
+    console.log(newGames);
     if (newGames.results) {
       setVisibleGames((prev) => [...prev, ...newGames.results]);
-      setCurrentPage((prev) => prev + 1);
+      setCurrentPage((prev) => Number(prev) + 1);
+    }
+    if (!newGames.results) {
+      setFailed(true);
+      console.log("failed");
     }
     setLoading(false);
   };
@@ -90,7 +101,7 @@ export const GamesList = ({
   };
 
   return (
-    <>
+    <div className={classes.container}>
       <div className={classes.gamesList} ref={list} id="#list">
         {visibleGames.map((game: Game) => {
           console.log(
@@ -116,7 +127,7 @@ export const GamesList = ({
           );
         })}
       </div>
-      {loading && <div className={classes.loading}>Loading...</div>}
-    </>
+      {loading && <Spinner />}
+    </div>
   );
 };

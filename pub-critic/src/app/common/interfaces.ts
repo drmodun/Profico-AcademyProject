@@ -10,6 +10,17 @@ export interface Author {
   name: string;
 }
 
+export interface User {
+  email: string;
+  password: string;
+  name: string;
+  id?: number;
+  bio: string;
+  likeScore?: number;
+  followers?: number;
+  following?: number;
+}
+
 export interface Avarage {
   gameId: number;
   count: number;
