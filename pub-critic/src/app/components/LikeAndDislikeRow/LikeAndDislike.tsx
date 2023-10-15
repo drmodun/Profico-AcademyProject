@@ -12,6 +12,13 @@ import Dislike from "assets/Dislike.svg";
 import classes from "./LikeAndDislike.module.scss";
 import clsx from "clsx";
 import { set } from "react-hook-form";
+import { stat } from "fs";
+
+enum likeStatus {
+  liked = 1,
+  disliked = -1,
+  neutral = 0,
+}
 
 export interface LikeAndDislikeProps {
   reviewId: number;
@@ -25,90 +32,73 @@ export const LikeAndDislike = ({
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isDisliked, setIsDisliked] = useState<boolean>(false);
   const [likes, setLikes] = useState<number>(likeScore);
-  const [status, setStatus] = useState<number>(0);
+  const [status, setStatus] = useState<likeStatus>(likeStatus.neutral);
   const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    checkStatus();
-  }, []);
 
   useEffect(() => {
     checkStatus();
   }, [reviewId]);
 
-  const handleLike = async () => {
+  const handleLikeDislike = async (action: string) => {
     const jwt = localStorage.getItem("jwtToken");
     if (!jwt) {
-      alert("You must be logged in to like a review");
+      alert("You must be logged in to like or dislike a review");
       return;
     }
+
     setLoading(true);
+    let likeIncrement = 0;
+
     switch (status) {
-      case 1:
-        setLikes((prev) => prev - 1);
+      case likeStatus.liked:
+        likeIncrement = action === "like" ? -1 : -2;
         break;
-      case -1:
-        setLikes((prev) => prev + 2);
+      case likeStatus.disliked:
+        likeIncrement = action === "like" ? 2 : 1;
         break;
       default:
-        setLikes((prev) => prev + 1);
+        likeIncrement = action === "like" ? 1 : -1;
         break;
     }
 
     const oldStatus = status;
+    const liked = isLiked;
     const disliked = isDisliked;
+
     try {
-      setStatus(isLiked ? 0 : 1);
-      setIsLiked((prev) => !prev);
-      setIsDisliked(false);
-      const response = await toggleLike(reviewId);
-      if (!response) {
-        throw new Error("Something went wrong");
+      if (action === "like") {
+        setStatus(isLiked ? likeStatus.neutral : likeStatus.liked);
+        setIsLiked((prev) => !prev);
+        setIsDisliked(false);
+        await toggleLike(reviewId);
+      } else {
+        setStatus(isDisliked ? likeStatus.neutral : likeStatus.disliked);
+        setIsDisliked((prev) => !prev);
+        setIsLiked(false);
+        await toggleDislike(reviewId);
       }
     } catch (error) {
-      setIsLiked((prev) => !prev);
+      if (action === "like") {
+        setIsLiked((prev) => !prev);
+      } else {
+        setIsDisliked((prev) => !prev);
+      }
+      setIsLiked(liked);
       setIsDisliked(disliked);
       setStatus(oldStatus);
       console.error(error);
     }
+
+    setLikes((prev) => prev + likeIncrement);
     setLoading(false);
   };
 
-  const handleDislike = async () => {
-    const jwt = localStorage.getItem("jwtToken");
-    if (!jwt) {
-      alert("You must be logged in to dislike a review");
-      return;
-    }
-    setLoading(true);
-    switch (status) {
-      case 1:
-        setLikes((prev) => prev - 2);
-        break;
-      case -1:
-        setLikes((prev) => prev + 1);
-        break;
-      default:
-        setLikes((prev) => prev - 1);
-        break;
-    }
-    const oldStatus = status;
-    const liked = isLiked;
-    setStatus(isDisliked ? 0 : -1);
-    try {
-      setIsDisliked((prev) => !prev);
-      setIsLiked(false);
-      const response = await toggleDislike(reviewId);
-      if (!response) {
-        throw new Error("Something went wrong");
-      }
-    } catch (error) {
-      setIsDisliked((prev) => !prev);
-      setIsLiked(liked);
-      setStatus(oldStatus);
-      console.error(error);
-    }
-    setLoading(false);
+  const handleLike = () => {
+    handleLikeDislike("like");
+  };
+
+  const handleDislike = () => {
+    handleLikeDislike("dislike");
   };
 
   const checkStatus = async () => {
