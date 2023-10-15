@@ -25,7 +25,7 @@ export const HomePageSection = ({
   const { favourites } = useUser();
 
   return (
-    <div className={classes.section}>
+    <section className={classes.section}>
       <h1>{title}</h1>
       {visibleGames.length ? (
         <div className={classes.list}>
@@ -53,6 +53,6 @@ export const HomePageSection = ({
             : "No games found, please try again later or change your search parameters."}
         </div>
       )}
-    </div>
+    </section>
   );
 };

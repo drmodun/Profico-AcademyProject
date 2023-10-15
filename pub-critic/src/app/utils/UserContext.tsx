@@ -1,11 +1,11 @@
 "use client";
 
-import "./spinnerStyle.css";
 import { getMyFavourites } from "api/FavouriteApi";
 import { getLikesAndDislikes } from "api/LikesAndDislikesApi";
 import { Favourite } from "api/FavouriteApi";
 import { getMe } from "api/UserApi";
 import { User } from "common/interfaces";
+import Spinner from "components/LoadingSpinner";
 import React, {
   Dispatch,
   createContext,
@@ -187,12 +187,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         updateFavourites,
       }}
     >
-      0 {children}
+      {children}
     </UserContext.Provider>
   ) : (
-    <div className="spinner-container">
-      <div className="loading-spinner"></div>
-    </div>
+    <Spinner />
   );
 };
 
