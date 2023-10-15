@@ -11,7 +11,7 @@ interface Props {
   onSelect: (value: string | number) => void;
   cancel?: boolean;
   closer?: Function;
-  initSelected?: string;
+  initSelected?: string | number;
 }
 
 export const Dropdown = ({
@@ -25,7 +25,7 @@ export const Dropdown = ({
   const [selected, setSelected] = useState<string | number>("");
   const [visible, setVisible] = useState<boolean>(false);
   const [placeholder, setPlaceholder] = useState<string>(
-    initSelected || "Search"
+    options.find((option) => option.value == initSelected)?.label || "Search"
   );
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {

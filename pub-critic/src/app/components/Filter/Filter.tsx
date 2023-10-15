@@ -107,9 +107,7 @@ export const Filter = ({
             onSelect={(value) => {
               setGenre(value as number);
             }}
-            initSelected={
-              genres.find((selectedGenre) => selectedGenre.id == genre)?.name
-            }
+            initSelected={genre}
           />
         </div>
         <div className={classes.section}>
@@ -124,11 +122,7 @@ export const Filter = ({
             onSelect={(value) => {
               setPlatform(value as number);
             }}
-            initSelected={
-              platforms.find(
-                (selectedPlatform) => selectedPlatform.id == platform
-              )?.name
-            }
+            initSelected={platform}
           />
         </div>
         <div className={classes.section}>

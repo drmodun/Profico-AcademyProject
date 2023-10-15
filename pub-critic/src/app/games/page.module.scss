@@ -9,10 +9,10 @@
   align-items: flex-start;
   justify-content: center;
   background-color: $background-color;
-  padding: vw-calc(70) vw-calc(10);
+  padding: vw-calc(70 10);
 
   @media (max-width: 768px) {
-    padding: vw-mobile-calc(70) vw-mobile-calc(10);
+    padding: vw-mobile-calc(70 10);
   }
 
   .page {
