@@ -9,7 +9,6 @@ import clsx from "clsx";
 import { set } from "react-hook-form";
 import useUser from "utils/UserContext";
 
-
 enum likeStatus {
   liked = 1,
   disliked = -1,
@@ -33,7 +32,6 @@ export const LikeAndDislike = ({
 
   const { likes, dislikes, updateDislikes, updateLikes } = useUser();
 
-
   const handleLikeDislike = async (action: string) => {
     const jwt = localStorage.getItem("jwtToken");
     if (!jwt) {
@@ -47,15 +45,21 @@ export const LikeAndDislike = ({
     switch (status) {
       case likeStatus.liked:
         likeIncrement = action === "like" ? -1 : -2;
-        action === "like" ? updateLikes(reviewId, 0) : updateDislikes(reviewId, 1);
+        action === "like"
+          ? updateLikes(reviewId, 0)
+          : updateDislikes(reviewId, 1);
         break;
       case likeStatus.disliked:
         likeIncrement = action === "like" ? 2 : 1;
-        action === "like" ? updateLikes(reviewId, 1) : updateDislikes(reviewId, 0);
+        action === "like"
+          ? updateLikes(reviewId, 1)
+          : updateDislikes(reviewId, 0);
         break;
       default:
         likeIncrement = action === "like" ? 1 : -1;
-        action === "like" ? updateLikes(reviewId, 1) : updateDislikes(reviewId, 1);
+        action === "like"
+          ? updateLikes(reviewId, 1)
+          : updateDislikes(reviewId, 1);
         break;
     }
 
@@ -87,10 +91,9 @@ export const LikeAndDislike = ({
       console.error(error);
     }
 
-    setLikes((prev) => prev + likeIncrement);
+    setTotalLikes((prev) => prev + likeIncrement);
     setLoading(false);
   };
-
 
   const handleLike = () => {
     handleLikeDislike("like");
