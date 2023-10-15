@@ -36,7 +36,7 @@ export const ProfileCard = ({
           className={classes.link}
           href={{
             pathname: "/follows/" + id,
-            query: { tab: 1 },
+            query: { tab: 0 },
           }}
         >
           {followers} followers
@@ -45,7 +45,7 @@ export const ProfileCard = ({
           className={classes.link}
           href={{
             pathname: "/follows/" + id,
-            query: { tab: 0 },
+            query: { tab: 1 },
           }}
         >
           {following} following

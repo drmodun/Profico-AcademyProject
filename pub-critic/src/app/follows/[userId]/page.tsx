@@ -23,13 +23,18 @@ const getFollowing = async (id: string) => {
 
 const FollowsPage = async ({ params, searchParams }: any) => {
   const id = params.userId;
-  const firstTab = searchParams.tab;
+  const firstTab = searchParams?.tab as number;
+  console.log(firstTab);
   const followers: User[] = await getFollowers(id);
   const following: User[] = await getFollowing(id);
 
   return (
     <div className={classes.container}>
-      <FollowsTable followers={followers} firstTab={firstTab} following={following} />
+      <FollowsTable
+        followers={followers}
+        firstTab={firstTab}
+        following={following}
+      />
     </div>
   );
 };

@@ -52,6 +52,7 @@ export const getUserFollowers = async (userId: number) => {
     return response.json();
   } catch (error) {
     console.error(error);
+    return null;
   }
 };
 
