@@ -49,7 +49,9 @@ export const GameCard: React.FC<GameCardProps> = ({
           </div>
           <div className={classes.rating}>
             <span className={classes.ratingTitle}>Metacritic: </span>
-            <span className={classes.ratingValue}>{game.metacritic}</span>
+            <span className={classes.ratingValue}>
+              {game.metacritic || "No rating"}
+            </span>
           </div>
           <div className={classes.rating}>
             <span className={classes.ratingTitle}>Pub: </span>

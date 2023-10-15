@@ -94,7 +94,7 @@ export interface FilterProps {
 export const getFilteredGames = async ({
   search = "",
   page = 1,
-  pageSize = 20,
+  pageSize = 12,
   genre,
   platform,
   ordering,

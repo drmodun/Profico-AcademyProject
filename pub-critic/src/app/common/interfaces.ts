@@ -52,7 +52,7 @@ export interface Game {
   background_image: string;
   metacritic: number;
   rating: number;
-  genres: Genre[] | undefined ;
+  genres: Genre[] | undefined;
   platforms: PlatformFull[];
   parent_platforms: FullParentPlatform[];
 }
@@ -66,6 +66,8 @@ export interface DetailedGame {
   description: string;
   rating: number;
   platforms: PlatformFull[];
+  parent_platforms: FullParentPlatform[];
+  genres: Genre[];
   website: string;
   metacritic_url: string;
 }
@@ -95,6 +97,17 @@ export interface Author {
   name: string;
 }
 
+export interface User {
+  email: string;
+  password: string;
+  name: string;
+  id?: number;
+  bio: string;
+  likeScore?: number;
+  followers?: number;
+  following?: number;
+}
+
 export interface Avarage {
   gameId: number;
   count: number;
@@ -111,4 +124,5 @@ export interface Review {
   gameName: string;
   author: Author;
   date: string;
+  likeScore: number;
 }

@@ -70,6 +70,25 @@ export const Filter = ({ genres, platforms, searchParams }: Props) => {
     setGenreCloser((prev) => !prev);
   };
 
+  console.log(searchParams, genre);
+
+  useEffect(() => {
+    setGenre(searchParams?.genre || undefined);
+    setPlatform(searchParams?.platform || undefined);
+    setName(searchParams?.search || "");
+    setMinRating(
+      searchParams?.metacritic
+        ? parseInt(searchParams.metacritic.split(",")[0])
+        : 0
+    );
+    setMaxRating(
+      searchParams?.metacritic
+        ? parseInt(searchParams.metacritic.split(",")[1])
+        : 100
+    );
+    setSorting(searchParams?.ordering || "");
+  }, [searchParams]);
+
   //add better ways to filtrate
 
   return (
@@ -93,6 +112,7 @@ export const Filter = ({ genres, platforms, searchParams }: Props) => {
               label: genre.name,
               value: genre.id!,
             }))}
+            initSelected={genre}
             onSelect={handleGenreSelect}
           />
         </div>
@@ -105,6 +125,7 @@ export const Filter = ({ genres, platforms, searchParams }: Props) => {
               label: platform.name,
               value: platform.id,
             }))}
+            initSelected={platform}
             onSelect={handlePlatformSelect}
           />
         </div>
@@ -139,6 +160,14 @@ export const Filter = ({ genres, platforms, searchParams }: Props) => {
                 { label: "Updated", value: "updated" },
               ]}
               onSwitch={(value) => setSorting(value as string)}
+              initValue={
+                sorting
+                  ? {
+                      label: sorting.replace("-", ""),
+                      value: sorting.replace("-", ""),
+                    }
+                  : undefined
+              }
             />
             {sorting && (
               <Switch
@@ -146,6 +175,11 @@ export const Filter = ({ genres, platforms, searchParams }: Props) => {
                   { label: "Ascending", value: "" },
                   { label: "Descending", value: "-" },
                 ]}
+                initValue={
+                  sorting.startsWith("-")
+                    ? { label: "Descending", value: "-" }
+                    : { label: "Ascending", value: "" }
+                }
                 onSwitch={handleSortingSelect}
               />
             )}
@@ -161,7 +195,7 @@ export const Filter = ({ genres, platforms, searchParams }: Props) => {
               search: name.length > 0 ? name : undefined,
               metacritic: minRating + "," + maxRating,
               page: 1,
-              pageSize: 10,
+              pageSize: 12,
               ordering: sorting ? sorting : undefined,
             },
           }}

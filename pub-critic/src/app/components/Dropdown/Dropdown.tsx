@@ -9,6 +9,7 @@ interface DropdownProps {
   onSelect: (value: string | number) => void;
   cancel?: boolean;
   closer?: Function;
+  initSelected?: string | number;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -16,11 +17,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
   onSelect,
   cancel,
   closer,
-}) => {
+  initSelected,
+}: DropdownProps) => {
   const [searchTerm, setSearchTerm] = useState<string | number>("");
   const [selected, setSelected] = useState<string | number>("");
   const [visible, setVisible] = useState<boolean>(false);
-  const [placeholder, setPlaceholder] = useState<string>("Search");
+  const [placeholder, setPlaceholder] = useState<string>(
+    options.find((option) => option.value == initSelected)?.label || "Search"
+  );
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);

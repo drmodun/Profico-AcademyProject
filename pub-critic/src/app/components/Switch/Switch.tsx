@@ -4,20 +4,24 @@ import chevron_down from "assets/chevron-down.svg";
 import chevron_up from "assets/chevron-up.svg";
 import classes from "./Switch.module.scss";
 import Image from "next/image";
+import { Capitalise } from "utils/stringCapitiliser";
 import { Option } from "common/interfaces";
 
 interface SwitchProps {
   options: Option[];
   onSwitch: (value: number | string) => void;
+  initValue?: Option;
 }
+
 
 export const Switch: React.FC<SwitchProps> = ({
   options,
   onSwitch,
+  initValue,
 }: SwitchProps) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>(
-    options[0].label
+    Capitalise(initValue?.label) || options[0].label
   );
 
   const toggleVisible = () => {
