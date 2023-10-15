@@ -55,12 +55,12 @@ export const ReviewCard: React.FC<ReviewProps> = ({
         </div>
         <div className={classes.names}>
           <Link
-            href={"/profile/" + review.author.id}
+            href={`/profile/${review.author.id}`}
             className={classes.username}
           >
             {review.author.name}
           </Link>
-          <Link href={"/games/" + review.gameId} className={classes.gameName}>
+          <Link href={`/games/${review.gameId}`} className={classes.gameName}>
             Review of: {review.gameName}
           </Link>
         </div>

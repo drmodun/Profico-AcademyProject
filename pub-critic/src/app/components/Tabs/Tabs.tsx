@@ -1,4 +1,5 @@
 "use client";
+import clsx from "clsx";
 import classes from "./Tabs.module.scss";
 
 enum tabs {
@@ -18,9 +19,7 @@ export const Tabs = ({ tab, setTab }: TabsProps) => (
       .filter((t) => typeof t === "string")
       .map((t) => (
         <div
-          className={
-            tab === t ? classes.tab + " " + classes.active : classes.tab
-          }
+          className={clsx(classes.tab, tab === t ? classes.active : "")}
           onClick={() => setTab(t as string)}
           key={t}
         >

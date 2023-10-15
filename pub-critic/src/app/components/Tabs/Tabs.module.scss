@@ -17,7 +17,7 @@
 .tab {
   width: vw-calc(150);
   height: vw-calc(50);
-  min-height: 48px;
+  min-height: vw-calc(50);
   border-radius: vw-calc(10);
   border: 1px solid $secondary;
   display: flex;
