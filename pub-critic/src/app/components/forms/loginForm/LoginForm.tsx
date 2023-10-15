@@ -6,6 +6,7 @@ import emailPic from "assets/Email.svg";
 import show from "assets/Show.svg";
 import hide from "assets/Hide.svg";
 import { loginUser } from "api/UserApi";
+import Link from "next/link";
 
 export const LoginForm = () => {
   const [password, setPassword] = useState<string>("");
@@ -59,7 +60,7 @@ export const LoginForm = () => {
           icon2={hide}
         />
         <span className={classes.Alternate}>
-          Do not have an account? <a href="/register">Register</a>
+          Do not have an account? <Link href="/register">Register</Link>
         </span>
         <button type="submit">Login</button>
       </form>

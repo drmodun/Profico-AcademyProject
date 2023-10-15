@@ -8,6 +8,7 @@ import emailPic from "assets/Email.svg";
 import show from "assets/Show.svg";
 import hide from "assets/Hide.svg";
 import { postUser } from "api/UserApi";
+import Link from "next/link";
 
 export const RegisterForm = () => {
   const [name, setName] = useState<string>("");
@@ -98,7 +99,7 @@ export const RegisterForm = () => {
           icon2={hide}
         />
         <span className={classes.Alternate}>
-          Already have an account? <a href="/login">Login</a>
+          Already have an account? <Link href="/login">Login</Link>
         </span>
         <button type="submit">Register</button>
       </form>
