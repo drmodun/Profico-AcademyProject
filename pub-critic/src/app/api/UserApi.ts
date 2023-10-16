@@ -59,7 +59,6 @@ export const loginUser = async (user: LoginUser) => {
     setJWT(response.data.accessToken);
     return true;
   } catch (error) {
-    alert("Incorrect email or password");
     return false;
   }
 };
@@ -110,10 +109,8 @@ export const editMe = async (user: UserEdit) => {
 export const deleteUser = async () => {
   try {
     const response = await api.delete("/users/");
-    alert("Account deleted");
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("time");
-    window.location.href = "/";
     return response.data;
   } catch (error) {
     console.error(error);
@@ -124,7 +121,6 @@ export const logoutUser = async () => {
   try {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("time");
-    alert("Logged out");
     window.location.href = "/";
   } catch (error) {
     console.error(error);

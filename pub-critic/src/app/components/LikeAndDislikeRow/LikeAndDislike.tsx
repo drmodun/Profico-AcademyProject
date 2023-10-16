@@ -8,6 +8,8 @@ import classes from "./LikeAndDislike.module.scss";
 import clsx from "clsx";
 import { set } from "react-hook-form";
 import useUser from "utils/UserContext";
+import Spinner from "components/LoadingSpinner";
+import Modal from "utils/Modal";
 
 enum likeStatus {
   liked = 1,
@@ -29,13 +31,21 @@ export const LikeAndDislike = ({
   const [totalLikes, setTotalLikes] = useState<number>(likeScore);
   const [status, setStatus] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const { likes, dislikes, updateDislikes, updateLikes } = useUser();
+  const {
+    likes,
+    dislikes,
+    updateDislikes,
+    updateLikes,
+    loading: userLoading,
+  } = useUser();
 
   const handleLikeDislike = async (action: string) => {
+    if (loading || userLoading) return;
     const jwt = localStorage.getItem("jwtToken");
     if (!jwt) {
-      alert("You must be logged in to like or dislike a review");
+      setModalOpen(true);
       return;
     }
 
@@ -116,19 +126,31 @@ export const LikeAndDislike = ({
 
   return (
     <div className={classes.container}>
-      <Image
-        className={clsx(classes.icon, isDisliked && classes.active)}
-        onClick={!loading ? handleDislike : undefined}
-        src={Dislike}
-        alt="Dislike"
+      <Modal
+        open={modalOpen}
+        close={() => setModalOpen(false)}
+        title={"Cannot like or dislike"}
+        text={"You have to be logged in to like or dislike reviews"}
       />
-      <span className={classes.score}>{totalLikes}</span>
-      <Image
-        className={clsx(classes.icon, isLiked && classes.active)}
-        onClick={!loading ? handleLike : undefined}
-        src={Like}
-        alt="like"
-      />
+      {!userLoading ? (
+        <>
+          <Image
+            className={clsx(classes.icon, isDisliked && classes.active)}
+            onClick={!loading ? handleDislike : undefined}
+            src={Dislike}
+            alt="Dislike"
+          />
+          <span className={classes.score}>{totalLikes}</span>
+          <Image
+            className={clsx(classes.icon, isLiked && classes.active)}
+            onClick={!loading ? handleLike : undefined}
+            src={Like}
+            alt="like"
+          />{" "}
+        </>
+      ) : (
+        <Spinner />
+      )}
     </div>
   );
 };

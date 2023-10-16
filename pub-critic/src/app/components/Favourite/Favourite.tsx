@@ -3,10 +3,11 @@ import heart from "assets/favourite.svg";
 import classes from "./Favourite.module.scss";
 import heartActive from "assets/favourite-active.svg";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Genre } from "common/interfaces";
 import { deleteFavourite, postFavourite } from "api/FavouriteApi";
 import useUser from "utils/UserContext";
+import Spinner from "components/LoadingSpinner";
 
 interface FavouriteProps {
   initActive: boolean;
@@ -16,7 +17,7 @@ interface FavouriteProps {
 
 export const Favourite = ({ initActive, id, genres = [] }: FavouriteProps) => {
   const [active, setActive] = useState<boolean>(initActive);
-  const { updateFavourites } = useUser();
+  const { updateFavourites, loading } = useUser();
 
   const handleToggleFavourite = async () => {
     setActive((prev) => !prev);
@@ -36,16 +37,24 @@ export const Favourite = ({ initActive, id, genres = [] }: FavouriteProps) => {
     return add;
   };
 
+  useEffect(() => {
+    setActive(initActive);
+  }, [initActive]);
+
   return (
     <div className={classes.container}>
       <div className={classes.favourite}>
-        <Image
-          src={active ? heartActive : heart}
-          alt="favourite"
-          onClick={handleToggleFavourite}
-          layout="fill"
-          objectFit="cover"
-        />
+        {!loading ? (
+          <Image
+            src={active ? heartActive : heart}
+            alt="favourite"
+            onClick={handleToggleFavourite}
+            layout="fill"
+            objectFit="cover"
+          />
+        ) : (
+          <Spinner />
+        )}
       </div>
     </div>
   );

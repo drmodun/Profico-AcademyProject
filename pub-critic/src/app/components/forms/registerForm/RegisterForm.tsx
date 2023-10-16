@@ -8,6 +8,16 @@ import emailPic from "assets/Email.svg";
 import show from "assets/Show.svg";
 import hide from "assets/Hide.svg";
 import { postUser } from "api/UserApi";
+import Link from "next/link";
+import { set } from "react-hook-form";
+import Modal from "utils/Modal";
+
+enum RegisterModalText {
+  Success,
+  Failure,
+  PasswordMismatch,
+  Empty,
+}
 
 export const RegisterForm = () => {
   const [name, setName] = useState<string>("");
@@ -15,13 +25,32 @@ export const RegisterForm = () => {
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalText, setModalText] = useState<RegisterModalText>(
+    RegisterModalText.Empty
+  );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords don't match");
+      setModalOpen(true);
+      setModalText(RegisterModalText.PasswordMismatch);
       return;
     }
+
+    if (
+      !name ||
+      !descrtiption ||
+      !password ||
+      !email ||
+      !confirmPassword ||
+      !password
+    ) {
+      setModalOpen(true);
+      setModalText(RegisterModalText.Empty);
+      return;
+    }
+
     const user = {
       name,
       bio: descrtiption,
@@ -30,14 +59,36 @@ export const RegisterForm = () => {
     };
     const response = await postUser(user);
     if (response) {
-      alert("Registration successful, please log in");
-      window.location.href = "/login";
+      setModalOpen(true);
+      setModalText(RegisterModalText.Success);
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1750);
       return;
     }
-    alert("Registration failed");
+    setModalOpen(true);
+    setModalText(RegisterModalText.Failure);
   };
   return (
     <div className={classes.form}>
+      <Modal
+        open={modalOpen}
+        close={() => setModalOpen(false)}
+        title={
+          modalText === RegisterModalText.Success
+            ? "Registration succesful"
+            : modalText === RegisterModalText.Failure
+            ? "Registration Failed"
+            : "Invalid registration submission"
+        }
+        text={
+          modalText === RegisterModalText.Success
+            ? "You have been registered, you will be redirected to the login page soon"
+            : modalText === RegisterModalText.Failure
+            ? "Registration failed, please try again later"
+            : "Please fill in all fields  and make sure your passwords match"
+        }
+      />
       <h1>Registration</h1>
       <form onSubmit={handleSubmit}>
         <Input
@@ -98,7 +149,7 @@ export const RegisterForm = () => {
           icon2={hide}
         />
         <span className={classes.Alternate}>
-          Already have an account? <a href="/login">Login</a>
+          Already have an account? <Link href="/login">Login</Link>
         </span>
         <button type="submit">Register</button>
       </form>

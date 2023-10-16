@@ -8,9 +8,9 @@ import { getGames, getLatestGames, getRatedGames } from "api/GamesApi";
 import GameCard from "components/GameCard";
 import { Game } from "common/interfaces";
 import { getFavourites } from "api/FavouriteApi";
-import { Favourite } from "api/Shared";
 import HomePageSection from "components/HomepageSection";
 import { getAllAvarageRatings } from "api/ReviewsApi";
+import Portal from "utils/Portal/Portal";
 
 const getGame = async () => {
   const response = await getGames();

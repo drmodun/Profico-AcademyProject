@@ -10,6 +10,8 @@ interface FollowButtonProps {
 
 export const FollowButton = ({ userId }: FollowButtonProps) => {
   const [isFollowing, setIsFollowing] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
 
   const checkStatus = async () => {
     const jwt = localStorage.getItem("jwtToken");
@@ -25,7 +27,6 @@ export const FollowButton = ({ userId }: FollowButtonProps) => {
   const handleToggleFollow = async () => {
     const jwt = localStorage.getItem("jwtToken");
     if (!jwt) {
-      alert("You must be logged in to follow a user");
       return;
     }
     setIsFollowing((prev) => !prev);

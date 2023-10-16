@@ -128,7 +128,9 @@ export const GameInfo: React.FC<GameInfoProps> = ({
               </button>
             </a>
             <Link href={"#"} className={classes.link}>
-              <button className={classes.review}>Leave a review</button>
+              <button onClick={handleReviewClick} className={classes.review}>
+                Leave a review
+              </button>
             </Link>
           </div>
           <div className={classes.ratings}>

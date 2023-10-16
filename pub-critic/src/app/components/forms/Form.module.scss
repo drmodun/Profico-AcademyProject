@@ -1,93 +1,98 @@
 @import "styles/variables.scss";
 @import "styles/vw-calc.scss";
-.form{
-    display: flex;
-    flex-direction: column;
-    width: vw-calc(700);
-    align-items: center;
-    background-color: $backdrop-color;
-    border-radius: 18px;
-    padding: 20px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+.form {
+  display: flex;
+  flex-direction: column;
+  width: vw-calc(700);
+  align-items: center;
+  background-color: $backdrop-color;
+  border-radius: 18px;
+  padding: vw-calc(20);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding: vw-mobile-calc(20);
+  }
+
+  > h1 {
+    color: $primary;
+    font-size: vw-calc(30);
+    font-weight: 600;
+    margin-bottom: vw-calc(10);
 
     @media screen and (max-width: 768px) {
-        width: 100%;
+      font-size: 8vw;
     }
-    
-    >h1{
-        color: $primary;
-        font-size: vw-calc(40);
+  }
+
+  > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+
+    > span {
+      color: $primary;
+      font-size: vw-calc(15);
+      font-weight: 600;
+      margin-bottom: 20px;
+
+      @media screen and (max-width: 768px) {
+        font-size: 4vw;
+      }
+      > a {
+        color: $secondary;
+        text-decoration: none;
         font-weight: 600;
-        margin-bottom: 20px;
+        transition: all 0.3s ease-in-out;
 
-        @media screen and (max-width: 768px) {
-            font-size: 8vw;
+        &:hover {
+          color: $primary;
         }
+      }
     }
-    
-    >form{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 80%;
-        
-        @media screen and (max-width: 768px) {
-            width: 100%;
-        }
 
-        >span{
-            color: $primary;
-            font-size: vw-calc(20);
-            font-weight: 600;
-            margin-bottom: 20px;
+    > div {
+      margin-bottom: vw-calc(10);
 
-            @media screen and (max-width: 768px) {
-                font-size: 4vw;
-            }
-            >a{
-                color: $secondary;
-                text-decoration: none;
-                font-weight: 600;
-                transition: all 0.3s ease-in-out;
-
-                &:hover{
-                    color: $primary;
-                }
-            }
-        }
-        
-        >div{
-            margin-bottom: 20px;
-        }
-        
-        button{
-            width: vw-calc(500);
-            margin-top: 50px;
-        
-            @media screen and (max-width: 768px) {
-                width: 90%;
-                font-size: 3.2vw;
-                min-height: 40px;
-            }
-
-            height: vw-calc(50);
-            min-height: 35px;
-            border: none;
-            background: transparent;
-            outline: none;
-            font-size: vw-calc(18);
-            font-weight: 600;
-            color: $light-base-black;
-            background-color: $primary;
-            border-radius: 8px;
-            margin-bottom: vw-calc(30);
-            padding: 12px 16px;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-
-            &:hover{
-                background-color: $secondary;
-            }
-        }
+      @media screen and (max-width: 768px) {
+        margin-bottom: vw-mobile-calc(10);
+      }
     }
+
+    button {
+      width: vw-calc(500);
+      margin-top: 50px;
+
+      @media screen and (max-width: 768px) {
+        width: 90%;
+        font-size: 3.2vw;
+        min-height: 40px;
+      }
+
+      height: vw-calc(50);
+      min-height: 35px;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: vw-calc(18);
+      font-weight: 600;
+      color: $light-base-black;
+      background-color: $primary;
+      border-radius: 8px;
+      margin-bottom: vw-calc(30);
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background-color: $secondary;
+      }
+    }
+  }
 }

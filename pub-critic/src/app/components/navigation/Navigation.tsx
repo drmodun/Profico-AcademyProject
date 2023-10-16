@@ -8,9 +8,11 @@ import Link from "next/link";
 import Hamburger from "components/hamburger";
 import useUser from "utils/UserContext";
 import useSideMenu from "utils/SideMenuContext";
+import logo from "assets/logo.png";
+import logo2 from "assets/logo2.png";
 
 export const Navigation = ({ params }: any) => {
-  const { user } = useUser();
+  const { user, loading } = useUser();
   const { active, toggleActive } = useSideMenu();
   const [searchValue, setSearchValue] = useState<string>(
     params?.search ? params.search : ""
@@ -22,7 +24,7 @@ export const Navigation = ({ params }: any) => {
   return (
     <div className={classes.navigation}>
       <Link href="/" className={classes.name}>
-        <h1>Pub Critic</h1>
+        <Image alt="logo" layout="fill" src={logo}></Image>
       </Link>
       <div className={classes.search}>
         <input
@@ -61,7 +63,7 @@ export const Navigation = ({ params }: any) => {
         }
         className={classes.account}
       >
-        <h1>{user ? user.name : "Sign In"}</h1>
+        <h1>{user ? user.name : loading ? "Loading..." : "Sign In"}</h1>
       </Link>
       <div className={classes.menu}>
         <Hamburger open={active} onToggle={toggleMenu} />

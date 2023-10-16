@@ -2,7 +2,7 @@
 
 import { getMyFavourites } from "api/FavouriteApi";
 import { getLikesAndDislikes } from "api/LikesAndDislikesApi";
-import { Favourite } from "api/Shared";
+
 import { User } from "common/interfaces";
 import React, {
   Dispatch,

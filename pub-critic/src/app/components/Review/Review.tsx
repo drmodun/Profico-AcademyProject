@@ -10,6 +10,12 @@ import Link from "next/link";
 import ReviewForm from "components/ReviewForm";
 import { useState } from "react";
 import LikeAndDislike from "components/LikeAndDislikeRow";
+import Modal from "utils/Modal";
+
+enum ReviewDeleteModal {
+  Success,
+  Fail,
+}
 
 interface ReviewProps {
   isMine?: boolean;
@@ -23,6 +29,10 @@ export const ReviewCard: React.FC<ReviewProps> = ({
   refetch,
 }) => {
   const [editOpen, setEditOpen] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalText, setModalText] = useState<ReviewDeleteModal>(
+    ReviewDeleteModal.Success
+  );
 
   const handleEdit = () => {
     setEditOpen((prev) => !prev);
@@ -35,15 +45,31 @@ export const ReviewCard: React.FC<ReviewProps> = ({
     if (!confirmation) return;
     const response = await deleteReview(review.id);
     if (response) {
-      alert("Review deleted");
+      setModalOpen(true);
+      setModalText(ReviewDeleteModal.Success);
       refetch!();
       return;
     }
-    alert("Something went wrong");
+    setModalOpen(true);
+    setModalText(ReviewDeleteModal.Fail);
   };
 
   return (
     <div className={classes.review}>
+      <Modal
+        open={modalOpen}
+        close={() => setModalOpen(false)}
+        title={
+          modalText === ReviewDeleteModal.Success
+            ? "Review deleted"
+            : "Something went wrong"
+        }
+        text={
+          modalText === ReviewDeleteModal.Success
+            ? "Your review was deleted"
+            : "Something went wrong, please try again"
+        }
+      />
       <div className={classes.reviewHeader}>
         <div className={classes.image}>
           <Image

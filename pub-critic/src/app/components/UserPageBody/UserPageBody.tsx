@@ -16,33 +16,45 @@ interface UserPageBodyProps {
   favourites: Game[];
   user: User;
   avarages: Avarage[];
+  refresh?: () => Promise<void>;
   isMine?: boolean;
+  openModal?: () => void;
+  setModalText?: (text: number) => void;
 }
 
 export const UserPageBody = ({
   reviews,
   favourites,
   user,
+  refresh,
   isMine,
   avarages,
+  openModal,
+  setModalText,
 }: UserPageBodyProps) => {
   const [tab, setTab] = useState<string>("Info");
   const { favourites: localFavourites, updateFavourites } = useUser();
+
+  useEffect(() => {
+    console.log(user);
+    if (!user.name) window.location.href = "/404";
+  }, [user]);
 
   return (
     <div className={classes.content}>
       <Tabs tab={tab} setTab={setTab}></Tabs>
       <div className={classes.tabContent}>
         {tab === "Reviews" && (
-          <ReviewsList areMine={isMine} reviews={reviews} />
+          <ReviewsList areMine={isMine} reviews={reviews} refetch={refresh} />
         )}
         {tab === "Info" &&
           (isMine ? (
             <EditableUserInfo
-              getMe={getUser}
               initBio={user.bio}
               initEmail={user.email}
               initName={user.name}
+              openModal={openModal}
+              setModalText={setModalText}
             />
           ) : (
             <UserInfo user={user} />

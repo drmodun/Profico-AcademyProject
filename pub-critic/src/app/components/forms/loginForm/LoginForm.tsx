@@ -6,15 +6,27 @@ import emailPic from "assets/Email.svg";
 import show from "assets/Show.svg";
 import hide from "assets/Hide.svg";
 import { loginUser } from "api/UserApi";
+import Link from "next/link";
+import Modal from "utils/Modal";
+import { set } from "react-hook-form";
+
+enum ModalText {
+  Success,
+  Failure,
+  Empty,
+}
 
 export const LoginForm = () => {
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalText, setModalText] = useState<ModalText>(ModalText.Empty);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!password || !email) {
-      alert("Please fill in all fields");
+      setModalOpen(true);
+      setModalText(ModalText.Empty);
       return;
     }
 
@@ -25,14 +37,36 @@ export const LoginForm = () => {
 
     const response = await loginUser(user);
     if (response) {
-      alert("Login successful");
-      window.location.href = "/";
+      setModalOpen(true);
+      setModalText(ModalText.Success);
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 500);
       return;
     }
-    alert("Login failed");
+    setModalOpen(true);
+    setModalText(ModalText.Failure);
   };
   return (
     <div className={classes.form}>
+      <Modal
+        open={modalOpen}
+        close={() => setModalOpen(false)}
+        title={
+          modalText === ModalText.Success
+            ? "Login Succesful"
+            : modalText === ModalText.Failure
+            ? "Login failed"
+            : "Invalid email or password"
+        }
+        text={
+          modalText === ModalText.Success
+            ? "Login successful, enjoy your stay"
+            : modalText === ModalText.Failure
+            ? "Login failed, the email or password is incorrect or the user does not exist"
+            : "Please fill in all fields"
+        }
+      />
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <Input
@@ -59,7 +93,7 @@ export const LoginForm = () => {
           icon2={hide}
         />
         <span className={classes.Alternate}>
-          Do not have an account? <a href="/register">Register</a>
+          Do not have an account? <Link href="/register">Register</Link>
         </span>
         <button type="submit">Login</button>
       </form>

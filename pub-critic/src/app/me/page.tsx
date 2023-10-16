@@ -15,19 +15,23 @@ import ReviewsList from "components/ReviewsList";
 import Tabs from "components/Tabs";
 import UserPageBody from "components/UserPageBody";
 import useUser from "utils/UserContext";
+import Spinner from "components/LoadingSpinner";
+import Portal from "utils/Portal/Portal";
+import Modal from "utils/Modal";
 
-enum tabs {
-  Info,
-  Reviews,
-  Favourites,
+enum MeModals {
+  Logout = 0,
+  Edit = 1,
+  Delete = 2,
 }
 
 const UserPage = () => {
-  const [tab, setTab] = useState<string>("Info");
-  const { favourites, user, setUser } = useUser();
+  const { favourites, user, setUser, loading } = useUser();
   const [favouritesList, setFavouritesList] = useState<Game[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [avarages, setAvareges] = useState<Avarage[]>([]);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalText, setModalText] = useState<MeModals>(MeModals.Edit);
 
   const getUser = async () => {
     if (user) {
@@ -59,6 +63,14 @@ const UserPage = () => {
     }
   };
 
+  const handleLogout = () => {
+    setModalOpen(true);
+    setModalText(MeModals.Logout);
+    setTimeout(() => {
+      logoutUser();
+    }, 750);
+  };
+
   useEffect(() => {
     getUser();
     fetchReviews();
@@ -69,6 +81,24 @@ const UserPage = () => {
     <div className={classes.container}>
       <div className={classes.background}></div>
       <div className={classes.user}>
+        <Modal
+          open={modalOpen}
+          close={() => setModalOpen(false)}
+          title={
+            modalText === MeModals.Edit
+              ? "Edited account"
+              : modalText === MeModals.Delete
+              ? "Deleted account"
+              : "Logged out"
+          }
+          text={
+            modalText === MeModals.Edit
+              ? "User updated successfully, refetching data"
+              : modalText === MeModals.Delete
+              ? "User deleted successfully, redirecting to home page"
+              : "Logged out successfully, redirecting to home page"
+          }
+        />
         <div className={classes.short}>
           <ProfileCard
             id={user?.id || 0}
@@ -78,20 +108,23 @@ const UserPage = () => {
             followers={user?.followers! || 0}
             following={user?.following! || 0}
           />
-          <button className={classes.logout} onClick={logoutUser}>
+          <button className={classes.logout} onClick={handleLogout}>
             Logout
           </button>
         </div>
-        {user ? (
+        {!loading && user && favouritesList && avarages && reviews ? (
           <UserPageBody
             reviews={reviews}
             favourites={favouritesList}
             user={user}
             avarages={avarages}
             isMine
+            refresh={fetchReviews}
+            openModal={() => setModalOpen(true)}
+            setModalText={setModalText}
           />
         ) : (
-          <h1>Loading...</h1>
+          <Spinner />
         )}
       </div>
     </div>

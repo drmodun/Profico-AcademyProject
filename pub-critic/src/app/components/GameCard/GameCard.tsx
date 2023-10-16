@@ -37,7 +37,7 @@ export const GameCard: React.FC<GameCardProps> = ({
       </div>
       <div className={classes.info}>
         <span className={classes.releaseDate}>
-          {new Date(game.released).toLocaleDateString()}
+          {new Date(game.released).toDateString()}
         </span>
         <Link href={`/games/${game.id}`} className={classes.name}>
           {game.name}
