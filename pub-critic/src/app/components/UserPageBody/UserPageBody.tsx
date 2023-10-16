@@ -17,6 +17,8 @@ interface UserPageBodyProps {
   user: User;
   avarages: Avarage[];
   isMine?: boolean;
+  openModal?: () => void;
+  setModalText?: (text: number) => void;
 }
 
 export const UserPageBody = ({
@@ -25,6 +27,8 @@ export const UserPageBody = ({
   user,
   isMine,
   avarages,
+  openModal,
+  setModalText,
 }: UserPageBodyProps) => {
   const [tab, setTab] = useState<string>("Info");
   const { favourites: localFavourites, updateFavourites } = useUser();
@@ -39,10 +43,11 @@ export const UserPageBody = ({
         {tab === "Info" &&
           (isMine ? (
             <EditableUserInfo
-              getMe={getUser}
               initBio={user.bio}
               initEmail={user.email}
               initName={user.name}
+              openModal={openModal}
+              setModalText={setModalText}
             />
           ) : (
             <UserInfo user={user} />

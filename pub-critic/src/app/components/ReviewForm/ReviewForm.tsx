@@ -9,6 +9,7 @@ import star from "assets/star.svg";
 import lackOfStar from "assets/lackOfStar.svg";
 import { postReview, updateReview } from "api/ReviewsApi";
 import { set } from "react-hook-form";
+import Modal from "utils/Modal";
 
 interface ReviewFormProps {
   gameId: number;
@@ -39,6 +40,7 @@ export const ReviewForm = ({
   const [body, setBody] = useState<string>(initReview ? initReview.body : "");
   const [error, setError] = useState<string>("");
   const [token, setToken] = useState<string | null>("");
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -83,9 +85,7 @@ export const ReviewForm = ({
           gameId
         );
     if (response) {
-      alert(
-        isEdit ? "Review updated successfully" : "Review posted successfully"
-      );
+      setModalOpen(true);
       refetch!();
       return;
     }
@@ -109,6 +109,13 @@ export const ReviewForm = ({
 
   return (
     <form id="#review" onSubmit={handleSubmit} className={classes.form}>
+      <Modal
+        open={modalOpen}
+        close={() => setModalOpen(false)}
+        title={isEdit ? "Edit successful" : "Review posted successfully"}
+        text={isEdit ? "Your review was updated" : "Your review was posted"}
+      />
+
       <h2 className={classes.heading}>
         {isEdit ? "Edit your review" : "Write a review"}
       </h2>

@@ -16,11 +16,13 @@ import Tabs from "components/Tabs";
 import UserPageBody from "components/UserPageBody";
 import useUser from "utils/UserContext";
 import Spinner from "components/LoadingSpinner";
+import Portal from "utils/Portal/Portal";
+import Modal from "utils/Modal";
 
-enum tabs {
-  Info,
-  Reviews,
-  Favourites,
+export enum MeModals {
+  Logout,
+  Edit,
+  Delete,
 }
 
 const UserPage = () => {
@@ -28,6 +30,8 @@ const UserPage = () => {
   const [favouritesList, setFavouritesList] = useState<Game[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [avarages, setAvareges] = useState<Avarage[]>([]);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalText, setModalText] = useState<MeModals>(MeModals.Edit);
 
   const getUser = async () => {
     if (user) {
@@ -59,6 +63,14 @@ const UserPage = () => {
     }
   };
 
+  const handleLogout = () => {
+    setModalOpen(true);
+    setModalText(MeModals.Logout);
+    setTimeout(() => {
+      logoutUser();
+    }, 750);
+  };
+
   useEffect(() => {
     getUser();
     fetchReviews();
@@ -69,6 +81,24 @@ const UserPage = () => {
     <div className={classes.container}>
       <div className={classes.background}></div>
       <div className={classes.user}>
+        <Modal
+          open={modalOpen}
+          close={() => setModalOpen(false)}
+          title={
+            modalText === MeModals.Edit
+              ? "Edited account"
+              : modalText === MeModals.Delete
+              ? "Deleted account"
+              : "Logged out"
+          }
+          text={
+            modalText === MeModals.Edit
+              ? "User updated successfully, refetching data"
+              : modalText === MeModals.Delete
+              ? "User deleted successfully, redirecting to home page"
+              : "Logged out successfully, redirecting to home page"
+          }
+        />
         <div className={classes.short}>
           <ProfileCard
             id={user?.id || 0}
@@ -78,7 +108,7 @@ const UserPage = () => {
             followers={user?.followers! || 0}
             following={user?.following! || 0}
           />
-          <button className={classes.logout} onClick={logoutUser}>
+          <button className={classes.logout} onClick={handleLogout}>
             Logout
           </button>
         </div>
@@ -89,6 +119,8 @@ const UserPage = () => {
             user={user}
             avarages={avarages}
             isMine
+            openModal={() => setModalOpen(true)}
+            setModalText={setModalText}
           />
         ) : (
           <Spinner />

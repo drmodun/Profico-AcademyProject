@@ -9,6 +9,7 @@ import clsx from "clsx";
 import { set } from "react-hook-form";
 import useUser from "utils/UserContext";
 import Spinner from "components/LoadingSpinner";
+import Modal from "utils/Modal";
 
 enum likeStatus {
   liked = 1,
@@ -30,6 +31,7 @@ export const LikeAndDislike = ({
   const [totalLikes, setTotalLikes] = useState<number>(likeScore);
   const [status, setStatus] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const {
     likes,
@@ -43,7 +45,7 @@ export const LikeAndDislike = ({
     if (loading || userLoading) return;
     const jwt = localStorage.getItem("jwtToken");
     if (!jwt) {
-      alert("You must be logged in to like or dislike a review");
+      setModalOpen(true);
       return;
     }
 
@@ -124,6 +126,12 @@ export const LikeAndDislike = ({
 
   return (
     <div className={classes.container}>
+      <Modal
+        open={modalOpen}
+        close={() => setModalOpen(false)}
+        title={"Cannot like or dislike"}
+        text={"You have to be logged in to like or dislike reviews"}
+      />
       {!userLoading ? (
         <>
           <Image

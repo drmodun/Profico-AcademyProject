@@ -3,28 +3,56 @@ import classes from "./EditableUserInfo.module.scss";
 import Input from "components/input";
 import user from "assets/user.svg";
 import show from "assets/Show.svg";
-import { deleteUser, editMe } from "api/UserApi";
+import { deleteUser, editMe, logoutUser } from "api/UserApi";
 import useUser from "utils/UserContext";
+import Modal from "utils/Modal";
+import { MeModals } from "me/page";
 
 interface EditableUserInfoProps {
   initName: string;
   initEmail: string;
   initBio: string;
-  getMe: Function;
+  openModal?: () => void;
+  setModalText?: (text: number) => void;
 }
 
 export const EditableUserInfo = (
-  { initName, initEmail, initBio, getMe }: EditableUserInfoProps = {
+  {
+    initName,
+    initEmail,
+    initBio,
+    openModal,
+    setModalText,
+  }: EditableUserInfoProps = {
     initName: "Name",
     initEmail: "Email",
     initBio: "Bio",
-    getMe: () => {},
+    openModal: () => {},
+    setModalText: () => {},
   }
 ) => {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [bio, setBio] = useState<string>("");
-  const { setUser } = useUser();
+  const [name, setName] = useState<string>(initName);
+  const [email, setEmail] = useState<string>(initEmail);
+  const [bio, setBio] = useState<string>(initBio);
+
+  const { user: localUser, setUser, logout } = useUser();
+
+  const handleUserDelete = async () => {
+    const confirmation = confirm(
+      "Are you sure you want to delete your account"
+    );
+    if (confirmation) {
+      const response = await deleteUser();
+      if (response) {
+        openModal && openModal();
+        setModalText && setModalText(MeModals.Delete);
+        logout && logout();
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
+      }
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,11 +64,15 @@ export const EditableUserInfo = (
     };
     const update = await editMe(newUser);
     if (update) {
-      alert("User info updated");
-      getMe();
-      setUser(update);
+      openModal && openModal();
+      setModalText && setModalText(MeModals.Edit);
+      setUser({
+        ...localUser!,
+        name: newUser.name,
+        email: newUser.email,
+        bio: newUser.bio,
+      });
     }
-    console.log(update);
   };
 
   return (
@@ -77,7 +109,7 @@ export const EditableUserInfo = (
           Save
         </button>
       </form>
-      <button className={classes.deleteButton} onClick={deleteUser}>
+      <button className={classes.deleteButton} onClick={handleUserDelete}>
         <p>Delete Account</p>
       </button>
     </div>

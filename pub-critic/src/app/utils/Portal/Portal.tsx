@@ -1,8 +1,15 @@
 "use client";
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import classes from "./Portal.module.scss";
 
-const Portal: React.FC<PropsWithChildren> = ({ children }) => {
+interface PortalProps {
+  title: string;
+  text: string;
+  deMount: Function;
+}
+
+const Portal: React.FC<PortalProps> = ({ title, text, deMount }) => {
   const [mounted, setMounted] = useState<boolean>(false);
 
   useEffect(() => {
@@ -17,14 +24,20 @@ const Portal: React.FC<PropsWithChildren> = ({ children }) => {
 
   const unMount = () => {
     setMounted(false);
-  };
-
-  const mount = () => {
-    setMounted(true);
+    deMount();
   };
 
   return mounted
-    ? createPortal(children, document.querySelector("#portal"))
+    ? createPortal(
+        <div id="#portal" className={classes.popup} onClick={unMount}>
+          <div className={classes.popupInner}>
+            <h1>{title}</h1>
+            <p>{text}</p>
+            <button onClick={unMount}>OK</button>
+          </div>
+        </div>,
+        document.querySelector("#portal")!
+      )
     : null;
 };
 
