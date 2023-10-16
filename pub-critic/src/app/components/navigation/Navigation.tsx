@@ -8,6 +8,8 @@ import Link from "next/link";
 import Hamburger from "components/hamburger";
 import useUser from "utils/UserContext";
 import useSideMenu from "utils/SideMenuContext";
+import logo from "assets/logo.png";
+import logo2 from "assets/logo2.png";
 
 export const Navigation = ({ params }: any) => {
   const { user, loading } = useUser();
@@ -22,7 +24,7 @@ export const Navigation = ({ params }: any) => {
   return (
     <div className={classes.navigation}>
       <Link href="/" className={classes.name}>
-        <h1>Pub Critic</h1>
+        <Image alt="logo" layout="fill" src={logo}></Image>
       </Link>
       <div className={classes.search}>
         <input
