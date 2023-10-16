@@ -29,7 +29,7 @@ export const ReviewCard: React.FC<ReviewProps> = ({
   refetch,
 }) => {
   const [editOpen, setEditOpen] = useState<boolean>(false);
-  const [modalOpen, setModalOpen] = useState<boolean>(null);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [modalText, setModalText] = useState<ReviewDeleteModal>(
     ReviewDeleteModal.Success
   );
