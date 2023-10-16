@@ -87,7 +87,7 @@ export const ReviewForm = ({
     if (response) {
       setModalOpen(true);
       setTimeout(() => {
-        window.location.href = `/game/${gameId}`;
+        window.location.reload();
       }, 2000);
       //temporary solution to save time
       refetch!();
