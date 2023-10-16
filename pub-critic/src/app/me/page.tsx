@@ -20,9 +20,9 @@ import Portal from "utils/Portal/Portal";
 import Modal from "utils/Modal";
 
 enum MeModals {
-  Logout,
-  Edit,
-  Delete,
+  Logout = 0,
+  Edit = 1,
+  Delete = 2,
 }
 
 const UserPage = () => {

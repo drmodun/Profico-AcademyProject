@@ -6,7 +6,6 @@ import show from "assets/Show.svg";
 import { deleteUser, editMe, logoutUser } from "api/UserApi";
 import useUser from "utils/UserContext";
 import Modal from "utils/Modal";
-import { MeModals } from "me/page";
 
 interface EditableUserInfoProps {
   initName: string;
@@ -45,7 +44,7 @@ export const EditableUserInfo = (
       const response = await deleteUser();
       if (response) {
         openModal && openModal();
-        setModalText && setModalText(MeModals.Delete);
+        setModalText && setModalText(2);
         logout && logout();
         setTimeout(() => {
           window.location.href = "/";
@@ -65,7 +64,7 @@ export const EditableUserInfo = (
     const update = await editMe(newUser);
     if (update) {
       openModal && openModal();
-      setModalText && setModalText(MeModals.Edit);
+      setModalText && setModalText(1);
       setUser({
         ...localUser!,
         name: newUser.name,

@@ -22,9 +22,9 @@ import FollowButton from "components/FollowButton";
 const fetchUser = async (userId: number) => {
   const response = await getUser(userId);
   if (response) {
+    console.log(response);
     return response;
   }
-  window.location.href = "/404";
 };
 
 const fetchFavourites = async (userId: number) => {

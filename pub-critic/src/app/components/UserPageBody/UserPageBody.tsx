@@ -35,6 +35,10 @@ export const UserPageBody = ({
   const [tab, setTab] = useState<string>("Info");
   const { favourites: localFavourites, updateFavourites } = useUser();
 
+  useEffect(() => {
+    console.log(user);
+    if (!user.name) window.location.href = "/404";
+  }, [user]);
 
   return (
     <div className={classes.content}>
