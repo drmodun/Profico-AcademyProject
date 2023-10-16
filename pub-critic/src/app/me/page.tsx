@@ -19,7 +19,7 @@ import Spinner from "components/LoadingSpinner";
 import Portal from "utils/Portal/Portal";
 import Modal from "utils/Modal";
 
-export enum MeModals {
+enum MeModals {
   Logout,
   Edit,
   Delete,
@@ -119,6 +119,7 @@ const UserPage = () => {
             user={user}
             avarages={avarages}
             isMine
+            refresh={fetchReviews}
             openModal={() => setModalOpen(true)}
             setModalText={setModalText}
           />

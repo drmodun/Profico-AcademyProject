@@ -86,6 +86,10 @@ export const ReviewForm = ({
         );
     if (response) {
       setModalOpen(true);
+      setTimeout(() => {
+        window.location.href = `/game/${gameId}`;
+      }, 2000);
+      //temporary solution to save time
       refetch!();
       return;
     }

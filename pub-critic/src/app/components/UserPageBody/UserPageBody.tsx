@@ -16,6 +16,7 @@ interface UserPageBodyProps {
   favourites: Game[];
   user: User;
   avarages: Avarage[];
+  refresh?: () => Promise<void>;
   isMine?: boolean;
   openModal?: () => void;
   setModalText?: (text: number) => void;
@@ -25,6 +26,7 @@ export const UserPageBody = ({
   reviews,
   favourites,
   user,
+  refresh,
   isMine,
   avarages,
   openModal,
@@ -33,12 +35,13 @@ export const UserPageBody = ({
   const [tab, setTab] = useState<string>("Info");
   const { favourites: localFavourites, updateFavourites } = useUser();
 
+
   return (
     <div className={classes.content}>
       <Tabs tab={tab} setTab={setTab}></Tabs>
       <div className={classes.tabContent}>
         {tab === "Reviews" && (
-          <ReviewsList areMine={isMine} reviews={reviews} />
+          <ReviewsList areMine={isMine} reviews={reviews} refetch={refresh} />
         )}
         {tab === "Info" &&
           (isMine ? (
