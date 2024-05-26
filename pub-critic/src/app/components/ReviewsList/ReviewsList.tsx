@@ -95,8 +95,7 @@ export const ReviewsList = ({
         </div>
       </div>
       <div className={classes.reviews}>
-        {visibleReviews &&
-          visibleReviews.map((review: Review) => (
+        {visibleReviews?.map((review: Review) => (
             <ReviewCard
               isMine={areMine}
               review={review}

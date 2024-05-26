@@ -66,16 +66,14 @@ const GamePage = async ({ params }: { params: any }) => {
         <div className={classes.description}>
           <h2>About</h2>
           <div className={classes.genres}>
-            {game.genres &&
-              game.genres.map((genre: any) => (
+            {game.genres?.map((genre: any) => (
                 <span key={genre.id}>{genre.name}</span>
               ))}
           </div>
           <p>{game.description_raw}</p>
         </div>
         <div className={classes.tags}>
-          {game.tags &&
-            game.tags.map((tag: any) => (
+          {game.tags?.map((tag: any) => (
               <span className={classes.tag} key={tag.id}>
                 {tag.name}
               </span>

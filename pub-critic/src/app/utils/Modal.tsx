@@ -19,7 +19,7 @@ const Modal = ({ open, title, text, close }: ModalProps) => {
   }, [open]);
 
   const handleDemount = () => {
-    close && close();
+    close?.();
   };
   return (
     modalOpen && (
