@@ -68,8 +68,7 @@ export const GameCard: React.FC<GameCardProps> = ({
           ))}
         </div>
         <div className={classes.genres}>
-          {game.genres &&
-            game.genres.map((genre) => (
+          {game.genres?.map((genre) => (
               <span className={classes.genre} key={genre.id || undefined}>
                 {genre.name}
               </span>

@@ -39,7 +39,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   };
 
   const toggleVisible = () => {
-    closer && closer();
+    closer?.();
     setVisible((prev) => !prev);
   };
 

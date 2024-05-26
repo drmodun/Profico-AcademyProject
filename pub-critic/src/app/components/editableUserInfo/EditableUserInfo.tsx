@@ -43,9 +43,9 @@ export const EditableUserInfo = (
     if (confirmation) {
       const response = await deleteUser();
       if (response) {
-        openModal && openModal();
-        setModalText && setModalText(2);
-        logout && logout();
+        openModal?.();
+        setModalText?.(2);
+        logout?.();
         setTimeout(() => {
           window.location.href = "/";
         }, 1000);
@@ -63,8 +63,8 @@ export const EditableUserInfo = (
     };
     const update = await editMe(newUser);
     if (update) {
-      openModal && openModal();
-      setModalText && setModalText(1);
+      openModal?.();
+      setModalText?.(1);
       setUser({
         ...localUser!,
         name: newUser.name,

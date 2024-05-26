@@ -63,8 +63,7 @@ export const UserPageBody = ({
           <div className={classes.favourites}>
             Favourites
             <div className={classes.list}>
-              {favourites &&
-                favourites.map((game) => (
+              {favourites?.map((game) => (
                   <GameCard
                     avarageRating={
                       avarages?.find((avarage) => avarage.gameId === game.id)
